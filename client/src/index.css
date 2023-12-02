@@ -59,6 +59,10 @@ img {
   gap: var(--gap, 1rem)
 }
 
+.justify-content-center{
+  justify-content: center;
+}
+
 .space-between {
   justify-content: space-between;
 }

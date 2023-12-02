@@ -20,13 +20,14 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-
-      <div className='flex align-items--center login'>
-        <div className='avatar-cont flex'>
-          <img src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' />
+      <Link>
+        <div className='flex align-items--center login'>
+          <div className='avatar-cont flex'>
+            <img src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' />
+          </div>
+          <p>Xanthe Neal</p>
         </div>
-        <p>Xanthe Neal</p>
-      </div>
+      </Link>
     </header>
   );
 };

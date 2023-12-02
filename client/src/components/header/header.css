@@ -29,24 +29,30 @@
 
 }
 
-.profile-photo{
+.profile-photo {
     /* background-color: cadetblue; */
-    position:absolute;
-    top:-3rem;
-    left:1rem
+    position: absolute;
+    top: -3rem;
+    left: 1rem;
+
 }
 
 
-.profile-photo > img{
-    width:10rem;
+.profile-photo>img {
+    width: 10rem;
     aspect-ratio: 1;
     object-fit: cover;
-    border-radius:8px ;
+    border-radius: 8px;
+    outline:2px solid white;
 
 }
 
-.profile__text{
-    width:70%;
-    padding-inline:1rem;
-    margin-left:12rem
+.profile__text {
+    width: 70%;
+    padding-inline: 1rem;
+    margin-left: 12rem;
+}
+
+.follow>button {
+    text-transform: capitalize;
 }
