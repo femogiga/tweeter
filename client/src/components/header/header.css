@@ -1,0 +1,52 @@
+.avatar-cont {
+    /* background-color: red; */
+}
+
+.avatar-cont>img {
+    width: 2rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+
+.page-image img {
+    max-height: 100%;
+    object-fit: cover;
+}
+
+.profile {
+    width: 80%;
+    height: 10.12rem;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+    position: absolute;
+    left: 10%;
+    bottom: -6rem;
+    background-color: white;
+    border-radius: 12px;
+    padding-block-start: 1rem;
+    padding-inline-end: 1rem;
+
+}
+
+.profile-photo{
+    /* background-color: cadetblue; */
+    position:absolute;
+    top:-3rem;
+    left:1rem
+}
+
+
+.profile-photo > img{
+    width:10rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius:8px ;
+
+}
+
+.profile__text{
+    width:70%;
+    padding-inline:1rem;
+    margin-left:12rem
+}

@@ -1,0 +1,138 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-sm: .75rem;
+  --font-md: 1rem;
+  --font-xl: 1.5rem;
+  --font-lg: 2rem;
+  --clr-dark-gray:#333333;
+  --clr-mid-gray: #828282;
+
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0
+}
+
+
+body {
+  line-height: 1.6;
+  font-weight: 400;
+  max-width: 1440px;
+  margin-inline: auto;
+
+}
+
+.container {
+  padding-inline: 2rem;
+  width: 100%;
+  background-color: aqua;
+  margin-inline: auto;
+  display: grid;
+  grid-template-rows: 68.31px 297.51px 1fr;
+}
+
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+
+
+
+/* ************************************UTILITY CLASSES********************************************** */
+
+
+.flex {
+  display: flex;
+  gap: var(--gap, 1rem)
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.align-items--center {
+  align-items: center;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.col-gap-1 {
+  column-gap: 1rem;
+}
+
+.col-gap-3 {
+  column-gap: 3rem;
+}
+
+.row-gap-1 {
+  row-gap: 1rem;
+}
+
+.flow-1 {
+  margin-block-end: 1rem;
+}
+
+.flow-2 {
+  margin-block-end: 2rem;
+}
+
+.bold-6 {
+  font-weight: 600;
+}
+
+.font-sm {
+  font-size: var(--font-sm);
+}
+
+.font-xl {
+  font-size: var(--font-xl);
+}
+
+.color-mid-gray{
+  color:var(--clr-mid-gray);
+}
+.color-dark-grey{
+  color:var(--clr-dark-gray);
+}
+
+
+
+
+
+
+
+/* ************************************************************************************************* */
+
+
+.header {
+  grid-row: 1;
+  background-color: orange;
+  padding-inline: 3rem;
+}
+
+.page-image {
+  grid-row: 2;
+  position: relative;
+
+  /* background-color: burlywood; */
+
+}
+
+.main {
+  grid-row: 3
+}
