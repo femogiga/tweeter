@@ -56,3 +56,11 @@
 .follow>button {
     text-transform: capitalize;
 }
+
+.header .header__nav li a:hover,.header .header__nav li a:active{
+    text-decoration: underline;
+    text-underline-offset: 1.6rem;
+    text-decoration-color:#2F80ED;
+    text-decoration-thickness:4px;
+    color:#2F80ED
+}
