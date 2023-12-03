@@ -1,0 +1,32 @@
+.sidenav {
+    background-color: white !important;
+    width: 19rem;
+    padding: 1rem;
+}
+
+.card {
+    max-width: 46.5rem;
+    width: 46.5rem;
+    background-color: white !important;
+    display: grid;
+    place-items: center;
+
+}
+
+.avatar {
+    display: grid;
+    place-content: center;
+}
+
+.avatar>img {
+    width: 40px;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.tweet__image>img {
+    width: 44rem;
+    height: 20rem;
+    border-radius: 8px;
+}
