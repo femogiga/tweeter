@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 const PageImage = () => {
   return (
-    <div className='page-image'>
+    <div className='page-image '>
       <img
         src='https://images.pexels.com/photos/746386/pexels-photo-746386.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
         style={{ width: '100%' }}
