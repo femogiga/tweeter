@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const SideNav = () => {
   return (
     <aside>
-      <nav className='sidenav '>
+      <nav className='sidenav shadow'>
         <ul
           className='flex flex-column color-mid-gray bold-6'
           style={{ fontSize: '14px' }}>

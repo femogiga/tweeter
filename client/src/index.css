@@ -6,6 +6,7 @@
   --font-lg: 2rem;
   --clr-dark-gray: #333333;
   --clr-mid-gray: #828282;
+  --clr-darker-gray:#4F4F4F
 
 }
 
@@ -60,6 +61,13 @@ img {
   gap: var(--gap, 1rem)
 }
 
+.grid{
+  display:grid;
+  gap:1rem;
+}
+.place-items--center{
+  place-items: center;
+}
 .justify-content-center {
   justify-content: center;
 }
@@ -90,6 +98,9 @@ img {
 
 .row-gap-1 {
   row-gap: 1rem;
+}
+.flow-05{
+  margin-block-end: .5rem;
 }
 
 .flow-1 {
@@ -124,6 +135,10 @@ img {
   color: var(--clr-dark-gray);
 }
 
+.shadow{
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 
 
 
@@ -152,4 +167,5 @@ img {
   grid-row: 3;
   padding-top: 8rem;
   background-color: #F2F2F2;
+  padding-block-end:2rem;
 }
