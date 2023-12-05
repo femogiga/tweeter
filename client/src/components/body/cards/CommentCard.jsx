@@ -1,6 +1,11 @@
+import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
 import FullDate from './FullDate';
 import Fullname from './Fullname';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import LoopIcon from '@mui/icons-material/Loop';
 
 const CommentCard = () => {
   return (
@@ -23,6 +28,19 @@ const CommentCard = () => {
           </p>
         </div>
       </div>
+      <ul className='like flex'>
+        <li>
+          <Link className='actions__list__items flex align-items--center'>
+            <FavoriteBorderIcon />
+            Like
+          </Link>
+        </li>
+        <li>
+          <Link className='actions__list__items flex align-items--center'>
+            12k Likes
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 };

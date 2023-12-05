@@ -121,3 +121,12 @@
 .comment-card .avatar{
     align-self:flex-start
 }
+
+.like .actions__list__items{
+    column-gap:.5rem;
+    font-size:12px;
+}
+
+.like svg{
+    font-size: 16px;
+}
