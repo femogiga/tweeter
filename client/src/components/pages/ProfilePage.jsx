@@ -3,7 +3,7 @@ import Header from '../header/Header';
 import PageImage from '../header/PageImage';
 import Container from './Container';
 
-const MainPage = () => {
+const ProfilePage = () => {
   return (
     <Container>
       <Header />
@@ -13,4 +13,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default ProfilePage;

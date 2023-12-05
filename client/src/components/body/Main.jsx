@@ -5,10 +5,13 @@ import SideNav from './SideNav';
 const Main = () => {
   return (
     <main className='main'>
-      <div>
+      <div className='main__container'>
         <SideNav />
-        <Retweeted />
-        <Card />
+        <div className=''>
+          <Retweeted />
+          <Card />
+          <Card />
+        </div>
       </div>
     </main>
   );

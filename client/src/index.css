@@ -72,6 +72,10 @@ img {
   justify-content: center;
 }
 
+.align-items--end{
+  align-items: flex-end;
+}
+
 .space-between {
   justify-content: space-between;
 }
@@ -168,4 +172,6 @@ img {
   padding-top: 8rem;
   background-color: #F2F2F2;
   padding-block-end:2rem;
+  display:flex;
+ 
 }

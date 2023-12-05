@@ -16,7 +16,7 @@
 }
 
 .profile {
-    width: 80%;
+    width: 77.5%;
     height: 10.12rem;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
     position: absolute;
@@ -43,7 +43,7 @@
     aspect-ratio: 1;
     object-fit: cover;
     border-radius: 8px;
-    outline:2px solid white;
+    outline: 2px solid white;
 
 }
 
@@ -57,10 +57,11 @@
     text-transform: capitalize;
 }
 
-.header .header__nav li a:hover,.header .header__nav li a:active{
+.header .header__nav li a:hover,
+.header .header__nav li a:active {
     text-decoration: underline;
     text-underline-offset: 1.6rem;
-    text-decoration-color:#2F80ED;
-    text-decoration-thickness:4px;
-    color:#2F80ED
+    text-decoration-color: #2F80ED;
+    text-decoration-thickness: 4px;
+    color: #2F80ED
 }

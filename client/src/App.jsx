@@ -1,10 +1,8 @@
-import Container from './components/pages/Container';
-import Header from './components/header/Header';
-import MainPage from './components/pages/MainPage';
+import ProfilePage from './components/pages/ProfilePage';
 function App() {
   return (
     <div>
-      <MainPage />
+      <ProfilePage/>
     </div>
   );
 }

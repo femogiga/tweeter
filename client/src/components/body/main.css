@@ -89,7 +89,7 @@
     position: absolute;
     right: .6rem;
     top: .5rem;
-    color:#BDBDBD;
+    color: #BDBDBD;
 
 }
 
@@ -103,3 +103,13 @@
 }
 
 /* ****************************************************************************** */
+
+
+.main__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* background-color: chocolate; */
+    justify-items: center;
+   padding-inline: 9rem;
+   column-gap:2rem;
+}

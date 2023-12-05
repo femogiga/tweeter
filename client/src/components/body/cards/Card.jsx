@@ -9,7 +9,7 @@ import Stats from './Stats';
 import TweetImage from './TweetImage';
 const Card = () => {
   return (
-    <article className='card shadow'>
+    <article className='card shadow flow-2'>
       <div>
         {/* <Retweeted /> */}
         <div className='card__person flex align-items--center flow-1'>
