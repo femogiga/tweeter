@@ -3,14 +3,14 @@ import logo from '../../assets/tweeter.svg';
 import '../header/header.css';
 const Header = () => {
   return (
-    <header className='header flex space-between align-items--center'>
+    <header className='header flex space-between align-items--center flow-1'>
       <div className='header__icon'>
         <img src={logo} alt='logo' />
       </div>
       <nav className='header__nav'>
         <ul className='flex col-gap-3'>
           <li>
-            <Link>Home</Link>
+            <Link to={'/home' }>Home</Link>
           </li>
           <li>
             <Link>Explore</Link>

@@ -8,8 +8,10 @@ const TweetInput = () => {
   return (
     <div
       className='tweet-input flow-1'
-      style={{ backgroundColor: 'lightblue' }}>
-      <p>Tweet something</p>
+      style={{ boxShadow: '0 2px 4px 0 rgba(0,0,0,0.2)' }}>
+      <p style={{ backgroundColor: 'white', paddingInline: '.5rem' }}>
+        Tweet something
+      </p>
       <Avatar />
       <form className='form'>
         <textarea
@@ -18,7 +20,11 @@ const TweetInput = () => {
           id=''
           cols=''
           rows=''
-          style={{ width: '46.5rem', height: '9.7rem' }}></textarea>
+          style={{
+            width: '100%',
+            height: '9rem',
+            border: 'none',
+          }}></textarea>
 
         <div className='insert-photo'>
           <input type='file' />

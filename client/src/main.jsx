@@ -6,12 +6,14 @@ import './index.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/pages/LoginPage.jsx';
 import ProfilePage from './components/pages/ProfilePage.jsx';
+import Homepage from './components/pages/HomePage.jsx';
 
 export const Root = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />} />
+        <Route path='home' element={<Homepage/>}/>
         <Route path='/profile' element={<ProfilePage />} />
         <Route path='/login' element={<LoginPage />} />
       </Routes>

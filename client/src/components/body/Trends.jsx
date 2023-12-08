@@ -7,11 +7,10 @@ const Trends = () => {
       style={{
         paddingInline: '1rem',
         paddingBlock: '1rem',
-        // backgroundColor: 'lightblue',
         height: '31rem',
         borderRadius: '12px',
         marginBlockEnd: '2rem',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
       }}>
       <p className='flow-1'>Trends for you</p>
       <ul>

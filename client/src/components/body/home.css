@@ -1,7 +1,6 @@
 .home-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    /* background-color: aqua; */
     column-gap: 2rem;
     justify-self: center;
 
@@ -10,14 +9,12 @@
 
 .home-content {
     grid-column: 1;
-    /* background-color: yellowgreen; */
     max-width: 46rem;
 
 }
 
 .side-content {
     grid-column: 2;
-    /* background-color: lightgrey; */
     max-width: 19rem;
 
 }
@@ -100,6 +97,19 @@ textarea {
     padding: unset;
     max-height: 1.5rem;
     text-transform: capitalize;
-
     padding: .2rem 1.1rem;
+}
+
+textarea:focus{
+    border:none;
+    outline: none;
+}
+
+
+.trend{
+    background-color:white !important;
+}
+
+.follow-card{
+    background-color: white !important;
 }
