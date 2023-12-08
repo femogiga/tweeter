@@ -9,6 +9,9 @@ import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined';
 import { Link } from 'react-router-dom';
 import SideNav from '../body/SideNav';
 import { Button } from '@mui/material';
+import TweetInput from '../body/TweetInput';
+import Card from '../body/cards/Card';
+import Retweeted from '../body/cards/Retweeted';
 
 const Homepage = () => {
   return (
@@ -16,31 +19,10 @@ const Homepage = () => {
       <Header />
       <div className='home-container'>
         <section className='home-content'>
-          <div className='tweet-input' style={{ backgroundColor: 'lightblue' }}>
-            <p>Tweet something</p>
-            <Avatar />
-            <form className='form'>
-              <textarea
-                placeholder='What"s happening?'
-                name=''
-                id=''
-                cols=''
-                rows=''
-                style={{ width: '46.5rem', height: '9.7rem' }}></textarea>
-
-              <div className='insert-photo'>
-                <input type='file' />
-                <InsertPhotoOutlinedIcon />
-                <Link className='who-can'>
-                  <PublicIcon />
-                </Link>
-                <p className='who-can-text'>Everyone can reply</p>
-                <div className='post-comment-button'>
-                  <Button variant='contained'>Tweet</Button>
-                </div>
-              </div>
-            </form>
-          </div>
+          <TweetInput />
+          <Retweeted/>
+          <Card />
+          <Card/>
         </section>
         <aside className='side-content'></aside>
       </div>
