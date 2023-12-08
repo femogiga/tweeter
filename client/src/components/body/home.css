@@ -1,19 +1,25 @@
 .home-container {
     display: grid;
-    grid-template-columns: 1fr 306px;
-    background-color: aqua;
-    justify-items: center;
+    grid-template-columns: 2fr 1fr;
+    /* background-color: aqua; */
+    column-gap: 2rem;
+    justify-self: center;
+
 }
 
 
 .home-content {
     grid-column: 1;
-    background-color: yellowgreen;
+    /* background-color: yellowgreen; */
+    max-width: 46rem;
+
 }
 
 .side-content {
     grid-column: 2;
-    background-color: grey
+    /* background-color: lightgrey; */
+    max-width: 19rem;
+
 }
 
 
@@ -23,14 +29,13 @@
 
 .tweet-input .avatar {
     position: absolute;
-    left:.5rem;
-    top:2rem
-
+    left: .5rem;
+    top: 2rem
 }
 
 .tweet-input .insert-photo {
     position: relative;
-    background-color: lightgray;
+    /* background-color: lightgray; */
 }
 
 .tweet-input input[type="file"] {
@@ -75,12 +80,26 @@ textarea {
 
 .post-comment-button {
     position: absolute;
-    right:1rem;
-    top:-2.7rem
+    right: 1rem;
+    top: -2.7rem;
 }
 
-.post-comment-button button{
+
+
+.tweet-input button {
+    position: absolute;
+    top: -2.7rem;
+    right: 1rem;
     text-transform: capitalize;
-    padding:unset;
-    padding:.2rem 1.6rem
+    padding: unset;
+    padding: .2rem 1.6rem;
+}
+
+.follow-card button {
+    width: unset;
+    padding: unset;
+    max-height: 1.5rem;
+    text-transform: capitalize;
+
+    padding: .2rem 1.1rem;
 }

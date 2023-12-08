@@ -12,19 +12,37 @@ import { Button } from '@mui/material';
 import TweetInput from '../body/TweetInput';
 import Card from '../body/cards/Card';
 import Retweeted from '../body/cards/Retweeted';
+import TrendCard from '../body/TrendCard';
+import FollowCard from '../body/FollowCard';
+import Trends from '../body/Trends';
 
 const Homepage = () => {
   return (
     <Container>
       <Header />
+
       <div className='home-container'>
         <section className='home-content'>
           <TweetInput />
-          <Retweeted/>
+          <Retweeted />
           <Card />
-          <Card/>
+          <Card />
         </section>
-        <aside className='side-content'></aside>
+        <aside className='side-content'>
+          <Trends />
+          <p>Who to follow</p>
+
+          <div
+            className=''
+            style={{
+              padding: '1rem',
+              borderRadius: '12px',
+              boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
+            }}>
+            <FollowCard />
+            <FollowCard />
+          </div>
+        </aside>
       </div>
     </Container>
   );

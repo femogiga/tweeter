@@ -27,9 +27,7 @@ const TweetInput = () => {
             <PublicIcon />
           </Link>
           <p className='who-can-text'>Everyone can reply</p>
-          <div className='post-comment-button'>
-            <Button variant='contained'>Tweet</Button>
-          </div>
+          <Button variant='contained'>Tweet</Button>
         </div>
       </form>
     </div>
