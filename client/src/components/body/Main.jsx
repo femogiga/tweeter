@@ -11,6 +11,7 @@ const Main = () => {
           <Retweeted />
           <Card />
           <Card />
+          <Card/>
         </div>
       </div>
     </main>

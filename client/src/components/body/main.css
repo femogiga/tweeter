@@ -102,7 +102,7 @@
     opacity: 0;
 }
 
-/* ****************************************************************************** */
+/* *********************************CommentCard********************************************* */
 
 
 .main__container {
@@ -110,23 +110,31 @@
     grid-template-columns: 1fr 1fr 1fr;
     /* background-color: chocolate; */
     justify-items: center;
-   padding-inline: 9rem;
-   column-gap:2rem;
+    padding-inline: 9rem;
+    column-gap: 2rem;
 }
-.comment-card-cont{
+
+.comment-card-cont {
     justify-self: flex-start;
-    padding-inline:1.2rem
+    padding-inline: 1.2rem
 }
 
-.comment-card .avatar{
-    align-self:flex-start
+.comment-card .avatar {
+    align-self: flex-start
 }
 
-.like .actions__list__items{
-    column-gap:.5rem;
-    font-size:12px;
+.like .actions__list__items {
+    column-gap: .5rem;
+    font-size: 12px;
 }
 
-.like svg{
+.like svg {
     font-size: 16px;
 }
+
+.like .actions__list__items:hover {
+    background-color: unset;
+}
+
+
+/* *********************************************************************************** */

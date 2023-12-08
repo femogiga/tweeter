@@ -16,7 +16,9 @@ const CommentCard = () => {
           style={{
             padding: '.4rem 5rem .4rem .4rem',
             backgroundColor: '#FAFAFA',
-            borderRadius: '8px',
+                      borderRadius: '8px',
+            color:'#4F4F4F'
+
           }}>
           <div className='flex align-items--center'>
             <Fullname />
@@ -28,7 +30,7 @@ const CommentCard = () => {
           </p>
         </div>
       </div>
-      <ul className='like flex'>
+      <ul className='like flex' style={{paddingInline:'2rem'}}>
         <li>
           <Link className='actions__list__items flex align-items--center'>
             <FavoriteBorderIcon />

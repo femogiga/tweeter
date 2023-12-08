@@ -1,8 +1,10 @@
+import Homepage from './components/pages/HomePage';
 import ProfilePage from './components/pages/ProfilePage';
 function App() {
   return (
     <div>
-      <ProfilePage/>
+      {/* <ProfilePage/> */}
+      <Homepage/>
     </div>
   );
 }
