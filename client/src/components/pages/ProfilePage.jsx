@@ -6,9 +6,11 @@ import Container from './Container';
 const ProfilePage = () => {
   return (
     <Container>
-      <Header />
-      <PageImage />
-      <Main />
+      <div className='profile-wrapper'>
+        <Header />
+        <PageImage />
+        <Main />
+      </div>
     </Container>
   );
 };

@@ -8,7 +8,7 @@ const TweetInput = () => {
   return (
     <div
       className='tweet-input flow-1'
-      style={{ boxShadow: '0 2px 4px 0 rgba(0,0,0,0.2)' }}>
+      style={{ boxShadow: '0 2px 4px 0 rgba(0,0,0,0.2)' ,marginBlockStart:'1rem'}}>
       <p style={{ backgroundColor: 'white', paddingInline: '.5rem' }}>
         Tweet something
       </p>

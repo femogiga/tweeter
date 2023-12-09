@@ -8,7 +8,7 @@
 /* *************************Card******************************** */
 .card {
 
-    width: 46.5rem;
+    /* width: 46.5rem; */
     max-width: 46.5rem;
     background-color: white !important;
     display: grid;
@@ -16,6 +16,7 @@
     padding-block: 1rem;
     border-radius: 8px;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
+    padding-inline: 1rem;
 }
 
 .avatar {
@@ -108,7 +109,6 @@
 .main__container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    /* background-color: chocolate; */
     justify-items: center;
     padding-inline: 9rem;
     column-gap: 2rem;

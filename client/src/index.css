@@ -28,14 +28,20 @@ body {
 }
 
 .container {
-  padding-inline: 2rem;
+  /* padding-inline: 2rem; */
   width: 100%;
   margin-inline: auto;
-  display: grid;
-  grid-template-rows: 68.31px 297.51px 1fr;
-background-color: #F2F2F2;
+  /* display: grid; */
+  /* grid-template-rows: 68.31px 297.51px 1fr; */
+/* background-color: #F2F2F2; */
 height:300vh
 
+}
+
+.profile-wrapper{
+  display: grid;
+  grid-template-rows: 68.31px 297.51px 1fr;
+  /* background-color: #F2F2F2; */
 }
 
 
