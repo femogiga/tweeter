@@ -9,7 +9,7 @@
 .card {
 
     /* width: 46.5rem; */
-    max-width: 46.5rem;
+    /* max-width: 46.5rem; */
     background-color: white !important;
     display: grid;
     place-items: center;
@@ -32,7 +32,8 @@
 }
 
 .tweet__image>img {
-    width: 44rem;
+    width: 100%;
+    max-width: 44rem;
     height: 20rem;
     border-radius: 8px;
 }

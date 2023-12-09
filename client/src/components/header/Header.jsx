@@ -10,13 +10,13 @@ const Header = () => {
       <nav className='header__nav'>
         <ul className='flex col-gap-3'>
           <li>
-            <Link to={'/home' }>Home</Link>
+            <Link to={'/home'}>Home</Link>
           </li>
           <li>
-            <Link>Explore</Link>
+            <Link to={'/explore'}>Explore</Link>
           </li>
           <li>
-            <Link>Bookmarks</Link>
+            <Link to={'/bookmarks'}>Bookmarks</Link>
           </li>
         </ul>
       </nav>

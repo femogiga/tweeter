@@ -1,0 +1,52 @@
+.explore-container {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* background-color: lightblue; */
+    column-gap: 2rem;
+    background-color: #F2F2F2;
+
+}
+
+.explore-content {
+    grid-column: 5/12;
+    justify-self: start;
+    position: relative;
+    width: 90%;
+}
+
+.explore-nav {
+    grid-column: 1/5;
+    max-width: 19rem;
+    justify-self: end;
+    /* background-color: green; */
+    padding-top: 1rem;
+    width: 100%;
+}
+
+.search-form input {
+    max-width: 46.9rem;
+    width: 100%;
+    /* max-width: 46.9rem; */
+    padding: .8rem 2rem;
+    border-radius: 8px;
+    border: 1px solid #F2F2F2;
+    outline: none;
+    background-color: #FAFAFA;
+}
+
+.search-form button {
+    padding: unset;
+    padding: .2rem 1.1rem;
+    text-transform: capitalize;
+    position: absolute;
+    right: .5rem;
+    top: .4rem;
+}
+
+.search-form svg {
+    position: absolute;
+    top: .5rem;
+    left: .5rem;
+    color: #BDBDBD;
+
+}
