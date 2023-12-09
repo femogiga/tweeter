@@ -9,13 +9,13 @@
 
 .home-content {
     grid-column: 2/9;
-    max-width: 46rem;
+    /* max-width: 46rem; */
     justify-self: end;
 }
 
 .side-content {
     grid-column: 9/12;
-    max-width: 19rem;
+    /* max-width: 19rem; */
     justify-self: start;
 }
 

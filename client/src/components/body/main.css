@@ -9,7 +9,7 @@
 .card {
 
     /* width: 46.5rem; */
-    /* max-width: 46.5rem; */
+    max-width: 46.5rem;
     background-color: white !important;
     display: grid;
     place-items: center;
@@ -17,6 +17,10 @@
     border-radius: 8px;
     /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); */
     padding-inline: 1rem;
+}
+
+.form {
+    max-width: 100%;
 }
 
 .avatar {
@@ -31,10 +35,14 @@
     border-radius: 5px;
 }
 
+.tweet__image {
+    max-width: 100%;
+}
+
 .tweet__image>img {
+
     width: 100%;
-    max-width: 44rem;
-    height: 20rem;
+    max-height: 20rem;
     border-radius: 8px;
 }
 
