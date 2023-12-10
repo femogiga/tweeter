@@ -1,3 +1,4 @@
+import LoginModal from './components/body/LoginModal';
 import FollowingModal from './components/pages/FollowingModal';
 import Homepage from './components/pages/HomePage';
 import ProfilePage from './components/pages/ProfilePage';
@@ -6,7 +7,8 @@ function App() {
     <div>
       {/* <ProfilePage/> */}
       {/* <Homepage/> */}
-      <FollowingModal/>
+      {/* <FollowingModal/> */}
+      <LoginModal/>
     </div>
   );
 }
