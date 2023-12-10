@@ -113,3 +113,14 @@ textarea:focus {
 .follow-card {
     background-color: white !important;
 }
+
+
+
+
+.modal__inner-button-cont button {
+    width: 5rem;
+    padding: unset;
+    font-size: .75rem;
+    padding: .2rem 1.1rem;
+
+}

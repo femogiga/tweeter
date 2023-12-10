@@ -8,6 +8,7 @@ const SideNav = () => {
           className='flex flex-column color-mid-gray bold-6'
           style={{ fontSize: '14px' }}>
           <li>
+            <div className='active-link-indicator'></div>
             <Link>Tweets</Link>
           </li>
           <li>

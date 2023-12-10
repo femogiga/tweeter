@@ -30,7 +30,7 @@ const Header = () => {
           <ArrowDropDownIcon/>
         </div>
       </Link>
-    
+
     </header>
   );
 };

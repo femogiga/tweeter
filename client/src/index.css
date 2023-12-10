@@ -33,12 +33,11 @@ body {
   margin-inline: auto;
   /* display: grid; */
   /* grid-template-rows: 68.31px 297.51px 1fr; */
-/* background-color: #F2F2F2; */
-height:300vh
-
+  /* background-color: #F2F2F2; */
+  height: 300vh
 }
 
-.profile-wrapper{
+.profile-wrapper {
   display: grid;
   grid-template-rows: 68.31px 297.51px 1fr;
   /* background-color: #F2F2F2; */
@@ -173,6 +172,7 @@ button {
   /* background-color: orange; */
   padding-inline: 3rem;
   background-color: white !important;
+  padding-block: .5rem;
 }
 
 .page-image {
