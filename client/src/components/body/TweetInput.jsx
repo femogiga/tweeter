@@ -24,6 +24,7 @@ const TweetInput = () => {
             width: '100%',
             height: '9rem',
             border: 'none',
+
           }}></textarea>
 
         <div className='insert-photo'>
