@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
+import { Provider } from 'react-redux';
+import { store } from './store.js';
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import LoginPage from './components/pages/LoginPage.jsx';
@@ -27,6 +29,8 @@ export const Root = () => {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Root />
+    <Provider store={store}>
+      <Root />
+    </Provider>
   </React.StrictMode>
 );

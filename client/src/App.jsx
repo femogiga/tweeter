@@ -6,11 +6,11 @@ import WhocanModal from './components/body/WhocanModal';
 function App() {
   return (
     <div>
-      {/* <ProfilePage/> */}
+      <ProfilePage />
       {/* <Homepage/> */}
       {/* <FollowingModal/> */}
       {/* <LoginModal/> */}
-      <WhocanModal />
+      {/* <WhocanModal /> */}
     </div>
   );
 }

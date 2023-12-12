@@ -8,12 +8,14 @@ import GroupIcon from '@mui/icons-material/Group';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import '../body/home.css';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { setLoginModalState } from '../../features/headerSlice';
 const style = {
   position: 'absolute',
-  top: '10%',
+  top: '4rem',
 
-  right: '10%',
-
+  right: '13%',
   //   transform: 'translate(-50%, -50%)',
   width: 192,
   bgcolor: 'background.paper',
@@ -24,17 +26,22 @@ const style = {
 };
 
 const LoginModal = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const dispatch = useDispatch();
+  const loginModalVisilibility = useSelector(
+    (state) => state.header.loginModalVisibility
+  );
 
+  const handleLoginModalClose = () => {
+    dispatch(setLoginModalState(false));
+  };
   return (
-    <div className='login-modal'>
-      <Button onClick={handleOpen}>Open modal</Button>
+    <div className='login-modal' style={{ position: 'absolute' }}>
+      {/* <Button onClick={handleOpen}>Open modal</Button> */}
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={loginModalVisilibility}
+        onClose={handleLoginModalClose}
         aria-labelledby='modal-modal-title'
+        BackdropProps={{ invisible: true }}
         aria-describedby='modal-modal-description'>
         <Box sx={style}>
           <div className='flow-1'>

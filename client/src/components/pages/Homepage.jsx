@@ -7,6 +7,7 @@ import Card from '../body/cards/Card';
 import Retweeted from '../body/cards/Retweeted';
 import FollowCard from '../body/FollowCard';
 import Trends from '../body/Trends';
+import WhocanModal from '../body/WhocanModal';
 
 const Homepage = () => {
   return (
@@ -14,8 +15,9 @@ const Homepage = () => {
       <Header />
 
       <div className='home-container'>
-        <section className='home-content'>
+        <section className='home-content' >
           <TweetInput />
+          <WhocanModal />
           <Retweeted />
           <Card />
           <Card />
@@ -28,7 +30,7 @@ const Homepage = () => {
               padding: '1rem',
               borderRadius: '12px',
               boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
-              backgroundColor:'white !important'
+              backgroundColor: 'white !important',
             }}>
             <p
               style={{
