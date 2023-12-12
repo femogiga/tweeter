@@ -7,20 +7,22 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setWhocanModalVisibility } from '../../features/modalSlice';
 
 const TweetInput = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // const whoCanModalVisible = useSelector(
   //   (state) => state.modal.whoCanReplyModalVisible
   // );
 
-
   const handleModalOpen = (e) => {
-    e.preventDefault()
-    dispatch(setWhocanModalVisibility('show'))
-  }
+    e.preventDefault();
+    dispatch(setWhocanModalVisibility('show'));
+  };
   return (
     <div
-      className='tweet-input flow-2'
-      style={{ boxShadow: '0 2px 4px 0 rgba(0,0,0,0.2)' ,marginBlockStart:'1rem'}}>
+      className='tweet-input flow-1'
+      style={{
+        boxShadow: '0 2px 4px 0 rgba(0,0,0,0.2)',
+        marginBlockStart: '1rem',
+      }}>
       <p style={{ backgroundColor: 'white', paddingInline: '.5rem' }}>
         Tweet something
       </p>
@@ -36,16 +38,17 @@ const TweetInput = () => {
             width: '100%',
             height: '9rem',
             border: 'none',
-
           }}></textarea>
 
-        <div className='insert-photo' >
+        <div className='insert-photo'>
           <input type='file' />
           <InsertPhotoOutlinedIcon />
           <Link className='who-can'>
-            <PublicIcon  />
+            <PublicIcon />
           </Link>
-          <Link className='who-can-text' onClick={handleModalOpen}>Everyone can reply</Link>
+          <Link className='who-can-text' onClick={handleModalOpen}>
+            Everyone can reply
+          </Link>
           <Button variant='contained'>Tweet</Button>
         </div>
       </form>

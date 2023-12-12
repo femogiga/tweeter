@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/tweeter.svg';
 import '../header/header.css';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import { useHeaderFunctions } from '../../featuresfunction/headerFunctions';
 import LoginModal from '../body/LoginModal';
 import { useDispatch } from 'react-redux';
 import { setLoginModalState } from '../../features/headerSlice';

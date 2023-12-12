@@ -1,6 +1,14 @@
 import Button from '@mui/material/Button';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { useDispatch } from 'react-redux';
+import { setFollowingModalVisibility } from '../../features/ModalSlice';
 const PageImage = () => {
+  // button follower activates the followingModal with handleFollowingModal
+  const dispatch = useDispatch();
+  const handleFollowingModalVisibility = (e) => {
+    e.preventDefault();
+    dispatch(setFollowingModalVisibility('show'));
+  };
   return (
     <div className='page-image '>
       <img
@@ -30,7 +38,10 @@ const PageImage = () => {
           </div>
         </div>
         <div className='follow'>
-          <Button variant='contained' startIcon={<PersonAddIcon />}>
+          <Button
+            onClick={handleFollowingModalVisibility}
+            variant='contained'
+            startIcon={<PersonAddIcon />}>
             Follower
           </Button>
         </div>

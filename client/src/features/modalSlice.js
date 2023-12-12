@@ -4,7 +4,7 @@ const modalSlice = createSlice({
   name: 'modal',
   initialState: {
     whoCanReplyModalVisible: false,
-    loginModalVisible: false,
+    followingModalVisible: false,
   },
   reducers: {
     setWhocanModalVisibility: (state, action) => {
@@ -17,8 +17,19 @@ const modalSlice = createSlice({
           break;
       }
     },
+    setFollowingModalVisibility: (state, action) => {
+      switch (action.payload) {
+        case 'show':
+          state.followingModalVisible = true;
+          break;
+        default:
+          state.followingModalVisible = false;
+          break;
+      }
+    }
   },
 });
 
-export const { setWhocanModalVisibility } = modalSlice.actions;
+export const { setWhocanModalVisibility, setFollowingModalVisibility } =
+  modalSlice.actions;
 export default modalSlice.reducer;

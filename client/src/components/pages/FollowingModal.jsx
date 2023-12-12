@@ -8,10 +8,17 @@ import Fullname from '../body/cards/Fullname';
 import ModalInnerCard from '../body/cards/ModalInnerCard';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFollowingModalVisibility } from '../../features/ModalSlice';
 const FollowingModal = () => {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const followingModalVisible = useSelector(
+    (state) => state.modal.followingModalVisible
+  );
+  const disaptch = useDispatch();
+
+  const handleFollowingModalClose = () => {
+    disaptch(setFollowingModalVisibility('hide'));
+  };
   const style = {
     position: 'absolute',
     top: '50%',
@@ -22,22 +29,21 @@ const FollowingModal = () => {
     minWidth: '300px',
     backgroundColor: 'background.paper',
     //   border: '2px solid #000',
-      boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.3)',
-    borderRadius:'8px'
+    boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.3)',
+    borderRadius: '8px',
     //
   };
   return (
     <div className='following-modal'>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={followingModalVisible}
+        onClose={handleFollowingModalClose}
         aria-labelledby='modal-modal-title'
         aria-describedby='modal-modal-description'>
         <Box sx={style}>
           <div className='flex space-between'>
             <p style={{ padding: '1rem' }}>Daniel Jensen is following</p>
-            <IconButton aria-label='delete'>
+            <IconButton aria-label='delete' onClick={handleFollowingModalClose}>
               <CloseIcon />
             </IconButton>
           </div>
