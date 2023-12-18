@@ -23,7 +23,7 @@ body {
   font-weight: 400;
   max-width: 1440px;
   margin-inline: auto;
-
+background-color: #F2F2F2;
 
 }
 
@@ -190,5 +190,6 @@ button {
   background-color: #F2F2F2;
   padding-block-end: 2rem;
   display: flex;
+  position: relative;
 
 }

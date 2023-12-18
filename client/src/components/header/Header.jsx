@@ -13,9 +13,9 @@ const Header = () => {
   };
   return (
     <header className='header flex space-between align-items--center flow-1'>
-      <div className='header__icon'>
+      <Link className='header__icon'>
         <img src={logo} alt='logo' />
-      </div>
+      </Link>
       <nav className='header__nav'>
         <ul className='flex col-gap-3'>
           <li>

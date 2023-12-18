@@ -31,6 +31,7 @@ const FollowingModal = () => {
     //   border: '2px solid #000',
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.3)',
     borderRadius: '8px',
+    // zIndex: 9,
     //
   };
   return (

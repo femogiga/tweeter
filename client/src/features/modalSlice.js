@@ -26,7 +26,7 @@ const modalSlice = createSlice({
           state.followingModalVisible = false;
           break;
       }
-    }
+    },
   },
 });
 

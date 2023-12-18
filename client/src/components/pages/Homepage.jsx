@@ -15,7 +15,7 @@ const Homepage = () => {
       <Header />
 
       <div className='home-container'>
-        <section className='home-content' >
+        <section className='home-content'>
           <TweetInput />
           <WhocanModal />
           <Retweeted />
@@ -40,8 +40,9 @@ const Homepage = () => {
               Who to follow
             </p>
 
-            <FollowCard />
-            <FollowCard />
+              <FollowCard />
+              <FollowCard />
+           
           </div>
         </aside>
       </div>
