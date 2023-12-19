@@ -21,7 +21,8 @@ model User{
   joinDate DateTime @default(now())
   tweets Tweet[]
   comments Comment[]
-  followers Follower[]
+  followers Follower[] @relation("follower")
+  personFollowed Follower[] @relation("person")
 }
 
 
@@ -29,7 +30,7 @@ model Tweet {
   id Int @id @default(autoincrement())
   content String
   imageUrl String
-  replyRestrictions String 
+  replyRestrictions String
   createdAt DateTime @default(now())
   like Int
   retweets Int
@@ -53,6 +54,9 @@ model Comment{
 
 model Follower{
   id Int @id @default(autoincrement())
-  person User @relation(fields:[personid],references:[id])
-  personid Int
+  person User @relation(fields:[personId] ,references:[id],name:"person")
+  follower User @relation(fields: [followerId], references: [id],name:"follower")
+  followerId Int
+  personId Int
+   @@unique([personId, followerId])
 }
