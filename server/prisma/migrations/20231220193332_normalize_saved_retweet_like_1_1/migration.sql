@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Comment" ALTER COLUMN "reply" DROP NOT NULL,
+ALTER COLUMN "replyImageUrl" DROP NOT NULL;

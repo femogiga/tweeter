@@ -39,4 +39,31 @@ const createMessage = async (req, res) => {
   }
 };
 
-module.exports = { createMessage };
+const getTweetsById = async (req, res) => {
+  const { authorId } = req.query;
+  try {
+    const result = await prisma.tweet.findMany({
+      where: {
+        authorid: parseInt(authorId),
+      },
+    });
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
+
+const AllTweets = async (req, res) => {
+
+  try {
+    const result = await prisma.tweet.findMany({});
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
+module.exports = { createMessage, getTweetsById, AllTweets };

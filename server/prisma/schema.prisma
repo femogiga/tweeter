@@ -18,6 +18,7 @@ model User{
   password String
   photo String
   profile String
+  profileImageBackground String?
   joinDate DateTime @default(now())
   tweets Tweet[]
   comments Comment[]
@@ -45,8 +46,8 @@ model Tweet {
 
 model Comment{
   id Int @id @default(autoincrement())
-  reply String
-  replyImageUrl String
+  reply String?
+  replyImageUrl String?
   dateOfReply DateTime @default(now())
   like Like[]
   commentAuthor User @relation(fields:[commentAuthorid],references:[id])

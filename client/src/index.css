@@ -23,7 +23,7 @@ body {
   font-weight: 400;
   max-width: 1440px;
   margin-inline: auto;
-background-color: #F2F2F2;
+  background-color: #F2F2F2;
 
 }
 
@@ -179,7 +179,7 @@ button {
 .page-image {
   grid-row: 2;
   position: relative;
-
+  z-index: 6;
   /* background-color: burlywood; */
 
 }
