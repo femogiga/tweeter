@@ -69,10 +69,10 @@ model Like{
   id Int @id @default(autoincrement())
   user User @relation(fields:[userId] ,references:[id])
   userId Int
-  comment Comment @relation(fields:[commentId] , references:[id])
-  commentId Int
-   tweet Tweet @relation(fields:[tweetId] , references:[id])
-  tweetId Int
+  comment Comment? @relation(fields:[commentId] , references:[id])
+  commentId Int?
+   tweet Tweet? @relation(fields:[tweetId] , references:[id])
+  tweetId Int?
 }
 
 
