@@ -14,11 +14,11 @@ export const useTweetData = () => {
     return {isPending,error,data};
 }
 
-export const useTweetDataByAuthorId = () => {
+export const useTweetDataByAuthorId = (authorid) => {
   const { isPending, error, data } = useQuery({
     queryKey: ['allTweetByAuthorId'],
     queryFn: () =>
-      fetch(`http://localhost:7000/tweets`).then((res) => res.json()),
+      fetch(`http://localhost:7000/users/${authorid}/tweets`).then((res) => res.json()),
   });
   return { isPending, error, data };
 };

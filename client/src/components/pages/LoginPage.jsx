@@ -2,18 +2,20 @@ import React from 'react';
 import Container from './Container';
 import { Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/tweeter.svg'
-import '../../index.css'
+import logo from '../../assets/tweeter.svg';
+import '../../index.css';
 
 const LoginPage = () => {
   const inputStyle = {
     width: '20rem',
+    maxWidth: '20rem',
+    minWidth: '10rem',
     height: '2rem',
     paddingInline: '.6rem',
   };
   return (
     <div className='loginpage'>
-      <header style={{paddingBlock:'1rem'}}>
+      <header style={{ paddingBlock: '1rem' }}>
         <Link className='header__icon'>
           <img src={logo} alt='logo' />
         </Link>
@@ -45,12 +47,12 @@ const LoginPage = () => {
               <p>Password</p>
               <input type='password' style={inputStyle} />
             </div>
-            <div>
+            <div className='flow-1'>
               <Button sx={{ textTransform: 'capitalize' }} variant='contained'>
                 Sign In
               </Button>
             </div>
-            <p>Register</p>
+            <Link to='register'>Register</Link>
           </form>
         </div>
       </div>

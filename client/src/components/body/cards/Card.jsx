@@ -8,9 +8,9 @@ import Comment from './Comment';
 import Stats from './Stats';
 import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
-const Card = () => {
+const Card = ({ content, imageUrl }) => {
   return (
-    <article className='card shadow flow-2' >
+    <article className='card shadow flow-2'>
       <div className='flow-1'>
         {/* <Retweeted /> */}
         <div className='card__person flex align-items--center flow-1'>
@@ -22,11 +22,11 @@ const Card = () => {
         </div>
         <div className='tweets' style={{ color: '#4F4F4F' }}>
           <p className='flow-1'>
-            Travelling - it leaves you speechless,then turns you into a
-            storyteller
+            {content ||
+              'Travelling - it leaves you speechless,then turns you into a storyteller'}
           </p>
 
-          <TweetImage />
+          <TweetImage imageUrl={imageUrl} />
           <Stats />
           <Actions />
           <Comment />

@@ -1,0 +1,9 @@
+// const { getUserData } = require('../controllers/userController');
+// const { getUserTweetsById } = require('../controllers/userTweetController');
+
+// const router = require('express').Router();
+
+
+// router.get('/', getUserData);
+
+// module.exports = router;
