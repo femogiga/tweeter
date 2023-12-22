@@ -193,3 +193,30 @@ button {
   position: relative;
 
 }
+.loginpage::after{
+  background-color: green;
+     background-image: url("./assets/walking.jpg");
+    /* content: url("./assets/walking.jpg"); */
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    z-index:-3;
+    width:100%;
+   background-size: cover;
+   background-position: 35% 50% ;
+   content:'';
+ 
+}
+
+/* .loginpage::before{
+  background-color: red;
+  background: url("./assets/walking.jpg");
+  position: absolute;
+  left:0;
+  right:0;
+  bottom: 0;
+  top:0;
+
+} */
