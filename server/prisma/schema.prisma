@@ -32,8 +32,8 @@ model User{
 
 model Tweet {
   id Int @id @default(autoincrement())
-  content String
-  imageUrl String
+  content String?
+  imageUrl String?
   replyRestrictions String
   createdAt DateTime @default(now())
   like Like[]

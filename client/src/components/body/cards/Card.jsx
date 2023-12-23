@@ -26,7 +26,7 @@ const Card = ({ content, imageUrl }) => {
               'Travelling - it leaves you speechless,then turns you into a storyteller'}
           </p>
 
-          <TweetImage imageUrl={imageUrl} />
+          {imageUrl && <TweetImage imageUrl={imageUrl} />}
           <Stats />
           <Actions />
           <Comment />

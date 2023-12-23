@@ -1,6 +1,10 @@
 import { Link } from 'react-router-dom';
 
-const SideNav = () => {
+const SideNav = ({
+  onClickTweet,
+  onClickTweetWithComment,
+  onClickTweetWithMedia,
+}) => {
   return (
     <aside>
       <nav className='sidenav shadow'>
@@ -9,13 +13,15 @@ const SideNav = () => {
           style={{ fontSize: '14px' }}>
           <li>
             <div className='active-link-indicator'></div>
-            <Link>Tweets</Link>
+            <Link  onClick={onClickTweet}>
+              Tweets
+            </Link>
           </li>
           <li>
-            <Link>Tweets & replies</Link>
+            <Link onClick={onClickTweetWithComment}>Tweets & replies</Link>
           </li>
           <li>
-            <Link>Media</Link>
+            <Link onClick={onClickTweetWithMedia}>Media</Link>
           </li>
           <li>
             <Link>Likes</Link>
