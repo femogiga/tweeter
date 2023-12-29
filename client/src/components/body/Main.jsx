@@ -9,6 +9,8 @@ import CardContainer from './cards/CardContainer';
 import Retweeted from './cards/Retweeted';
 import './main.css';
 import SideNav from './SideNav';
+import { useAllUserData } from '../../api/userData';
+import { userFinder } from '../../utils/userFinder';
 const Main = () => {
   const {
     isPending: isTweetDataPending,
@@ -26,8 +28,9 @@ const Main = () => {
     error: withMediaError,
     data: tweetWIthMediaData,
   } = useTweetDataByAuthorIdWithMedia(3);
+  const { data: allUsers } = useAllUserData();
   console.log('tweetComment', tweetWithCommentData);
-  console.log('tweet',tweetData);
+  console.log('tweet', tweetData);
   console.log('tweetWIthMediaData===>', tweetWIthMediaData);
   const [data, setData] = useState(tweetData);
 
@@ -39,7 +42,7 @@ const Main = () => {
     isTweetDataPending ? 'loading' : setData(tweetData);
   }, [tweetData]);
 
-console.log('data',data)
+  console.log('data', data);
   return (
     <main className='main'>
       <div className='main__container'>
@@ -50,7 +53,7 @@ console.log('data',data)
         />
         <div className='card-parent'>
           <Retweeted />
-          {data && data.map((item) => <Card key={item?.id} {...item} />)}
+          {data && data.map((item) => <Card key={item?.id} {...item} user={userFinder(allUsers,item?.authorid)} />)}
           {/* <Card />
           <Card />
           <Card /> */}

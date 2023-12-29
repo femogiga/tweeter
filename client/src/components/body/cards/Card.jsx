@@ -10,7 +10,7 @@ import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
 import { userFinder } from './../../../utils/userFinder';
-const Card = ({ content, imageUrl, comments,createdAt }) => {
+const Card = ({ content, imageUrl, comments,createdAt,user }) => {
   // console.log('comments', comments);
   //  const {
   //    isPending,
@@ -24,7 +24,7 @@ const Card = ({ content, imageUrl, comments,createdAt }) => {
       <div className='flow-1'>
         {/* <Retweeted /> */}
         <div className='card__person flex align-items--center flow-1'>
-          <Avatar />
+          <Avatar photo={user?.photo} />
           <div className=''>
             <Fullname />
             <FullDate createdAt={createdAt} />
