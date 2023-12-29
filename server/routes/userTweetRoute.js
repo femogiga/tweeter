@@ -2,7 +2,10 @@ const {
   getRetweetsById,
   secondRetweets,
 } = require('../controllers/retweetController');
-const { getUserData } = require('../controllers/userController');
+const {
+  getUserData,
+  getAllUserData,
+} = require('../controllers/userController');
 const {
   getUserTweetsById,
   getUserTweetsByIdWithComments,
@@ -16,7 +19,9 @@ router.get('/:authorid/tweets/media', getUserTweetsWithMedia);
 router.get('/:id/retweets', secondRetweets);
 router.get('/retweets', getRetweetsById);
 router.get('/:authorid/tweets', getUserTweetsById);
+router.get('/allusers', getAllUserData);
 router.get('/:id', getUserData);
 router.get('/retweets', getRetweetsById);
+
 
 module.exports = router;

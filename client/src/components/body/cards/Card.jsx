@@ -8,7 +8,17 @@ import Comment from './Comment';
 import Stats from './Stats';
 import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
-const Card = ({ content, imageUrl }) => {
+import { useAllUserData, useUserData } from '../../../api/userData';
+import { userFinder } from './../../../utils/userFinder';
+const Card = ({ content, imageUrl, comments,createdAt }) => {
+  // console.log('comments', comments);
+  //  const {
+  //    isPending,
+  //    error,
+  //    data: userDataById,
+  //  } = useUserData('commentAuthorid');////
+  const { data:allUsers } = useAllUserData();
+  console.log('allUsers===>', allUsers);
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
@@ -17,7 +27,7 @@ const Card = ({ content, imageUrl }) => {
           <Avatar />
           <div className=''>
             <Fullname />
-            <FullDate />
+            <FullDate createdAt={createdAt} />
           </div>
         </div>
         <div className='tweets' style={{ color: '#4F4F4F' }}>
@@ -33,8 +43,13 @@ const Card = ({ content, imageUrl }) => {
         </div>
       </div>
       <div className='comment-card-cont'>
-        <CommentCard />
-        <CommentCard />
+        {comments &&
+          comments.map((comment) => (
+
+            <CommentCard key={comment?.id} {...comment}  user = {userFinder(allUsers,comment?.commentAuthorid)} />
+          ))}
+        {/* <CommentCard /> */}
+        {/* <CommentCard /> */}
       </div>
     </article>
   );

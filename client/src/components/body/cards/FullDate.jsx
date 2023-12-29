@@ -1,9 +1,10 @@
 import React from 'react';
+import { dateFormattter } from './../../../utils/dateFormatter';
 
-const FullDate = () => {
+const FullDate = ({ dateOfReply, createdAt }) => {
   return (
     <p className='card__date font-sm' style={{ color: '#BDBDBD' }}>
-      24 August at 20:43
+      {dateFormattter(createdAt || dateOfReply) || '24 August at 20:43'}
     </p>
   );
 };

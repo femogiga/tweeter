@@ -27,7 +27,7 @@ const Main = () => {
     data: tweetWIthMediaData,
   } = useTweetDataByAuthorIdWithMedia(3);
   console.log('tweetComment', tweetWithCommentData);
-  console.log(tweetData);
+  console.log('tweet',tweetData);
   console.log('tweetWIthMediaData===>', tweetWIthMediaData);
   const [data, setData] = useState(tweetData);
 
@@ -35,7 +35,11 @@ const Main = () => {
     e.preventDefault();
     setData(dataToSet);
   };
+  useEffect(() => {
+    isTweetDataPending ? 'loading' : setData(tweetData);
+  }, [tweetData]);
 
+console.log('data',data)
   return (
     <main className='main'>
       <div className='main__container'>
