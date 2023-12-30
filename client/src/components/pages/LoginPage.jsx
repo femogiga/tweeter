@@ -1,11 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Container from './Container';
 import { Button } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/tweeter.svg';
 import '../../index.css';
+import { useLoginMutation } from '../../api/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { setInput } from '../../features/authSlice';
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [token, setToken] = useState(null);
+
+  const { isLoading, isSuccess, error, mutate, responseData } =
+    useLoginMutation();
+  const email = useSelector((state) => state.auth.email);
+  const password = useSelector((state) => state.auth.password);
+  useEffect(() => {
+    if (isSuccess) {
+      navigate('/profile');
+    }
+  }, [isSuccess, navigate]);
+
+  const handleInputChange = (e) => {
+    dispatch(
+      setInput({
+        fieldName: e.target.getAttribute('name'),
+        value: e.target.value,
+      })
+    );
+  };
+
+  const handleLogin = async () => {
+    const data = { email, password };
+    if (Object.keys(data) == null) {
+      return;
+    }
+    mutate(data);
+    const user = await localStorage.getItem('userData');
+    //const token = await localStorage.getItem('token');
+    const isAuthenticated = user != null;
+    if (!isAuthenticated) {
+      return;
+    }
+  };
+
+  console.log('email', email);
+  console.log('password', password);
   const inputStyle = {
     width: '20rem',
     maxWidth: '20rem',
@@ -40,15 +82,30 @@ const LoginPage = () => {
             <h2 style={{ fontSize: '2rem' }}>Sign in</h2>
             <div className='flow-1'>
               <p>Email Address</p>
-              <input type='email' style={inputStyle} />
+              <input
+                type='email'
+                style={inputStyle}
+                name='email'
+                value={email}
+                onChange={(e) => handleInputChange(e)}
+              />
             </div>
 
             <div className='flow-2'>
               <p>Password</p>
-              <input type='password' style={inputStyle} />
+              <input
+                type='password'
+                style={inputStyle}
+                value={password}
+                name='password'
+                onChange={(e) => handleInputChange(e)}
+              />
             </div>
             <div className='flow-1'>
-              <Button sx={{ textTransform: 'capitalize' }} variant='contained'>
+              <Button
+                sx={{ textTransform: 'capitalize' }}
+                variant='contained'
+                onClick={handleLogin}>
                 Sign In
               </Button>
             </div>

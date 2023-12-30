@@ -2,12 +2,24 @@ import Header from '../header/Header';
 import Container from './Container';
 import '../body/explore.css';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ExploreNav from './../body/ExploreNav';
 import { Button } from '@mui/material';
 import Card from '../body/cards/Card';
+import { useEffect, useState } from 'react';
 
 const Explorepage = () => {
+  // const [token, setToken] = useState(null);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const userToken = localStorage.getItem('userData');
+    // setToken(userToken);
+    if (!userToken) {
+      navigate('/login');
+     
+    }
+  }, [navigate]);
+
   return (
     <Container>
       <Header />

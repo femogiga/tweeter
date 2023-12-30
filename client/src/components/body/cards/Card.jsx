@@ -10,23 +10,25 @@ import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
 import { userFinder } from './../../../utils/userFinder';
-const Card = ({ content, imageUrl, comments,createdAt,user }) => {
+const Card = ({ content, imageUrl, comments, createdAt, user, author }) => {
   // console.log('comments', comments);
   //  const {
   //    isPending,
   //    error,
   //    data: userDataById,
   //  } = useUserData('commentAuthorid');////
-  const { data:allUsers } = useAllUserData();
+  const { data: allUsers } = useAllUserData();
+  const fullName = author?.firstName + ' ' + author?.lastName;
+  console.log('mainuser', author);
   console.log('allUsers===>', allUsers);
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
         {/* <Retweeted /> */}
         <div className='card__person flex align-items--center flow-1'>
-          <Avatar photo={user?.photo} />
+          <Avatar photo={author?.photo} />
           <div className=''>
-            <Fullname />
+            <Fullname fullName={fullName} />
             <FullDate createdAt={createdAt} />
           </div>
         </div>
@@ -45,9 +47,15 @@ const Card = ({ content, imageUrl, comments,createdAt,user }) => {
       <div className='comment-card-cont'>
         {comments &&
           comments.map((comment) => (
-
-            <CommentCard key={comment?.id} {...comment}  user = {userFinder(allUsers,comment?.commentAuthorid)} />
+            <CommentCard
+              key={comment?.id}
+              {...comment}
+              commentUser={userFinder(allUsers, comment?.commentAuthorid)}
+            />
           ))}
+
+      
+
         {/* <CommentCard /> */}
         {/* <CommentCard /> */}
       </div>

@@ -11,6 +11,7 @@ import '../body/home.css';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { setLoginModalState } from '../../features/headerSlice';
+import { useNavigate } from 'react-router-dom';
 const style = {
   position: 'absolute',
   top: '4rem',
@@ -27,6 +28,14 @@ const style = {
 
 const LoginModal = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('userData');
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+  // const dispatch = useDispatch();
   const loginModalVisilibility = useSelector(
     (state) => state.header.loginModalVisibility
   );
@@ -94,7 +103,8 @@ const LoginModal = () => {
                 width: '164px',
                 justifyContent: 'flex-start',
               }}
-              startIcon={<LogoutIcon />}>
+              startIcon={<LogoutIcon />}
+              onClick={handleLogout}>
               Logout
             </Button>
           </div>

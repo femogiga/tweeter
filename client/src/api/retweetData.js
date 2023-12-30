@@ -5,11 +5,11 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
-export const useTweetDataByAuthorId = (id) => {
+export const useRetweetDataByAuthorId = (id) => {
   const { isPending, error, data } = useQuery({
-    queryKey: ['allTweetByAuthorId'],
+    queryKey: ['retweetByid'],
     queryFn: () =>
-      fetch(`http://localhost:7000/users/${id}/Retweets`).then((res) =>
+      fetch(`http://localhost:7000/users/${id}/retweets`).then((res) =>
         res.json()
       ),
   });

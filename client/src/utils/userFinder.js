@@ -1,5 +1,5 @@
-export const userFinder = (array, id) => {
-    const result = array.find((item) => item?.id === id);
+export const userFinder = async (array, id) => {
+    const result = await array.find((item) => item?.id === id);
     return result
 };
 

@@ -28,7 +28,7 @@ const getUserTweetsByIdWithComments = async (req, res) => {
         authorid: parseInt(authorid),
       },
     });
-    console.log(result);
+
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
@@ -65,7 +65,7 @@ const getUserTweetsWithMedia = async (req, res) => {
       })
       .whereNotNull('imageUrl');
 
-    console.log(result);
+    // console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.error(error);

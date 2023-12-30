@@ -11,6 +11,7 @@ import './main.css';
 import SideNav from './SideNav';
 import { useAllUserData } from '../../api/userData';
 import { userFinder } from '../../utils/userFinder';
+import { useRetweetDataByAuthorId } from '../../api/retweetData';
 const Main = () => {
   const {
     isPending: isTweetDataPending,
@@ -29,8 +30,11 @@ const Main = () => {
     data: tweetWIthMediaData,
   } = useTweetDataByAuthorIdWithMedia(3);
   const { data: allUsers } = useAllUserData();
+  const { data: retweetData } = useRetweetDataByAuthorId(3);
   console.log('tweetComment', tweetWithCommentData);
   console.log('tweet', tweetData);
+  console.log('rerttweet===>', retweetData);
+
   console.log('tweetWIthMediaData===>', tweetWIthMediaData);
   const [data, setData] = useState(tweetData);
 
@@ -52,8 +56,31 @@ const Main = () => {
           onClickTweetWithMedia={(e) => handleTweet(e, tweetWIthMediaData)}
         />
         <div className='card-parent'>
-          <Retweeted />
-          {data && data.map((item) => <Card key={item?.id} {...item} user={userFinder(allUsers,item?.authorid)} />)}
+          {data &&
+            data.map((item) => (
+              <Card
+                key={item?.id}
+                author={userFinder(allUsers, item?.authorid)}
+                {...item}
+                user={userFinder(allUsers, item?.authorid)}
+              />
+            ))}
+          {/* to do -- fix rewteet */}
+          {retweetData &&
+            retweetData.map((comment) => (
+              <>
+                <Retweeted
+                  firstName={comment?.firstName}
+                  lastName={comment?.lastName}
+                />
+                <Card
+                  key={comment?.id}
+                  {...comment}
+                  author={userFinder(allUsers, comment?.authorid)}
+                  commentUser={userFinder(allUsers, comment?.commentAuthorid)}
+                />
+              </>
+            ))}
           {/* <Card />
           <Card />
           <Card /> */}

@@ -8,8 +8,18 @@ import Retweeted from '../body/cards/Retweeted';
 import FollowCard from '../body/FollowCard';
 import Trends from '../body/Trends';
 import WhocanModal from '../body/WhocanModal';
+import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const Homepage = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const userToken = localStorage.getItem('userData');
+    if (!userToken) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   return (
     <Container>
       <Header />
@@ -40,9 +50,8 @@ const Homepage = () => {
               Who to follow
             </p>
 
-              <FollowCard />
-              <FollowCard />
-           
+            <FollowCard />
+            <FollowCard />
           </div>
         </aside>
       </div>

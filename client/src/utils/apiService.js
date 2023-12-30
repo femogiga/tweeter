@@ -1,7 +1,6 @@
 import axios from 'axios';
 
-//const baseUrl = 'http://localhost:9000';
-const baseUrl = 'https://chatgroup.vercel.app';
+const baseUrl = 'http://localhost:7000';
 
 const get = (url) => {
   const token = localStorage.getItem('token');
@@ -19,6 +18,14 @@ const post = (url, data) => {
     headers: {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+const authpost = (url, data) => {
+  return axios.post(`${baseUrl}${url}`, data, {
+    headers: {
+      'Content-Type': 'application/json',
     },
   });
 };
@@ -43,4 +50,4 @@ const put = (url, data) => {
   });
 };
 
-export default { get, post, getById, put };
+export default { get, post, getById, put, authpost };
