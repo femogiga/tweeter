@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { Prisma, PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({});
 require('dotenv').config();
 
 const authMiddleware = async (req, res, next) => {
@@ -18,8 +18,8 @@ const authMiddleware = async (req, res, next) => {
       return res.status(401).json({ error: 'Invalid token format' });
     }
 
-    const decoded = jwt.decode(tokenParts[1], process.env.SECRET_KEY);
 
+    const decoded = jwt.decode(tokenParts[1], process.env.SECRET_KEY);
     //  if (decoded.exp <=  Math.floor(Date.now() / 1000) + 60 * 60) {
     //    return res.status(401).json({ error: 'Token expired, please log in again' });
     //  }
@@ -31,7 +31,6 @@ const authMiddleware = async (req, res, next) => {
     }
 
     const id = decoded.id;
-
     const user = await prisma.user.findUnique({
       where: {
         id,

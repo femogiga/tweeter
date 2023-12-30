@@ -73,6 +73,9 @@ const login = async (req, res) => {
     }
     const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
       expiresIn: '1h',
+      allowInsecureKeySizes: true,
+      
+
     });
     console.log(token);
     const { id, firstName, lastName, photo, profile, profileImageBackground } =
@@ -93,4 +96,24 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { login, register };
+const passwordUpdate = async (req, res) => {
+  try {
+    const { id, email, password } = req.body;
+    console.log(password);
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(password, salt);
+    const updatedData = { email: email, password: hashedPassword };
+    console.log(updatedData);
+    const updatedUser = await prisma.user.update({
+      where: {
+        id: parseInt(id),
+      },
+      data: updatedData,
+    });
+    return res.status(200).json({ data: updatedUser });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ err });
+  }
+};
+module.exports = { login, register, passwordUpdate };

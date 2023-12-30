@@ -5,16 +5,16 @@ require('dotenv').config();
 const socketIo = require('socket.io');
 const tweetRoute = require('./routes/tweetRoute');
 const authRoute = require('./authentication/authRoute');
-const userTweetRoute = require('./routes/userTweetRoute')
-const authMiddleware = require('./authentication/authMiddleware')
+const userTweetRoute = require('./routes/userTweetRoute');
+const authMiddleware = require('./authentication/authMiddleware');
 const app = express();
 
-app.use(morgan('combined'));
+app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 app.use('/auth', authRoute);
-app.use('/tweets', tweetRoute);
-app.use('/users',userTweetRoute);
+app.use('/tweets',authMiddleware, tweetRoute);
+app.use('/users',authMiddleware, userTweetRoute);
 app.get('/', (req, res) => {
   res.send('Welcome to my application');
 });

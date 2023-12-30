@@ -76,4 +76,5 @@ const getAllUserData = async (req, res, next) => {
   }
 };
 
+
 module.exports = { getAllUserData, getUserData };
