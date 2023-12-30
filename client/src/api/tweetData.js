@@ -4,12 +4,13 @@ import {
   QueryClient,
   useQueryClient,
 } from '@tanstack/react-query';
+import apiService from '../utils/apiService';
 
 
 export const useTweetData = () => {
     const { isPending, error, data } = useQuery({
       queryKey: ['allTweet'],
-      queryFn: () => fetch(`http://localhost:7000/tweets`).then(res=> res.json()),
+      queryFn: () => apiService.get(`/tweets`).then(res=> res.data),
     });
     return {isPending,error,data};
 }
@@ -18,7 +19,7 @@ export const useTweetDataByAuthorId = (authorid) => {
   const { isPending, error, data } = useQuery({
     queryKey: ['allTweetByAuthorId'],
     queryFn: () =>
-      fetch(`http://localhost:7000/users/${authorid}/tweets`).then((res) => res.json()),
+      apiService.get(`/users/${authorid}/tweets`).then((res) => res.data),
   });
   return { isPending, error, data };
 };

@@ -35,6 +35,11 @@ const LoginModal = () => {
     localStorage.removeItem('token');
     navigate('/login');
   };
+
+ const handleProlifeLink = () => {
+   navigate('/profile');
+   dispatch(setLoginModalState(false))
+  }
   // const dispatch = useDispatch();
   const loginModalVisilibility = useSelector(
     (state) => state.header.loginModalVisibility
@@ -63,7 +68,9 @@ const LoginModal = () => {
                   width: '164px',
                   justifyContent: 'flex-start',
                 }}
-                startIcon={<AccountCircleIcon />}>
+                startIcon={<AccountCircleIcon />}
+                onClick={handleProlifeLink}
+              >
                 My Profile
               </Button>
             </div>
