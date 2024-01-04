@@ -5,9 +5,10 @@ import Fullname from './Fullname';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useUserData } from '../../../api/userData';
 
-const CommentCard = ({ reply, dateOfReply,commentUser }) => {
+const CommentCard = ({ reply, dateOfReply, commentUser }) => {
   // const { isPending, error, data: userDataById } = useUserData(commentAuthorid);
-const{firstName,lastName,photo} = commentUser
+  const { firstName, lastName, photo } = commentUser;
+  console.log('commentUser===>', commentUser);
 
   // console.log('id', commentAuthorid);
   // console.log('userData', userDataById);

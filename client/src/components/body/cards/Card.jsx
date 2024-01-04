@@ -11,7 +11,16 @@ import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
 import { userFinder } from './../../../utils/userFinder';
 import { useEffect } from 'react';
-const Card = ({ content, imageUrl, comments, createdAt, user, author ,id,authorid}) => {
+const Card = ({
+  content,
+  imageUrl,
+  comments,
+  createdAt,
+  user,
+  author,
+  id,
+  authorid,
+}) => {
   // console.log('comments', comments);
   //  const {
   //    isPending,
@@ -19,12 +28,12 @@ const Card = ({ content, imageUrl, comments, createdAt, user, author ,id,authori
   //    data: userDataById,
   //  } = useUserData('commentAuthorid');
 
-  console.log('id====>' , id)
-let theUserData
+  console.log('id====>', id);
+  let theUserData;
   const { data: allUsers } = useAllUserData();
-  let cardUser = allUsers.find(user=> user?.id === authorid)
+  let cardUser = allUsers.find((user) => user?.id === authorid);
 
-  console.log('theuser',theUserData)
+  console.log('theuser', theUserData);
   const fullName = author?.firstName + ' ' + author?.lastName;
   console.log('mainuser', author);
   // console.log('allUsers===>', allUsers);
@@ -57,11 +66,11 @@ let theUserData
             <CommentCard
               key={comment?.id}
               {...comment}
-              commentUser={userFinder(allUsers, comment?.commentAuthorid)}
+              commentUser={allUsers.find(
+                (user) => user?.id === comment?.commentAuthorid
+              )}
             />
           ))}
-
-
 
         {/* <CommentCard /> */}
         {/* <CommentCard /> */}

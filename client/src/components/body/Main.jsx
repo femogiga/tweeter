@@ -32,7 +32,8 @@ const Main = () => {
     data: tweetWIthMediaData,
   } = useTweetDataByAuthorIdWithMedia(id);
   const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
-  const {isPending:isRetweetpending, data: retweetData } = useRetweetDataByAuthorId(id);
+  const { isPending: isRetweetpending, data: retweetData } =
+    useRetweetDataByAuthorId(id);
   console.log('tweetComment', tweetWithCommentData);
   console.log('tweet', tweetData);
   console.log('retweet===>', retweetData);
@@ -65,7 +66,7 @@ const Main = () => {
                 // author={userFinder(allUsers, item?.authorid)}
                 author={allUsers.find((user) => user.id == item?.authorid)}
                 {...item}
-                user={userFinder(allUsers, item?.authorid)}
+                user={allUsers.find((user) => user.id == item?.authorid)}
                 id={item?.id}
               />
             ))}
@@ -80,8 +81,12 @@ const Main = () => {
                 <Card
                   key={comment?.id}
                   {...comment}
-                  author={userFinder(allUsers, comment?.authorid)}
-                  commentUser={userFinder(allUsers, comment?.commentAuthorid)}
+                  author={allUsers.find(
+                    (user) => user.id === comment?.authorid
+                  )}
+                  commentUser={allUsers.find(
+                    (user) => user.id === comment?.commentAuthorid
+                  )}
                   commentAuthorid={comment?.commentAuthorid}
                 />
               </>
