@@ -13,27 +13,29 @@ import { useAllUserData } from '../../api/userData';
 import { userFinder } from '../../utils/userFinder';
 import { useRetweetDataByAuthorId } from '../../api/retweetData';
 const Main = () => {
+  const userData = JSON.parse(localStorage.getItem('userData'));
+  const id = parseInt(userData?.id);
   const {
     isPending: isTweetDataPending,
     error: tweetError,
     data: tweetData,
-  } = useTweetDataByAuthorId(3);
+  } = useTweetDataByAuthorId(id);
   const {
     isPending: isWithCommentPending,
     error: withCommentError,
     data: tweetWithCommentData,
-  } = useTweetDataByAuthorIdWithComments(3);
+  } = useTweetDataByAuthorIdWithComments(id);
 
   const {
     isPending: isTweetWithMediaPending,
     error: withMediaError,
     data: tweetWIthMediaData,
-  } = useTweetDataByAuthorIdWithMedia(3);
-  const { data: allUsers } = useAllUserData();
-  const { data: retweetData } = useRetweetDataByAuthorId(3);
+  } = useTweetDataByAuthorIdWithMedia(id);
+  const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
+  const {isPending:isRetweetpending, data: retweetData } = useRetweetDataByAuthorId(id);
   console.log('tweetComment', tweetWithCommentData);
   console.log('tweet', tweetData);
-  console.log('rerttweet===>', retweetData);
+  console.log('retweet===>', retweetData);
 
   console.log('tweetWIthMediaData===>', tweetWIthMediaData);
   const [data, setData] = useState(tweetData);
@@ -60,9 +62,11 @@ const Main = () => {
             data.map((item) => (
               <Card
                 key={item?.id}
-                author={userFinder(allUsers, item?.authorid)}
+                // author={userFinder(allUsers, item?.authorid)}
+                author={allUsers.find((user) => user.id == item?.authorid)}
                 {...item}
                 user={userFinder(allUsers, item?.authorid)}
+                id={item?.id}
               />
             ))}
           {/* to do -- fix rewteet */}
@@ -78,6 +82,7 @@ const Main = () => {
                   {...comment}
                   author={userFinder(allUsers, comment?.authorid)}
                   commentUser={userFinder(allUsers, comment?.commentAuthorid)}
+                  commentAuthorid={comment?.commentAuthorid}
                 />
               </>
             ))}

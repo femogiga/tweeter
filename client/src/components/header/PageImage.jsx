@@ -10,9 +10,10 @@ const PageImage = () => {
     e.preventDefault();
     dispatch(setFollowingModalVisibility('show'));
   };
+  const parsedUser = JSON.parse(localStorage.getItem('userData'));
 
   //fetches user data
-  const { isPending, error, data } = useUserData(3);
+  const { isPending, error, data } = useUserData(parsedUser.id);
   const fullName = `${data?.firstName} ${data?.lastName}`;
   return (
     <div className='page-image '>

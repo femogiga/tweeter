@@ -1,6 +1,14 @@
 export const userFinder = async (array, id) => {
+  try {
     const result = await array.find((item) => item?.id === id);
-    return result
+    if (!result) {
+      throw new Error(`User with ID ${id} not found.`);
+    }
+    return result;
+  } catch (error) {
+    console.error('User not found or error occurred: ', error.message);
+    return null;
+  }
 };
 
 const data = [
@@ -49,5 +57,5 @@ const data = [
       'https://images.pexels.com/photos/1089194/pexels-photo-1089194.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
 ];
-const result  = userFinder(data, 4);
+const result = userFinder(data, 4);
 console.log('user', result);

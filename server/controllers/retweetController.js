@@ -10,12 +10,16 @@ const getRetweetsById = async (req, res, next) => {
 
 const secondRetweets = async (req, res, next) => {
   const id = parseInt(req.params.id);
-  const result = await knex('Retweet')
-    .join('User', 'User.id', '=', 'Retweet.userId')
-    .join('Tweet', 'Tweet.id', '=', 'Retweet.tweetId')
-    .where('userId', id);
-  console.log(result);
-  res.status(200).json(result);
+  try {
+    const result = await knex('Retweet')
+      .join('User', 'User.id', '=', 'Retweet.userId')
+      .join('Tweet', 'Tweet.id', '=', 'Retweet.tweetId')
+      .where('userId', id);
+    console.log(result);
+    res.status(200).json(result);
+  } catch (err) {
+    res.status(500).json(err)
+  }
 };
 
 module.exports = { getRetweetsById, secondRetweets };

@@ -10,17 +10,24 @@ import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
 import { userFinder } from './../../../utils/userFinder';
-const Card = ({ content, imageUrl, comments, createdAt, user, author }) => {
+import { useEffect } from 'react';
+const Card = ({ content, imageUrl, comments, createdAt, user, author ,id,authorid}) => {
   // console.log('comments', comments);
   //  const {
   //    isPending,
   //    error,
   //    data: userDataById,
-  //  } = useUserData('commentAuthorid');////
+  //  } = useUserData('commentAuthorid');
+
+  console.log('id====>' , id)
+let theUserData
   const { data: allUsers } = useAllUserData();
+  let cardUser = allUsers.find(user=> user?.id === authorid)
+
+  console.log('theuser',theUserData)
   const fullName = author?.firstName + ' ' + author?.lastName;
   console.log('mainuser', author);
-  console.log('allUsers===>', allUsers);
+  // console.log('allUsers===>', allUsers);
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
@@ -54,7 +61,7 @@ const Card = ({ content, imageUrl, comments, createdAt, user, author }) => {
             />
           ))}
 
-      
+
 
         {/* <CommentCard /> */}
         {/* <CommentCard /> */}

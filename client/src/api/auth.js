@@ -9,7 +9,7 @@ export const useLoginMutation = () => {
     let responseData = null
   const { isLoading, isSuccess, error, mutate } = useMutation({
     mutationFn: async (data) => {
-      const response = await apiService.authpost('/auth/login', data);
+      const response = await apiService.post('/auth/login', data);
       return response.data;
     },
       onSuccess: (data) => {

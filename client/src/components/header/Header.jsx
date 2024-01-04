@@ -14,7 +14,7 @@ const Header = () => {
 
   const user = localStorage.getItem('userData');
   const parsedUser = JSON.parse(user)
-  const fullName = parsedUser.firstName + ' ' + parsedUser.lastName
+  const fullName = parsedUser?.firstName + ' ' + parsedUser?.lastName
 
   return (
     <header className='header flex space-between align-items--center flow-1'>
@@ -37,7 +37,7 @@ const Header = () => {
       <div onClick={handleLoginModalOpen}>
         <div className='flex align-items--center login'>
           <div className='avatar-cont flex'>
-            <img src={parsedUser.photo || 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'} />
+            <img src={parsedUser?.photo || 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'} />
           </div>
           <p>{fullName ||'Xanthe Neal'}</p>
           <ArrowDropDownIcon />

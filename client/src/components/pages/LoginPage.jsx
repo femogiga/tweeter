@@ -7,6 +7,7 @@ import '../../index.css';
 import { useLoginMutation } from '../../api/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { setInput } from '../../features/authSlice';
+import { setLoginModalState } from '../../features/headerSlice';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const LoginPage = () => {
       return;
     }
     mutate(data);
+    dispatch(setLoginModalState(false));
     const user = await localStorage.getItem('userData');
     //const token = await localStorage.getItem('token');
     const isAuthenticated = user != null;
