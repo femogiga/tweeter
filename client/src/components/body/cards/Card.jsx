@@ -11,6 +11,7 @@ import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
 import { userFinder } from './../../../utils/userFinder';
 import { useEffect } from 'react';
+import { useAllComments, useAllCommentsByTweetId } from '../../../api/commentData';
 const Card = ({
   content,
   imageUrl,
@@ -20,7 +21,10 @@ const Card = ({
   author,
   id,
   authorid,
+  commentData
+
 }) => {
+
   // console.log('comments', comments);
   //  const {
   //    isPending,
@@ -28,21 +32,22 @@ const Card = ({
   //    data: userDataById,
   //  } = useUserData('commentAuthorid');
 
-  console.log('id====>', id);
-  let theUserData;
+  // console.log('id====>', id);
+  // let theUserData;
   const { data: allUsers } = useAllUserData();
-  let cardUser = allUsers.find((user) => user?.id === authorid);
+  // let cardUser = allUsers.find((user) => user?.id === authorid);
 
-  console.log('theuser', theUserData);
+  // console.log('theuser', theUserData);
   const fullName = author?.firstName + ' ' + author?.lastName;
-  console.log('mainuser', author);
+  // console.log('mainuser', author);
   // console.log('allUsers===>', allUsers);
+console.log ('commentDattttt===>',commentData);
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
         {/* <Retweeted /> */}
         <div className='card__person flex align-items--center flow-1'>
-          <Avatar photo={author?.photo} />
+          <Avatar photo={author?.photo} id={author?.id} />
           <div className=''>
             <Fullname fullName={fullName} />
             <FullDate createdAt={createdAt} />
@@ -61,16 +66,16 @@ const Card = ({
         </div>
       </div>
       <div className='comment-card-cont'>
-        {comments &&
-          comments.map((comment) => (
-            <CommentCard
-              key={comment?.id}
-              {...comment}
-              commentUser={allUsers.find(
-                (user) => user?.id === comment?.commentAuthorid
-              )}
-            />
-          ))}
+        {
+          comments &&
+            comments.map((comment) => (<CommentCard
+                key={comment?.id}
+                {...comment}
+                commentUser={allUsers.find(
+                  (user) => user?.id === comment?.commentAuthorid
+                )}
+              />
+            ))}
 
         {/* <CommentCard /> */}
         {/* <CommentCard /> */}

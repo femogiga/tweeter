@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Container from './Container';
 import { Button } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import logo from '../../assets/tweeter.svg';
 import '../../index.css';
 import { useLoginMutation } from '../../api/auth';
@@ -19,8 +19,12 @@ const LoginPage = () => {
   const email = useSelector((state) => state.auth.email);
   const password = useSelector((state) => state.auth.password);
   useEffect(() => {
+    const user = localStorage.getItem('userData');
+    const parsedUser = JSON.parse(user);
+    const id = parsedUser?.id;
     if (isSuccess) {
-      navigate('/profile');
+      navigate(`/profile/${id}`);
+      window.location.reload();
     }
   }, [isSuccess, navigate]);
 
@@ -48,8 +52,8 @@ const LoginPage = () => {
     }
   };
 
-  console.log('email', email);
-  console.log('password', password);
+  //console.log('email', email);
+  //console.log('password', password);
   const inputStyle = {
     width: '20rem',
     maxWidth: '20rem',

@@ -20,7 +20,7 @@ export const Root = () => {
       <Routes>
         <Route path='/' element={<App />} />
         <Route path='home' element={<Homepage />} />
-        <Route path='/profile' element={<ProfilePage />} />
+        <Route path='/profile/:id' element={<ProfilePage />} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/explore' element={<Explorepage />} />
         <Route path='/bookmarks' element={<Bookmarkpage />} />

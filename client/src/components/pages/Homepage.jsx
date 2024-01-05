@@ -10,8 +10,27 @@ import Trends from '../body/Trends';
 import WhocanModal from '../body/WhocanModal';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useAllTweetData } from '../../api/tweetData';
+import { useAllRetweetData } from '../../api/retweetData';
+import { useAllComments, useAllCommentsByTweetId } from '../../api/commentData';
 
 const Homepage = () => {
+  const {
+    isPending: isAllTweetPending,
+    error: allTweetError,
+    data: allTweetData,
+  } = useAllTweetData();
+  const { isPending, error, data: allRetweetData } = useAllRetweetData();
+
+  const {
+    isPending: isCommentByAuthorIdPending,
+    error: isErrorPrending,
+    data: commentData,
+  } = useAllComments();
+  console.log('commentData', commentData);
+  console.log('retweet===>', allRetweetData);
+  console.log('alltweet===>', allTweetData);
+
   const navigate = useNavigate();
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
@@ -19,7 +38,8 @@ const Homepage = () => {
       navigate('/login');
     }
   }, [navigate]);
-
+  // let b = commentData.find(ele => ele?.tweetId === 4)
+  //console.log('b=====>',b)
   return (
     <Container>
       <Header />
@@ -28,9 +48,25 @@ const Homepage = () => {
         <section className='home-content'>
           <TweetInput />
           <WhocanModal />
-          <Retweeted />
-          <Card />
-          <Card />
+          {/* <Retweeted /> */}
+          {allTweetData &&
+            allTweetData.map((tweet) => {
+              const { firstName, lastName, photo } = tweet;
+              let author = { firstName, lastName, photo };
+              const key = tweet?.id + tweet.createdAt;
+
+              return (
+                <Card
+                  key={`Card${key}`}
+                  {...tweet}
+                  photo={tweet?.photo}
+                  author={author}
+                  tweetId={tweet?.tweetId}
+                  
+                />
+              );
+            })}
+          {/* <Card /> */}
         </section>
         <aside className='side-content'>
           <Trends />

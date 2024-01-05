@@ -9,6 +9,9 @@ const getUserTweetsById = async (req, res) => {
       where: {
         authorid: parseInt(authorid),
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
     res.status(200).json(result);
   } catch (error) {
@@ -26,6 +29,10 @@ const getUserTweetsByIdWithComments = async (req, res) => {
       },
       where: {
         authorid: parseInt(authorid),
+      },
+
+      orderBy: {
+        createdAt: 'desc',
       },
     });
 

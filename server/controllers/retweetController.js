@@ -18,8 +18,21 @@ const secondRetweets = async (req, res, next) => {
     console.log(result);
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).json(err)
+    res.status(500).json(err);
   }
 };
 
-module.exports = { getRetweetsById, secondRetweets };
+const AllRetweets = async (req, res, next) => {
+  try {
+    const result = await knex('Retweet')
+      .join('User', 'User.id', '=', 'Retweet.userId')
+      .join('Tweet', 'Tweet.id', '=', 'Retweet.tweetId')
+    console.log(result);
+    res.status(200).json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json(err);
+  }
+};
+
+module.exports = { getRetweetsById, secondRetweets,AllRetweets};

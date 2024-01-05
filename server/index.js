@@ -6,6 +6,8 @@ const socketIo = require('socket.io');
 const tweetRoute = require('./routes/tweetRoute');
 const authRoute = require('./authentication/authRoute');
 const userTweetRoute = require('./routes/userTweetRoute');
+const allRetweetRoute = require('./routes/retweetRoute');
+const commentRoute = require('./routes/commentRoute');
 const authMiddleware = require('./authentication/authMiddleware');
 const app = express();
 
@@ -13,8 +15,10 @@ app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());
 app.use('/auth', authRoute);
-app.use('/tweets',authMiddleware, tweetRoute);
-app.use('/users',authMiddleware, userTweetRoute);
+app.use('/tweets', authMiddleware, tweetRoute);
+app.use('/users', authMiddleware, userTweetRoute);
+app.use('/retweets', authMiddleware, allRetweetRoute);
+app.use('/comments', authMiddleware, commentRoute);
 app.get('/', (req, res) => {
   res.send('Welcome to my application');
 });

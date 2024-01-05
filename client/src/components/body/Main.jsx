@@ -12,9 +12,17 @@ import SideNav from './SideNav';
 import { useAllUserData } from '../../api/userData';
 import { userFinder } from '../../utils/userFinder';
 import { useRetweetDataByAuthorId } from '../../api/retweetData';
+import { useNavigate, useParams } from 'react-router-dom';
 const Main = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));
-  const id = parseInt(userData?.id);
+  //const id = parseInt(userData?.id);
+// const[id,setId] = useState(userData?.id)
+  const navigate = useNavigate()
+  let {id} = useParams()
+
+  useEffect(() => {
+
+  },[]);
   const {
     isPending: isTweetDataPending,
     error: tweetError,
@@ -34,11 +42,11 @@ const Main = () => {
   const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
   const { isPending: isRetweetpending, data: retweetData } =
     useRetweetDataByAuthorId(id);
-  console.log('tweetComment', tweetWithCommentData);
-  console.log('tweet', tweetData);
-  console.log('retweet===>', retweetData);
+  //console.log('tweetComment', tweetWithCommentData);
+  //console.log('tweet', tweetData);
+  //console.log('retweet===>', retweetData);
 
-  console.log('tweetWIthMediaData===>', tweetWIthMediaData);
+  //console.log('tweetWIthMediaData===>', tweetWIthMediaData);
   const [data, setData] = useState(tweetData);
 
   const handleTweet = (e, dataToSet) => {
@@ -49,7 +57,7 @@ const Main = () => {
     isTweetDataPending ? 'loading' : setData(tweetData);
   }, [tweetData]);
 
-  console.log('data', data);
+  //console.log('data', data);
   return (
     <main className='main'>
       <div className='main__container'>
@@ -68,26 +76,27 @@ const Main = () => {
                 {...item}
                 user={allUsers.find((user) => user.id == item?.authorid)}
                 id={item?.id}
+
               />
             ))}
           {/* to do -- fix rewteet */}
           {retweetData &&
-            retweetData.map((comment) => (
+            retweetData.map((retweet) => (
               <>
                 <Retweeted
-                  firstName={comment?.firstName}
-                  lastName={comment?.lastName}
+                  firstName={retweet?.firstName}
+                  lastName={retweet?.lastName}
                 />
                 <Card
-                  key={comment?.id}
-                  {...comment}
+                  key={retweet?.id}
+                  {...retweet}
                   author={allUsers.find(
-                    (user) => user.id === comment?.authorid
+                    (user) => user.id === retweet?.authorid
                   )}
                   commentUser={allUsers.find(
-                    (user) => user.id === comment?.commentAuthorid
+                    (user) => user.id === retweet?.commentAuthorid
                   )}
-                  commentAuthorid={comment?.commentAuthorid}
+                  commentAuthorid={retweet?.commentAuthorid}
                 />
               </>
             ))}

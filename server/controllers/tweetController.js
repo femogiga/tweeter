@@ -46,6 +46,9 @@ const getTweetsById = async (req, res) => {
       where: {
         authorid: parseInt(authorId),
       },
+      orderBy: {
+        createdAt: 'desc',
+      },
     });
     res.status(200).json(result);
   } catch (error) {
@@ -54,11 +57,13 @@ const getTweetsById = async (req, res) => {
   }
 };
 
-
 const AllTweets = async (req, res) => {
-
   try {
-    const result = await prisma.tweet.findMany({});
+    const result = await prisma.tweet.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
     res.status(200).json(result);
   } catch (error) {
     console.error(error);

@@ -6,22 +6,19 @@ import {
 } from '@tanstack/react-query';
 import apiService from '../utils/apiService';
 
-export const useRetweetDataByAuthorId = (id) => {
+export const useAllComments = () => {
   const { isPending, error, data } = useQuery({
-    queryKey: ['retweetByidOne'],
-    queryFn: () =>
-      apiService
-        .get(`/users/${id}/retweets`)
-        .then((res) => res.data),
+    queryKey: ['allComments'],
+    queryFn: () => apiService.get('/comments').then((res) => res.data),
   });
   return { isPending, error, data };
 };
 
-export const useAllRetweetData = () => {
+export const useAllCommentsByTweetId = (tweetId) => {
   const { isPending, error, data } = useQuery({
-    queryKey: ['allRetweetsData'],
+    queryKey: ['allCommentsByTweetId'],
     queryFn: () =>
-      apiService.get(`/retweets/allretweets`).then((res) => res.data),
+      apiService.get(`/comments/${tweetId}`).then((res) => res.data),
   });
   return { isPending, error, data };
 };

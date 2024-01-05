@@ -3,6 +3,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useDispatch } from 'react-redux';
 import { setFollowingModalVisibility } from '../../features/ModalSlice';
 import { useUserData } from '../../api/userData';
+import { useParams } from 'react-router-dom';
 const PageImage = () => {
   // button follower activates the followingModal with handleFollowingModal
   const dispatch = useDispatch();
@@ -11,9 +12,9 @@ const PageImage = () => {
     dispatch(setFollowingModalVisibility('show'));
   };
   const parsedUser = JSON.parse(localStorage.getItem('userData'));
-
+  const {id} = useParams()
   //fetches user data
-  const { isPending, error, data } = useUserData(parsedUser.id);
+  const { isPending, error, data } = useUserData(id);
   const fullName = `${data?.firstName} ${data?.lastName}`;
   return (
     <div className='page-image '>

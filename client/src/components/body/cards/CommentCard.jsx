@@ -5,7 +5,7 @@ import Fullname from './Fullname';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useUserData } from '../../../api/userData';
 
-const CommentCard = ({ reply, dateOfReply, commentUser }) => {
+const CommentCard = ({ reply, dateOfReply, commentUser,replyImageUrl }) => {
   // const { isPending, error, data: userDataById } = useUserData(commentAuthorid);
   const { firstName, lastName, photo } = commentUser;
   console.log('commentUser===>', commentUser);
@@ -17,7 +17,7 @@ const CommentCard = ({ reply, dateOfReply, commentUser }) => {
   return (
     <div className=' comment-card flow-1'>
       <div className='flex'>
-        <Avatar photo={photo} />
+        <Avatar photo={photo} id={commentUser?.id } />
         <div
           style={{
             padding: '.4rem 5rem .4rem .4rem',
@@ -34,6 +34,9 @@ const CommentCard = ({ reply, dateOfReply, commentUser }) => {
               'I have seen awe-inspiring things that i thought would never be able to explain to another person'}
           </p>
         </div>
+      </div>
+      <div className='reply-image'>
+        <img src = {replyImageUrl}/>
       </div>
       <ul className='like flex' style={{ paddingInline: '2rem' }}>
         <li>

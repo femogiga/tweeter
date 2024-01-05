@@ -19,6 +19,11 @@
     padding-inline: 1rem;
 }
 
+.reply-image > img{
+    width:100% !important;
+    object-fit:cover;
+}
+
 .form {
     max-width: 100%;
 }
@@ -26,6 +31,10 @@
 .avatar {
     display: grid;
     place-content: center;
+}
+
+.avatar:hover{
+   cursor: pointer;
 }
 
 .avatar>img {

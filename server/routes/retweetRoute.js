@@ -1,8 +1,9 @@
-const { getRetweetsById } = require('../controllers/retweetController');
+const { getRetweetsById, AllRetweets } = require('../controllers/retweetController');
 
 const router = require('express').Router();
 
-router.get('/retweets',getRetweetsById);
+    router.get('/allretweets',AllRetweets)
+ router.get('/retweets',getRetweetsById);
 
 
 module.exports = router;

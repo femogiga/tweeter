@@ -36,10 +36,14 @@ const LoginModal = () => {
     navigate('/login');
   };
 
- const handleProlifeLink = () => {
-   navigate('/profile');
-   dispatch(setLoginModalState(false))
-  }
+  const handleProlifeLink = () => {
+    const user = localStorage.getItem('userData');
+    const parsedUser = JSON.parse(user);
+    navigate(`/profile/${parsedUser?.id}`);
+    dispatch(setLoginModalState(false));
+    window.location.reload();
+  };
+
   // const dispatch = useDispatch();
   const loginModalVisilibility = useSelector(
     (state) => state.header.loginModalVisibility
@@ -69,8 +73,7 @@ const LoginModal = () => {
                   justifyContent: 'flex-start',
                 }}
                 startIcon={<AccountCircleIcon />}
-                onClick={handleProlifeLink}
-              >
+                onClick={handleProlifeLink}>
                 My Profile
               </Button>
             </div>
