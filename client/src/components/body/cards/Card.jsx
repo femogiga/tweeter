@@ -11,7 +11,10 @@ import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
 import { userFinder } from './../../../utils/userFinder';
 import { useEffect } from 'react';
-import { useAllComments, useAllCommentsByTweetId } from '../../../api/commentData';
+import {
+  useAllComments,
+  useAllCommentsByTweetId,
+} from '../../../api/commentData';
 const Card = ({
   content,
   imageUrl,
@@ -21,10 +24,7 @@ const Card = ({
   author,
   id,
   authorid,
-  commentData
-
 }) => {
-
   // console.log('comments', comments);
   //  const {
   //    isPending,
@@ -41,7 +41,6 @@ const Card = ({
   const fullName = author?.firstName + ' ' + author?.lastName;
   // console.log('mainuser', author);
   // console.log('allUsers===>', allUsers);
-console.log ('commentDattttt===>',commentData);
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
@@ -66,16 +65,16 @@ console.log ('commentDattttt===>',commentData);
         </div>
       </div>
       <div className='comment-card-cont'>
-        {
-          comments &&
-            comments.map((comment) => (<CommentCard
-                key={comment?.id}
-                {...comment}
-                commentUser={allUsers.find(
-                  (user) => user?.id === comment?.commentAuthorid
-                )}
-              />
-            ))}
+        {comments &&
+          comments.map((comment) => (
+            <CommentCard
+              key={comment?.id}
+              {...comment}
+              commentUser={allUsers.find(
+                (user) => user?.id === comment?.commentAuthorid
+              )}
+            />
+          ))}
 
         {/* <CommentCard /> */}
         {/* <CommentCard /> */}

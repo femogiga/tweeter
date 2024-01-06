@@ -13,6 +13,8 @@ import { useEffect, useState } from 'react';
 import { useAllTweetData } from '../../api/tweetData';
 import { useAllRetweetData } from '../../api/retweetData';
 import { useAllComments, useAllCommentsByTweetId } from '../../api/commentData';
+import { useAllTweetDataWithComments } from '../../api/tweetWithCommentData';
+import { useAllUserData } from '../../api/userData';
 
 const Homepage = () => {
   const {
@@ -25,9 +27,11 @@ const Homepage = () => {
   const {
     isPending: isCommentByAuthorIdPending,
     error: isErrorPrending,
-    data: commentData,
-  } = useAllComments();
-  console.log('commentData', commentData);
+    data: allTweetDataWithComment,
+  } = useAllTweetDataWithComments();
+  const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
+
+  console.log('allTweetWithComment', allTweetDataWithComment);
   console.log('retweet===>', allRetweetData);
   console.log('alltweet===>', allTweetData);
 
@@ -49,20 +53,21 @@ const Homepage = () => {
           <TweetInput />
           <WhocanModal />
           {/* <Retweeted /> */}
-          {allTweetData &&
-            allTweetData.map((tweet) => {
+          {allTweetDataWithComment &&
+            allTweetDataWithComment.map((tweet) => {
               const { firstName, lastName, photo } = tweet;
-              let author = { firstName, lastName, photo };
+
               const key = tweet?.id + tweet.createdAt;
 
               return (
                 <Card
                   key={`Card${key}`}
                   {...tweet}
-                  photo={tweet?.photo}
-                  author={author}
+                  // photo={tweet?.photo}
+                  author={allUsers.find((user) => user?.id === tweet?.authorid)}
+                  user={allUsers.find((user) => user?.id == tweet?.authorid)}
                   tweetId={tweet?.tweetId}
-                  
+                  id={tweet.id}
                 />
               );
             })}

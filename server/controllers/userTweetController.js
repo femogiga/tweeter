@@ -43,6 +43,26 @@ const getUserTweetsByIdWithComments = async (req, res) => {
   }
 };
 
+const getAllTweetsWithComments = async (req, res) => {
+  try {
+    const result = await prisma.tweet.findMany({
+      include: {
+        comments: true,
+      },
+
+
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
 // const getUserTweetsWithMedia = async (req, res) => {
 //   const authorid = parseInt(req.params.authorid);
 //   try {
@@ -84,4 +104,5 @@ module.exports = {
   getUserTweetsById,
   getUserTweetsByIdWithComments,
   getUserTweetsWithMedia,
+  getAllTweetsWithComments,
 };

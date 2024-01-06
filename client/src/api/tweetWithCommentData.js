@@ -25,3 +25,15 @@ export const useTweetDataByAuthorIdWithMedia = (authorid) => {
   });
   return { isPending, error, data };
 };
+
+
+export const useAllTweetDataWithComments = (authorid) => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ['allTweetWithComments'],
+    queryFn: () =>
+      apiService
+        .get(`/users/allusers/alltweets`)
+        .then((res) => res.data),
+  });
+  return { isPending, error, data };
+};
