@@ -16,7 +16,8 @@ import { useAllComments, useAllCommentsByTweetId } from '../../api/commentData';
 import { useAllTweetDataWithComments } from '../../api/tweetWithCommentData';
 import { useAllUserData } from '../../api/userData';
 
-const Homepage = () => {
+const Homepage = ({ }) => {
+
   const {
     isPending: isAllTweetPending,
     error: allTweetError,
@@ -67,7 +68,7 @@ const Homepage = () => {
                   author={allUsers.find((user) => user?.id === tweet?.authorid)}
                   user={allUsers.find((user) => user?.id == tweet?.authorid)}
                   tweetId={tweet?.tweetId}
-                  id={tweet.id}
+                  id={tweet?.id}
                 />
               );
             })}

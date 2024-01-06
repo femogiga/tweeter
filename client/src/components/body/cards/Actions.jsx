@@ -4,12 +4,14 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import LoopIcon from '@mui/icons-material/Loop';
-const Actions = () => {
+const Actions = ({ onCommentVisible }) => {
   return (
     <div className='actions flow-05'>
       <ul className='actions__list flex space-between'>
         <li>
-          <Link className='actions__list__items flex align-items--center'>
+          <Link
+            onClick={onCommentVisible}
+            className='actions__list__items flex align-items--center'>
             <ChatBubbleOutlineIcon />
             Comments
           </Link>

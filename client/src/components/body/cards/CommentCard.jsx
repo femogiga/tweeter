@@ -8,7 +8,7 @@ import { useUserData } from '../../../api/userData';
 const CommentCard = ({ reply, dateOfReply, commentUser,replyImageUrl }) => {
   // const { isPending, error, data: userDataById } = useUserData(commentAuthorid);
   const { firstName, lastName, photo } = commentUser;
-  console.log('commentUser===>', commentUser);
+  //console.log('commentUser===>', commentUser);
 
   // console.log('id', commentAuthorid);
   // console.log('userData', userDataById);

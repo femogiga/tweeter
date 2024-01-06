@@ -10,7 +10,7 @@ import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
 import { userFinder } from './../../../utils/userFinder';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   useAllComments,
   useAllCommentsByTweetId,
@@ -25,22 +25,16 @@ const Card = ({
   id,
   authorid,
 }) => {
-  // console.log('comments', comments);
-  //  const {
-  //    isPending,
-  //    error,
-  //    data: userDataById,
-  //  } = useUserData('commentAuthorid');
-
-  // console.log('id====>', id);
-  // let theUserData;
   const { data: allUsers } = useAllUserData();
-  // let cardUser = allUsers.find((user) => user?.id === authorid);
-
+  // let cardUser = allUsers.find((user) => user?.id === authorid);CO
   // console.log('theuser', theUserData);
+  const [commentVisible, setCommentVisible] = useState(false); //handle comment Visible set the state
+  const handleCommentVisibility = (e) => {
+    e.preventDefault();
+    setCommentVisible((commentVisible) => !commentVisible);
+  };
   const fullName = author?.firstName + ' ' + author?.lastName;
-  // console.log('mainuser', author);
-  // console.log('allUsers===>', allUsers);
+
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
@@ -60,21 +54,24 @@ const Card = ({
 
           {imageUrl && <TweetImage imageUrl={imageUrl} />}
           <Stats />
-          <Actions />
+          <Actions onCommentVisible={handleCommentVisibility} />
           <Comment />
         </div>
       </div>
       <div className='comment-card-cont'>
         {comments &&
-          comments.map((comment) => (
-            <CommentCard
-              key={comment?.id}
-              {...comment}
-              commentUser={allUsers.find(
-                (user) => user?.id === comment?.commentAuthorid
-              )}
-            />
-          ))}
+          comments.map(
+            (comment) =>
+              commentVisible && (
+                <CommentCard
+                  key={comment?.id}
+                  {...comment}
+                  commentUser={allUsers.find(
+                    (user) => user?.id === comment?.commentAuthorid
+                  )}
+                />
+              )
+          )}
 
         {/* <CommentCard /> */}
         {/* <CommentCard /> */}
