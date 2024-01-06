@@ -65,8 +65,8 @@ const Homepage = ({ }) => {
                   key={`Card${key}`}
                   {...tweet}
                   // photo={tweet?.photo}
-                  author={allUsers.find((user) => user?.id === tweet?.authorid)}
-                  user={allUsers.find((user) => user?.id == tweet?.authorid)}
+                  author={allUsers && allUsers.find((user) => user?.id === tweet?.authorid)}
+                  user={allUsers && allUsers.find((user) => user?.id == tweet?.authorid)}
                   tweetId={tweet?.tweetId}
                   id={tweet?.id}
                 />

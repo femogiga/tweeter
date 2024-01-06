@@ -13,16 +13,17 @@ import { useAllUserData } from '../../api/userData';
 import { userFinder } from '../../utils/userFinder';
 import { useRetweetDataByAuthorId } from '../../api/retweetData';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getRetweetCountbyId } from '../../api/actionData';
 const Main = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));
   //const id = parseInt(userData?.id);
-// const[id,setId] = useState(userData?.id)
-  const navigate = useNavigate()
-  let {id} = useParams()
-
+  //const[id1,setId] = useState(userData?.id)
+  const navigate = useNavigate();
+  let { id } = useParams();
+console.log('id: ' + id);
   useEffect(() => {
 
-  },[]);
+  }, [id, navigate]);
   const {
     isPending: isTweetDataPending,
     error: tweetError,
@@ -40,24 +41,24 @@ const Main = () => {
     data: tweetWIthMediaData,
   } = useTweetDataByAuthorIdWithMedia(id);
   const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
-  const { isPending: isRetweetpending, data: retweetData } =
-    useRetweetDataByAuthorId(id);
-  //console.log('tweetComment', tweetWithCommentData);
+  const { isPending: isRetweetpending, data: retweetData } =useRetweetDataByAuthorId(id);
+
+  console.log('tweetComment', tweetWithCommentData);
   //console.log('tweet', tweetData);
   //console.log('retweet===>', retweetData);
 
   //console.log('tweetWIthMediaData===>', tweetWIthMediaData);
   const [data, setData] = useState(tweetData);
 
-  const handleTweet = (e, dataToSet) => {
+  const handleTweet = async (e, dataToSet) => {
     e.preventDefault();
-    setData(dataToSet);
+   await setData(dataToSet);
   };
   useEffect(() => {
     isTweetDataPending ? 'loading' : setData(tweetData);
   }, [tweetData]);
 
-  //console.log('data', data);
+  console.log('data', data);
   return (
     <main className='main'>
       <div className='main__container'>
@@ -67,18 +68,18 @@ const Main = () => {
           onClickTweetWithMedia={(e) => handleTweet(e, tweetWIthMediaData)}
         />
         <div className='card-parent'>
-          {data &&
-            data.map((item) => (
+          {
+            data && data.map((item) => {
+              return(
               <Card
                 key={item?.id}
                 // author={userFinder(allUsers, item?.authorid)}
-                author={allUsers.find((user) => user.id == item?.authorid)}
+                author={allUsers && allUsers.find((user) => user?.id == item?.authorid)}
                 {...item}
-                user={allUsers.find((user) => user.id == item?.authorid)}
+                user={allUsers && allUsers.find((user) => user?.id == item?.authorid)}
                 id={item?.id}
-
-              />
-            ))}
+              />);
+            })}
           {/* to do -- fix rewteet */}
           {retweetData &&
             retweetData.map((retweet) => (
@@ -91,10 +92,10 @@ const Main = () => {
                   key={retweet?.id}
                   {...retweet}
                   author={allUsers.find(
-                    (user) => user.id === retweet?.authorid
+                    (user) => user?.id === retweet?.authorid
                   )}
                   commentUser={allUsers.find(
-                    (user) => user.id === retweet?.commentAuthorid
+                    (user) => user?.id === retweet?.commentAuthorid
                   )}
                   commentAuthorid={retweet?.commentAuthorid}
                 />

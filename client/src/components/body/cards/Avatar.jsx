@@ -3,7 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Avatar = ({ photo, id }) => {
   const navigate = useNavigate()
-  const handleAvatarClick =  () => {
+  useEffect(() =>{},[navigate])
+  const handleAvatarClick = (e) => {
+    //e.preventDefault()
     navigate(`/profile/${id}`)
     window.location.reload()
       window.scrollTo(0, 0);

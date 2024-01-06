@@ -15,6 +15,7 @@ import {
   useAllComments,
   useAllCommentsByTweetId,
 } from '../../../api/commentData';
+import { getRetweetCountbyId } from '../../../api/actionData';
 const Card = ({
   content,
   imageUrl,
@@ -25,7 +26,11 @@ const Card = ({
   id,
   authorid,
 }) => {
-  const { data: allUsers } = useAllUserData();
+  const { isPending:isAllUsersPending ,data: allUsers } = useAllUserData();
+   const { isPending: isRetweetCountPending, data: retweetCount } =
+     getRetweetCountbyId(id);
+  const countRetweet = isRetweetCountPending ? 'loading' : retweetCount[0];
+  //console.log('count: ' + countRetweet);
   // let cardUser = allUsers.find((user) => user?.id === authorid);CO
   // console.log('theuser', theUserData);
   const [commentVisible, setCommentVisible] = useState(false); //handle comment Visible set the state
@@ -34,7 +39,7 @@ const Card = ({
     setCommentVisible((commentVisible) => !commentVisible);
   };
   const fullName = author?.firstName + ' ' + author?.lastName;
-
+ const commentCount = comments?.length
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
@@ -53,7 +58,7 @@ const Card = ({
           </p>
 
           {imageUrl && <TweetImage imageUrl={imageUrl} />}
-          <Stats />
+          <Stats retweetCount={countRetweet?.count} commentCount={commentCount} />
           <Actions onCommentVisible={handleCommentVisibility} />
           <Comment />
         </div>

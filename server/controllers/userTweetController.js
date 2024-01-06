@@ -50,7 +50,6 @@ const getAllTweetsWithComments = async (req, res) => {
         comments: true,
       },
 
-
       orderBy: {
         createdAt: 'desc',
       },
