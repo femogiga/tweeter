@@ -1,21 +1,15 @@
-import { Link } from 'react-router-dom';
 import Avatar from './Avatar';
 import FullDate from './FullDate';
 import Fullname from './Fullname';
-import Retweeted from './Retweeted';
 import Actions from './Actions';
 import Comment from './Comment';
 import Stats from './Stats';
 import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
-import { userFinder } from './../../../utils/userFinder';
 import { useEffect, useState } from 'react';
-import {
-  useAllComments,
-  useAllCommentsByTweetId,
-} from '../../../api/commentData';
-import { getRetweetCountbyId } from '../../../api/actionData';
+import {  useRetweetCountbyId } from './../../../api/actionData';
+import {useAllComments,useAllCommentsByTweetId,} from '../../../api/commentData';
 const Card = ({
   content,
   imageUrl,
@@ -26,9 +20,12 @@ const Card = ({
   id,
   authorid,
 }) => {
-  const { isPending:isAllUsersPending ,data: allUsers } = useAllUserData();
-   const { isPending: isRetweetCountPending, data: retweetCount } =
-     getRetweetCountbyId(id);
+  const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
+  const { isPending: isRetweetCountPending, data: retweetCount } =
+    useRetweetCountbyId(id);
+    //const { isPending: iscommentLikeCountPending, data: commentLikeCount } = useCommentLikeCountbyId(id);
+
+ // const commentLike = isLikeCountPending ?'loading..' : likeCount[0]
   const countRetweet = isRetweetCountPending ? 'loading' : retweetCount[0];
   //console.log('count: ' + countRetweet);
   // let cardUser = allUsers.find((user) => user?.id === authorid);CO
@@ -39,7 +36,7 @@ const Card = ({
     setCommentVisible((commentVisible) => !commentVisible);
   };
   const fullName = author?.firstName + ' ' + author?.lastName;
- const commentCount = comments?.length
+  const commentCount = comments?.length;
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
@@ -58,7 +55,11 @@ const Card = ({
           </p>
 
           {imageUrl && <TweetImage imageUrl={imageUrl} />}
-          <Stats retweetCount={countRetweet?.count} commentCount={commentCount} />
+          <Stats
+            retweetCount={countRetweet?.count}
+            commentCount={commentCount}
+
+          />
           <Actions onCommentVisible={handleCommentVisibility} />
           <Comment />
         </div>
@@ -74,6 +75,8 @@ const Card = ({
                   commentUser={allUsers.find(
                     (user) => user?.id === comment?.commentAuthorid
                   )}
+                  commentId={comment?.id}
+
                 />
               )
           )}

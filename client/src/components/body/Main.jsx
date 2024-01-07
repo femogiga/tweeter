@@ -13,7 +13,6 @@ import { useAllUserData } from '../../api/userData';
 import { userFinder } from '../../utils/userFinder';
 import { useRetweetDataByAuthorId } from '../../api/retweetData';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getRetweetCountbyId } from '../../api/actionData';
 const Main = () => {
   const userData = JSON.parse(localStorage.getItem('userData'));
   //const id = parseInt(userData?.id);

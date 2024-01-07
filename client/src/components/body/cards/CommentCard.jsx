@@ -4,12 +4,25 @@ import FullDate from './FullDate';
 import Fullname from './Fullname';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useUserData } from '../../../api/userData';
+import { useCommentLikeCountbyId } from '../../../api/actionData';
 
-const CommentCard = ({ reply, dateOfReply, commentUser,replyImageUrl }) => {
+const CommentCard = ({
+  reply,
+  dateOfReply,
+  commentUser,
+  replyImageUrl,
+  id,
+  comment,
+  commentId
+}) => {
+
+  console.log('comment',comment)
   // const { isPending, error, data: userDataById } = useUserData(commentAuthorid);
   const { firstName, lastName, photo } = commentUser;
   //console.log('commentUser===>', commentUser);
-
+  const { isPending: iscommentLikeCountPending, data: commentLikeCount } =
+    useCommentLikeCountbyId(commentId);
+  console.log('commentId===>', commentLikeCount);
   // console.log('id', commentAuthorid);
   // console.log('userData', userDataById);
   // const { firstName, lastName, photo } = userDataById;
@@ -17,7 +30,7 @@ const CommentCard = ({ reply, dateOfReply, commentUser,replyImageUrl }) => {
   return (
     <div className=' comment-card flow-1'>
       <div className='flex'>
-        <Avatar photo={photo} id={commentUser?.id } />
+        <Avatar photo={photo} id={commentUser?.id} />
         <div
           style={{
             padding: '.4rem 5rem .4rem .4rem',
@@ -36,7 +49,7 @@ const CommentCard = ({ reply, dateOfReply, commentUser,replyImageUrl }) => {
         </div>
       </div>
       <div className='reply-image'>
-        <img src = {replyImageUrl}/>
+        <img src={replyImageUrl} />
       </div>
       <ul className='like flex' style={{ paddingInline: '2rem' }}>
         <li>
@@ -47,7 +60,7 @@ const CommentCard = ({ reply, dateOfReply, commentUser,replyImageUrl }) => {
         </li>
         <li>
           <Link className='actions__list__items flex align-items--center'>
-            12k Likes
+            {iscommentLikeCountPending ? 'loading':commentLikeCount[0]?.count + ' Likes' || '12k' + ' Likes'}
           </Link>
         </li>
       </ul>
