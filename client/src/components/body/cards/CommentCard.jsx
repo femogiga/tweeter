@@ -13,16 +13,16 @@ const CommentCard = ({
   replyImageUrl,
   id,
   comment,
-  commentId
+  commentId,
 }) => {
-
-  console.log('comment',comment)
+  console.log('CommentId=====>', commentId);
+  console.log('comment', comment);
   // const { isPending, error, data: userDataById } = useUserData(commentAuthorid);
   const { firstName, lastName, photo } = commentUser;
   //console.log('commentUser===>', commentUser);
   const { isPending: iscommentLikeCountPending, data: commentLikeCount } =
-    useCommentLikeCountbyId(commentId);
-  console.log('commentId===>', commentLikeCount);
+    useCommentLikeCountbyId(id);
+  // console.log('commentLike===>', commentLikeCount);
   // console.log('id', commentAuthorid);
   // console.log('userData', userDataById);
   // const { firstName, lastName, photo } = userDataById;
@@ -60,7 +60,9 @@ const CommentCard = ({
         </li>
         <li>
           <Link className='actions__list__items flex align-items--center'>
-            {iscommentLikeCountPending ? 'loading':commentLikeCount[0]?.count + ' Likes' || '12k' + ' Likes'}
+            {iscommentLikeCountPending
+              ? 'loading'
+              : commentLikeCount[0]?.count + ' Likes' || '12k' + ' Likes'}
           </Link>
         </li>
       </ul>

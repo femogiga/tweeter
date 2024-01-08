@@ -15,6 +15,7 @@ import { useAllRetweetData } from '../../api/retweetData';
 import { useAllComments, useAllCommentsByTweetId } from '../../api/commentData';
 import { useAllTweetDataWithComments } from '../../api/tweetWithCommentData';
 import { useAllUserData } from '../../api/userData';
+import { useWhoToFollow } from '../../api/actionData';
 
 const Homepage = ({ }) => {
 
@@ -32,6 +33,11 @@ const Homepage = ({ }) => {
   } = useAllTweetDataWithComments();
   const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
 
+  const{ isPending:whoTofollowPending, data:whoToFollowData} = useWhoToFollow()
+  let first = whoTofollowPending? 'Loading':whoToFollowData[0];
+  let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[1]; ;
+
+  console.log('who to ',whoToFollowData);
   console.log('allTweetWithComment', allTweetDataWithComment);
   console.log('retweet===>', allRetweetData);
   console.log('alltweet===>', allTweetData);
@@ -65,8 +71,14 @@ const Homepage = ({ }) => {
                   key={`Card${key}`}
                   {...tweet}
                   // photo={tweet?.photo}
-                  author={allUsers && allUsers.find((user) => user?.id === tweet?.authorid)}
-                  user={allUsers && allUsers.find((user) => user?.id == tweet?.authorid)}
+                  author={
+                    allUsers &&
+                    allUsers.find((user) => user?.id === tweet?.authorid)
+                  }
+                  user={
+                    allUsers &&
+                    allUsers.find((user) => user?.id == tweet?.authorid)
+                  }
                   tweetId={tweet?.tweetId}
                   id={tweet?.id}
                 />
@@ -92,8 +104,8 @@ const Homepage = ({ }) => {
               Who to follow
             </p>
 
-            <FollowCard />
-            <FollowCard />
+            <FollowCard {...first} />
+            <FollowCard  {...second} />
           </div>
         </aside>
       </div>

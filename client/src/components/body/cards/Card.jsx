@@ -8,7 +8,7 @@ import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
 import { useEffect, useState } from 'react';
-import {  useRetweetCountbyId } from './../../../api/actionData';
+import {  useCommentLikeCountbyId, useRetweetCountbyId } from './../../../api/actionData';
 import {useAllComments,useAllCommentsByTweetId,} from '../../../api/commentData';
 const Card = ({
   content,
@@ -23,9 +23,7 @@ const Card = ({
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
   const { isPending: isRetweetCountPending, data: retweetCount } =
     useRetweetCountbyId(id);
-    //const { isPending: iscommentLikeCountPending, data: commentLikeCount } = useCommentLikeCountbyId(id);
-
- // const commentLike = isLikeCountPending ?'loading..' : likeCount[0]
+//console.log('commentCountLike=====>' , commentLikeCount)
   const countRetweet = isRetweetCountPending ? 'loading' : retweetCount[0];
   //console.log('count: ' + countRetweet);
   // let cardUser = allUsers.find((user) => user?.id === authorid);CO
@@ -67,19 +65,23 @@ const Card = ({
       <div className='comment-card-cont'>
         {comments &&
           comments.map(
-            (comment) =>
-              commentVisible && (
-                <CommentCard
-                  key={comment?.id}
-                  {...comment}
-                  commentUser={allUsers.find(
-                    (user) => user?.id === comment?.commentAuthorid
-                  )}
-                  commentId={comment?.id}
+            (comment) => {
+                 
 
-                />
-              )
-          )}
+             return (
+               commentVisible && (
+                 <CommentCard
+                   key={comment?.id}
+                   {...comment}
+                   commentUser={allUsers.find(
+                     (user) => user?.id === comment?.commentAuthorid
+                   )}
+                   commentId={comment?.id}
+
+                 />
+               )
+             );
+            } )}
 
         {/* <CommentCard /> */}
         {/* <CommentCard /> */}

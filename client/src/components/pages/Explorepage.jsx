@@ -9,21 +9,21 @@ import Card from '../body/cards/Card';
 import { useEffect, useState } from 'react';
 
 const Explorepage = () => {
-  // const [token, setToken] = useState(null);
+  //const { isPending, error, data } = useCard()
+  //console.log('cardDataCentral',data)
   const navigate = useNavigate();
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
     // setToken(userToken);
     if (!userToken) {
       navigate('/login');
-     
     }
   }, [navigate]);
 
   return (
     <Container>
       <Header />
-      <main className='explore-container' >
+      <main className='explore-container'>
         <aside className='explore-nav'>
           <ExploreNav />
         </aside>

@@ -33,3 +33,29 @@ export const useCommentLikeCountbyId = (commentId) => {
   });
   return { isPending, error, data };
 };
+
+export const useWhoToFollow = () => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ['whoToFollow'],
+    queryFn: () =>
+      apiService
+        .get("/actions/whotofollow")
+        .then((res) => res.data),
+  });
+  return { isPending, error, data };
+};
+
+
+
+
+
+// export const useCard = () => {
+//   const { isPending, error, data } = useQuery({
+//     queryKey: ['useCard'],
+//     queryFn: () =>
+//       apiService
+//         .get(`/actions/trials`)
+//         .then((res) => res.data),
+//   });
+//   return { isPending, error, data };
+// };
