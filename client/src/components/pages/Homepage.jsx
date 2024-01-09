@@ -16,9 +16,9 @@ import { useAllComments, useAllCommentsByTweetId } from '../../api/commentData';
 import { useAllTweetDataWithComments } from '../../api/tweetWithCommentData';
 import { useAllUserData } from '../../api/userData';
 import { useWhoToFollow } from '../../api/actionData';
+import { randomGenerator } from '../../utils/randomGen';
 
-const Homepage = ({ }) => {
-
+const Homepage = ({}) => {
   const {
     isPending: isAllTweetPending,
     error: allTweetError,
@@ -33,11 +33,14 @@ const Homepage = ({ }) => {
   } = useAllTweetDataWithComments();
   const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
 
-  const{ isPending:whoTofollowPending, data:whoToFollowData} = useWhoToFollow()
-  let first = whoTofollowPending? 'Loading':whoToFollowData[0];
-  let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[1]; ;
+  const { isPending: whoTofollowPending, data: whoToFollowData } =
+    useWhoToFollow();
+  const length = whoTofollowPending ? 'Loading..' : whoToFollowData.length - 1;
+  const [firstNum, secondNum] = randomGenerator(length);
+  let first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];
+  let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];
 
-  console.log('who to ',whoToFollowData);
+  console.log('who to ', whoToFollowData);
   console.log('allTweetWithComment', allTweetDataWithComment);
   console.log('retweet===>', allRetweetData);
   console.log('alltweet===>', allTweetData);
@@ -105,7 +108,7 @@ const Homepage = ({ }) => {
             </p>
 
             <FollowCard {...first} />
-            <FollowCard  {...second} />
+            <FollowCard {...second} />
           </div>
         </aside>
       </div>

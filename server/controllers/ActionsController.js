@@ -63,9 +63,12 @@ const getCommentLikeCount = async (req, res, next) => {
 const getWhoTofollow = async (req, res, next) => {
   try {
     //const person = parseInt(req.params.commentId);
-    const persons = await knex('User').where('User.email', '!=', req.user.email).limit(2);
+    const persons = await knex('User').where('User.email', '!=', req.user.email);
 
+
+    
     res.status(200).json(persons);
+
 
 
   } catch (error) {
