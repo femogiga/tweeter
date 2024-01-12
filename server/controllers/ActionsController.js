@@ -63,16 +63,32 @@ const getCommentLikeCount = async (req, res, next) => {
 const getWhoTofollow = async (req, res, next) => {
   try {
     //const person = parseInt(req.params.commentId);
-    const persons = await knex('User').where('User.email', '!=', req.user.email);
+    const persons = await knex('User').where(
+      'User.email',
+      '!=',
+      req.user.email
+    );
 
-
-    
     res.status(200).json(persons);
-
-
-
   } catch (error) {
     console.log(error);
+    res.status(500).json(error);
+  }
+};
+
+//
+
+const getTweetsByFollowedUsers = async (req, res, next) => {
+  try {
+    const tweetsByFollowedUsers = await knex('Tweet')
+      .join('Follower', 'Follower.personId', '=', 'Tweet.authorid')
+      //.join('Comment', 'Comment.tweetId', '=', 'Tweet.id')
+      .where('Follower.followerId', req.user.id); // Assuming req.user has the follower's ID
+    //.groupBy('Tweet.id');
+
+    res.status(200).json(tweetsByFollowedUsers);
+  } catch (error) {
+    console.error(error);
     res.status(500).json(error);
   }
 };
@@ -110,4 +126,5 @@ module.exports = {
   getLikeCount,
   getCommentLikeCount,
   getWhoTofollow,
+  getTweetsByFollowedUsers,
 };

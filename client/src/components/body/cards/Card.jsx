@@ -19,12 +19,14 @@ const Card = ({
   author,
   id,
   authorid,
+  retweetCount
+
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
-  const { isPending: isRetweetCountPending, data: retweetCount } =
-    useRetweetCountbyId(id);
+ // const { isPending: isRetweetCountPending, data: retweetCount } =
+   // useRetweetCountbyId(id);
 //console.log('commentCountLike=====>' , commentLikeCount)
-  const countRetweet = isRetweetCountPending ? 'loading' : retweetCount[0];
+  //const countRetweet = isRetweetCountPending ? 'loading' : retweetCount[0];
   //console.log('count: ' + countRetweet);
   // let cardUser = allUsers.find((user) => user?.id === authorid);CO
   // console.log('theuser', theUserData);
@@ -54,7 +56,7 @@ const Card = ({
 
           {imageUrl && <TweetImage imageUrl={imageUrl} />}
           <Stats
-            retweetCount={countRetweet?.count}
+            retweetCount={retweetCount}
             commentCount={commentCount}
 
           />
@@ -66,7 +68,7 @@ const Card = ({
         {comments &&
           comments.map(
             (comment) => {
-                 
+
 
              return (
                commentVisible && (

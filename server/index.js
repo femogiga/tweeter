@@ -10,6 +10,7 @@ const allRetweetRoute = require('./routes/retweetRoute');
 const commentRoute = require('./routes/commentRoute');
 const actionRoute = require('./routes/actionRoute')
 const authMiddleware = require('./authentication/authMiddleware');
+const topRoute = require('./routes/topRoute')
 const app = express();
 
 app.use(morgan('tiny'));
@@ -20,7 +21,8 @@ app.use('/tweets', authMiddleware, tweetRoute);
 app.use('/users', authMiddleware, userTweetRoute);
 app.use('/retweets', authMiddleware, allRetweetRoute);
 app.use('/comments', authMiddleware, commentRoute);
-app.use('/actions', authMiddleware,actionRoute);
+app.use('/actions', authMiddleware, actionRoute);
+app.use('/explore',topRoute)
 app.get('/', (req, res) => {
   res.send('Welcome to my application');
 });

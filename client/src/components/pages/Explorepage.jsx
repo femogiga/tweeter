@@ -7,10 +7,13 @@ import ExploreNav from './../body/ExploreNav';
 import { Button } from '@mui/material';
 import Card from '../body/cards/Card';
 import { useEffect, useState } from 'react';
+import { useTopExploreData } from '../../api/exploreData';
+import { useAllUserData } from '../../api/userData';
 
 const Explorepage = () => {
   //const { isPending, error, data } = useCard()
   //console.log('cardDataCentral',data)
+
   const navigate = useNavigate();
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
@@ -20,6 +23,10 @@ const Explorepage = () => {
     }
   }, [navigate]);
 
+  const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
+
+  const { isPending, error, data } = useTopExploreData();
+  console.log('exploreData====>', data);
   return (
     <Container>
       <Header />
@@ -34,7 +41,17 @@ const Explorepage = () => {
             <Button variant='contained'>Search</Button>
           </form>
           <div>
-            <Card />
+            {data &&
+              data.map((item) => (
+                <Card
+                  key={item.id}
+                  {...item}
+                  author={
+                    allUsers &&
+                    allUsers.find((user) => user?.id === item?.authorid)
+                  }
+                />
+              ))}
             <Card />
           </div>
         </div>
