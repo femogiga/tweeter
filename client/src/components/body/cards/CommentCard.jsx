@@ -18,19 +18,20 @@ const CommentCard = ({
   console.log('CommentId=====>', commentId);
   console.log('comment', comment);
   // const { isPending, error, data: userDataById } = useUserData(commentAuthorid);
-  const { firstName, lastName, photo } = commentUser;
+  console.log('commentUser', commentUser);
+  //const { firstName, lastName, photo } = commentUser;
   //console.log('commentUser===>', commentUser);
-  const { isPending: iscommentLikeCountPending, data: commentLikeCount } =
-    useCommentLikeCountbyId(id);
+  //const { isPending: iscommentLikeCountPending, data: commentLikeCount } =
+  //useCommentLikeCountbyId(id);
   // console.log('commentLike===>', commentLikeCount);
   // console.log('id', commentAuthorid);
   // console.log('userData', userDataById);
   // const { firstName, lastName, photo } = userDataById;
-  const fullName = firstName + ' ' + lastName;
+  //const fullName = firstName + ' ' + lastName;
   return (
     <div className=' comment-card flow-1'>
       <div className='flex'>
-        <Avatar photo={photo} id={commentUser?.id} />
+        <Avatar photo={commentUser?.photo} id={commentUser?.id} />
         <div
           style={{
             padding: '.4rem 5rem .4rem .4rem',
@@ -39,7 +40,9 @@ const CommentCard = ({
             color: '#4F4F4F',
           }}>
           <div className='flex align-items--center'>
-            <Fullname fullName={fullName} />
+            <Fullname
+              fullName={commentUser?.firstName + ' ' + commentUser?.lastName}
+            />
             <FullDate dateOfReply={dateOfReply} />
           </div>
           <p>
@@ -60,9 +63,7 @@ const CommentCard = ({
         </li>
         <li>
           <Link className='actions__list__items flex align-items--center'>
-            {iscommentLikeCountPending
-              ? 'loading'
-              : commentLikeCount[0]?.count + ' Likes' || '12k' + ' Likes'}
+            {'12k' + ' Likes'}
           </Link>
         </li>
       </ul>

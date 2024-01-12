@@ -78,7 +78,7 @@ const Card = ({
                 <CommentCard
                   key={comment?.id}
                   {...comment}
-                  commentUser={allUsers.find(
+                  commentUser={allUsers && allUsers.find(
                     (user) => user?.id === comment?.commentAuthorid
                   )}
                   commentId={comment?.id}
