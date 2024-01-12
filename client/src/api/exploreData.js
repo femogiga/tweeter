@@ -15,3 +15,12 @@ export const useTopExploreData = () => {
   });
   return { isPending, error, data };
 };
+
+
+export const useLatestExploreData = () => {
+  const { isPending, error, data } = useQuery({
+    queryKey: ['LatestExploreData'],
+    queryFn: () => apiService.get(`/explore/latesttweets`).then((res) => res.data),
+  });
+  return { isPending, error, data };
+};

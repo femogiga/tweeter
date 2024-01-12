@@ -52,7 +52,7 @@ const Explorepage = () => {
                   }
                 />
               ))}
-            <Card />
+            {/* <Card /> */}
           </div>
         </div>
       </main>

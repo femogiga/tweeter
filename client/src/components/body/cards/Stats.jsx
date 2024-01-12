@@ -1,4 +1,4 @@
-const Stats = ({ retweetCount, commentCount }) => {
+const Stats = ({ retweetCount, commentCount, savedCount }) => {
   return (
     <div
       className='stats flex justify-content--flexend'
@@ -16,7 +16,7 @@ const Stats = ({ retweetCount, commentCount }) => {
         Retweets
       </p>
       <p>
-        <span>234 </span>
+        <span>{savedCount || '3K'} </span>
         Saved
       </p>
     </div>

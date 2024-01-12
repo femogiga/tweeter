@@ -8,8 +8,14 @@ import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
 import { useAllUserData, useUserData } from '../../../api/userData';
 import { useEffect, useState } from 'react';
-import {  useCommentLikeCountbyId, useRetweetCountbyId } from './../../../api/actionData';
-import {useAllComments,useAllCommentsByTweetId,} from '../../../api/commentData';
+import {
+  useCommentLikeCountbyId,
+  useRetweetCountbyId,
+} from './../../../api/actionData';
+import {
+  useAllComments,
+  useAllCommentsByTweetId,
+} from '../../../api/commentData';
 const Card = ({
   content,
   imageUrl,
@@ -19,13 +25,13 @@ const Card = ({
   author,
   id,
   authorid,
-  retweetCount
-
+  retweetCount,
+  savedCount,
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
- // const { isPending: isRetweetCountPending, data: retweetCount } =
-   // useRetweetCountbyId(id);
-//console.log('commentCountLike=====>' , commentLikeCount)
+  // const { isPending: isRetweetCountPending, data: retweetCount } =
+  // useRetweetCountbyId(id);
+  //console.log('commentCountLike=====>' , commentLikeCount)
   //const countRetweet = isRetweetCountPending ? 'loading' : retweetCount[0];
   //console.log('count: ' + countRetweet);
   // let cardUser = allUsers.find((user) => user?.id === authorid);CO
@@ -58,7 +64,7 @@ const Card = ({
           <Stats
             retweetCount={retweetCount}
             commentCount={commentCount}
-
+            savedCount={savedCount}
           />
           <Actions onCommentVisible={handleCommentVisibility} />
           <Comment />
@@ -66,24 +72,20 @@ const Card = ({
       </div>
       <div className='comment-card-cont'>
         {comments &&
-          comments.map(
-            (comment) => {
-
-
-             return (
-               commentVisible && (
-                 <CommentCard
-                   key={comment?.id}
-                   {...comment}
-                   commentUser={allUsers.find(
-                     (user) => user?.id === comment?.commentAuthorid
-                   )}
-                   commentId={comment?.id}
-
-                 />
-               )
-             );
-            } )}
+          comments.map((comment) => {
+            return (
+              commentVisible && (
+                <CommentCard
+                  key={comment?.id}
+                  {...comment}
+                  commentUser={allUsers.find(
+                    (user) => user?.id === comment?.commentAuthorid
+                  )}
+                  commentId={comment?.id}
+                />
+              )
+            );
+          })}
 
         {/* <CommentCard /> */}
         {/* <CommentCard /> */}
