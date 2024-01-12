@@ -82,13 +82,13 @@ console.log('id: ' + id);
           {/* to do -- fix rewteet */}
           {retweetData &&
             retweetData.map((retweet) => (
-              <>
+              <div key={`RetweetContainer-${retweet?.id}`}>
                 <Retweeted
                   firstName={retweet?.firstName}
                   lastName={retweet?.lastName}
                 />
                 <Card
-                  key={retweet?.id}
+                  key={`Retweet-${retweet?.id}`}
                   {...retweet}
                   author={allUsers.find(
                     (user) => user?.id === retweet?.authorid
@@ -98,7 +98,7 @@ console.log('id: ' + id);
                   )}
                   commentAuthorid={retweet?.commentAuthorid}
                 />
-              </>
+              </div>
             ))}
           {/* <Card />
           <Card />

@@ -92,7 +92,8 @@ const getTopTweets = async (req, res, next) => {
 
       .leftJoin('Comment', 'Tweet.id', '=', 'Comment.tweetId')
       .groupBy('Tweet.id')
-      .orderBy('Tweet.createdAt', 'desc');
+      .orderBy('retweetCount', 'desc');
+
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

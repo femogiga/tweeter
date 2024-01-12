@@ -7,7 +7,7 @@ import ExploreNav from './../body/ExploreNav';
 import { Button } from '@mui/material';
 import Card from '../body/cards/Card';
 import { useEffect, useState } from 'react';
-import { useTopExploreData } from '../../api/exploreData';
+import { useLatestExploreData, useTopExploreData } from '../../api/exploreData';
 import { useAllUserData } from '../../api/userData';
 
 const Explorepage = () => {
@@ -25,14 +25,37 @@ const Explorepage = () => {
 
   const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
 
-  const { isPending, error, data } = useTopExploreData();
-  console.log('exploreData====>', data);
+  const { isPending: isTopDataPending, error, data: topData } = useTopExploreData();
+   const {
+     isPending: isLatestDataPending,
+     error:latestError,
+     data: latestData,
+  } = useLatestExploreData();
+
+
+  const [data, setData] = useState(topData);
+
+  const handleTweet = (e, dataToSet) => {
+    e.preventDefault();
+    setData(dataToSet);
+    return
+  };
+  useEffect(() => {
+    isTopDataPending ? 'loading' : setData(topData);
+
+  }, [topData,isTopDataPending]);
+  console.log('latestexploreData====>', latestData);
+    console.log('topexploreData====>', topData);
+
   return (
     <Container>
       <Header />
       <main className='explore-container'>
         <aside className='explore-nav'>
-          <ExploreNav />
+          <ExploreNav
+            onHandleTop={(e) => handleTweet(e, topData)}
+            onHandleLatest={(e) => handleTweet(e, latestData)}
+          />
         </aside>
         <div className='explore-content' style={{ marginBlockStart: '1rem' }}>
           <form action='' className='search-form flow-1'>
