@@ -9,6 +9,7 @@ import Card from '../body/cards/Card';
 import { useEffect, useState } from 'react';
 import { useLatestExploreData, useTopExploreData, useTopMediaData, useTopPeopleData } from '../../api/exploreData';
 import { useAllUserData } from '../../api/userData';
+import { useStatByAuthorId } from '../../api/statData';
 
 const Explorepage = () => {
   //const { isPending, error, data } = useCard()
@@ -33,7 +34,8 @@ const Explorepage = () => {
   } = useLatestExploreData();
   const { isPending: isTopPeoplePending, data: topPeopleData } = useTopPeopleData()
     const { isPending: isTopMediaPending, data: topMediaData } =
-      useTopMediaData();
+    useTopMediaData();
+
 
 
 

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setFollowingModalVisibility } from '../../features/ModalSlice';
 import { useUserData } from '../../api/userData';
 import { useParams } from 'react-router-dom';
+import { useStatByAuthorId } from '../../api/statData';
 const PageImage = () => {
   // button follower activates the followingModal with handleFollowingModal
   const dispatch = useDispatch();
@@ -12,10 +13,18 @@ const PageImage = () => {
     dispatch(setFollowingModalVisibility('show'));
   };
   const parsedUser = JSON.parse(localStorage.getItem('userData'));
-  const {id} = useParams()
+  const { id } = useParams();
   //fetches user data
   const { isPending, error, data } = useUserData(id);
+  const {
+    isPending: isStatPending,
+    error: statError,
+    data: statData,
+  } = useStatByAuthorId(id);
+
+  console.table(statData);
   const fullName = `${data?.firstName} ${data?.lastName}`;
+
   return (
     <div className='page-image '>
       <img
@@ -39,11 +48,15 @@ const PageImage = () => {
             <div className='flex align-items--center '>
               <p className='font-xl bold-6 color-dark-grey'>{fullName}</p>
               <p className=''>
-                <span className='bold-6'>2569</span>
+                <span className='bold-6'>
+                  {isStatPending ? 'Loading...' : statData[0]?.followingCount}
+                </span>
                 <span className='font-sm color-mid-gray'> Following</span>
               </p>
               <p>
-                <span className='bold-6'>10.8K</span>
+                <span className='bold-6'>
+                  {isStatPending ? 'Loading...' : statData[0]?.followerCount}
+                </span>
                 <span className='font-sm color-mid-gray'> Followers</span>
               </p>
             </div>
