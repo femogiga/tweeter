@@ -1,6 +1,11 @@
 import { Link } from 'react-router-dom';
 
-const ExploreNav = ({ onHandleTop, onHandleLatest }) => {
+const ExploreNav = ({
+  onHandleTop,
+  onHandleLatest,
+  onHandleTopPeople,
+  onHandleTopMedia,
+}) => {
   return (
     <nav className='sidenav shadow'>
       <ul
@@ -13,10 +18,10 @@ const ExploreNav = ({ onHandleTop, onHandleLatest }) => {
           <Link onClick={onHandleLatest}>Latest</Link>
         </li>
         <li>
-          <Link>People</Link>
+          <Link onClick={onHandleTopPeople}>People</Link>
         </li>
         <li>
-          <Link>Media</Link>
+          <Link onClick={onHandleTopMedia}>Media</Link>
         </li>
       </ul>
     </nav>

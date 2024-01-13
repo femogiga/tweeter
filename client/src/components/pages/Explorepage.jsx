@@ -7,7 +7,7 @@ import ExploreNav from './../body/ExploreNav';
 import { Button } from '@mui/material';
 import Card from '../body/cards/Card';
 import { useEffect, useState } from 'react';
-import { useLatestExploreData, useTopExploreData } from '../../api/exploreData';
+import { useLatestExploreData, useTopExploreData, useTopMediaData, useTopPeopleData } from '../../api/exploreData';
 import { useAllUserData } from '../../api/userData';
 
 const Explorepage = () => {
@@ -31,6 +31,10 @@ const Explorepage = () => {
      error:latestError,
      data: latestData,
   } = useLatestExploreData();
+  const { isPending: isTopPeoplePending, data: topPeopleData } = useTopPeopleData()
+    const { isPending: isTopMediaPending, data: topMediaData } =
+      useTopMediaData();
+
 
 
   const [data, setData] = useState(topData);
@@ -55,6 +59,8 @@ const Explorepage = () => {
           <ExploreNav
             onHandleTop={(e) => handleTweet(e, topData)}
             onHandleLatest={(e) => handleTweet(e, latestData)}
+            onHandleTopPeople={(e) => handleTweet(e, topPeopleData)}
+            onHandleTopMedia={(e) => handleTweet(e, topMediaData)}
           />
         </aside>
         <div className='explore-content' style={{ marginBlockStart: '1rem' }}>
