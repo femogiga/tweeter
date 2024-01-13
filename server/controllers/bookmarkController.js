@@ -8,7 +8,7 @@ const getTopBookmarkedTweets = async (req, res, next) => {
       .from('Tweet')
       .leftJoin('Saved', 'Saved.tweetId', '=', 'Tweet.id')
       .leftJoin('User', 'User.id', '=', 'Tweet.authorid')
-      .where('Saved.userId', id)
+      .where('Saved.userId', req.user.id)
       .select(
         'Tweet.id as id',
         'Tweet.content as content',
@@ -52,7 +52,7 @@ const getLatestBookmarkedTweets = async (req, res, next) => {
       .from('Tweet')
       .leftJoin('Saved', 'Saved.tweetId', '=', 'Tweet.id')
       .leftJoin('User', 'User.id', '=', 'Tweet.authorid')
-      .where('Saved.userId', id)
+      .where('Saved.userId', req.user.id)
       .select(
         'Tweet.id as id',
         'Tweet.content as content',
@@ -96,7 +96,7 @@ const getMediaBookmarkedTweets = async (req, res, next) => {
       .from('Tweet')
       .leftJoin('Saved', 'Saved.tweetId', '=', 'Tweet.id')
       .leftJoin('User', 'User.id', '=', 'Tweet.authorid')
-      .where('Saved.userId', id)
+      .where('Saved.userId', req.user.id)
       .whereNotNull('Tweet.imageUrl')
       .select(
         'Tweet.id as id',
@@ -136,14 +136,14 @@ const getMediaBookmarkedTweets = async (req, res, next) => {
 const getLikedBookmarkedTweets = async (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
-
     const result = await knex
       .from('Tweet')
       .leftJoin('Saved', 'Saved.tweetId', '=', 'Tweet.id')
       .leftJoin('User', 'User.id', '=', 'Tweet.authorid')
       .leftJoin('Like', 'Like.tweetId', '=', 'Tweet.id')
-      .where('Saved.userId', id)
-      .where('Like.userId', id)
+      .whereNotNull('Like.tweetId')
+      .where('Saved.userId', req.user.id)
+      .andWhere('Like.userId', req.user.id)
 
       .select(
         'Tweet.id as id',

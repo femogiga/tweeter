@@ -10,8 +10,8 @@ import LoginPage from './components/pages/LoginPage.jsx';
 import ProfilePage from './components/pages/ProfilePage.jsx';
 import Homepage from './components/pages/HomePage.jsx';
 import Explorepage from './components/pages/Explorepage.jsx';
-import Bookmarkpage from './components/pages/BookmarkPage.jsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Bookmarkpage from './components/pages/Bookmarkpage.jsx';
 
 const queryClient = new QueryClient();
 export const Root = () => {

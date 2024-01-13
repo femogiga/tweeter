@@ -4,6 +4,7 @@ const SideNav = ({
   onClickTweet,
   onClickTweetWithComment,
   onClickTweetWithMedia,
+  onHandleLike
 }) => {
   return (
     <aside>
@@ -24,7 +25,7 @@ const SideNav = ({
             <Link onClick={onClickTweetWithMedia}>Media</Link>
           </li>
           <li>
-            <Link>Likes</Link>
+            <Link onClick={onHandleLike}>Likes</Link>
           </li>
         </ul>
       </nav>
