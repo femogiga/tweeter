@@ -4,7 +4,7 @@ const SideNav = ({
   onClickTweet,
   onClickTweetWithComment,
   onClickTweetWithMedia,
-  onHandleLike
+  onHandleLike,
 }) => {
   return (
     <aside>
@@ -14,9 +14,7 @@ const SideNav = ({
           style={{ fontSize: '14px' }}>
           <li>
             <div className='active-link-indicator'></div>
-            <Link  onClick={onClickTweet}>
-              Tweets
-            </Link>
+            <Link onClick={onClickTweet}>Tweets</Link>
           </li>
           <li>
             <Link onClick={onClickTweetWithComment}>Tweets & replies</Link>

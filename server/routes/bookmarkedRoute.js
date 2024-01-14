@@ -7,9 +7,9 @@ const {
 
 const router = require('express').Router();
 
-router.get('/:id/latest', getLatestBookmarkedTweets);
-router.get('/:id/media', getMediaBookmarkedTweets);
-router.get('/:id/likes', getLikedBookmarkedTweets);
-router.get('/:id/top', getTopBookmarkedTweets);
+router.get('/tweets', getLatestBookmarkedTweets);
+router.get('/media', getMediaBookmarkedTweets);
+router.get('/likes', getLikedBookmarkedTweets);
+router.get('/latest', getTopBookmarkedTweets);
 
 module.exports = router;

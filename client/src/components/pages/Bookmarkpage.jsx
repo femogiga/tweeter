@@ -9,9 +9,12 @@ import Card from '../body/cards/Card';
 import { useEffect, useState } from 'react';
 import SideNav from './../body/SideNav';
 import {
+  useLatestBookmarkDataById,
   useLikeBookmarkDataById,
-  useTopBookmarkDataById,
+  useMediaBookmarkData,
+  useTweetBookmarkDataById,
 } from '../../api/bookmarkedData';
+import { useAllUserData } from '../../api/userData';
 
 const Bookmarkpage = () => {
   const navigate = useNavigate();
@@ -19,28 +22,33 @@ const Bookmarkpage = () => {
   const {
     isLatestPending,
     error,
-    data: latestData,
-  } = useTopBookmarkDataById();
+    data: tweetData,
+  } = useTweetBookmarkDataById();
   const {
     isLikePending,
     error: likeError,
     data: likeData,
   } = useLikeBookmarkDataById();
 
-  const [data, setData] = useState(latestData);
+  const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
+  const { isPending: isMediaDataPending, data: mediaData } =
+    useMediaBookmarkData();
+  const { isPending: isLatestDataPending, data: latestData } =
+    useLatestBookmarkDataById();
+
+  const [data, setData] = useState(tweetData);
 
   const handleTweet = (e, dataToSet) => {
     e.preventDefault();
     setData(dataToSet);
-    return;
   };
   useEffect(() => {
-    isLatestPending ? 'loading' : setData(latestData);
-  }, [latestData, isLatestPending]);
+    isLatestPending ? 'loading' : setData(tweetData);
+  }, [tweetData, likeData, isLatestPending]);
 
-  console.log('Bookmark', latestData);
+  console.log('tweetData', tweetData);
   console.log('like==>', likeData);
-
+  console.log('MediaData=>`', mediaData);
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
     if (!userToken) {
@@ -54,8 +62,10 @@ const Bookmarkpage = () => {
       <main className='explore-container'>
         <aside className='explore-nav'>
           <SideNav
-            onClickLatest={(e) => handleTweet(e, likeData)}
+            onClickTweet={(e) => handleTweet(e, tweetData)}
             onHandleLike={(e) => handleTweet(e, likeData)}
+            onClickTweetWithMedia={(e) => handleTweet(e, mediaData)}
+            onClickTweetWithComment={(e) => handleTweet(e, latestData)}
           />
         </aside>
         <div className='explore-content' style={{ marginBlockStart: '1rem' }}>
@@ -67,7 +77,16 @@ const Bookmarkpage = () => {
           <div>
             {data &&
               data.map((item) => {
-                return <Card key={`like-${item.createdAt}`} {...item} />;
+                return (
+                  <Card
+                    key={`like-${item.createdAt}`}
+                    {...item}
+                    author={
+                      allUsers &&
+                      allUsers.find((user) => user?.id === item?.authorid)
+                    }
+                  />
+                );
               })}
           </div>
         </div>

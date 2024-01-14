@@ -93,6 +93,21 @@ const getTweetsByFollowedUsers = async (req, res, next) => {
   }
 };
 
+
+const getTrend = async (req, res, next) => {
+  const tweet = await knex.from('Tweet').select('Tweet.content as content');
+  const comment = await knex.from('Comment').select('Comment.reply as reply');
+
+  const retweet = await knex.from('Tweet').select('Tweet.id').join('Retweet', 'Retweet.tweetId', '=', 'Tweet.id').count('Tweet.id').groupBy('Tweet.id')
+
+
+  // if (result.length > 0) {
+  // }
+
+  res.status(200).json(retweet);
+};
+
+
 // const cardTweets = async () => {
 //   const tweets = await knex.select('*').from('Tweet').join('User', function () {
 //     this.on(function () {
@@ -127,4 +142,5 @@ module.exports = {
   getCommentLikeCount,
   getWhoTofollow,
   getTweetsByFollowedUsers,
+  getTrend,
 };
