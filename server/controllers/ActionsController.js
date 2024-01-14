@@ -92,21 +92,42 @@ const getTweetsByFollowedUsers = async (req, res, next) => {
     res.status(500).json(error);
   }
 };
+/*
+   !TOD0 :continue with getTrends
+* Get Trends feteches the count of retweet and comments
+* to calculate the most popular tweets
 
-
+*/
 const getTrend = async (req, res, next) => {
-  const tweet = await knex.from('Tweet').select('Tweet.content as content');
-  const comment = await knex.from('Comment').select('Comment.reply as reply');
+  const tweets = await knex.from('Tweet').select('*');
+  const comment = await knex
+    .from('Tweet')
+    .select('Tweet.id')
+    .join('Comment', 'Tweet.id', '=', 'Comment.tweetId')
+    .count('Tweet.id')
+    .groupBy('Tweet.id');
 
-  const retweet = await knex.from('Tweet').select('Tweet.id').join('Retweet', 'Retweet.tweetId', '=', 'Tweet.id').count('Tweet.id').groupBy('Tweet.id')
+  const retweet = await knex
+    .from('Tweet')
+    .select('Tweet.id')
+    .join('Retweet', 'Retweet.tweetId', '=', 'Tweet.id')
+    .count('Tweet.id')
+    .groupBy('Tweet.id');
 
+  const newArray = tweets.map((tweet) => {
+    let commentCount = comment.find((item) => tweet.id === item.id);
+    let retweetCount = retweet.find((item) => item.id === tweet.id);
+
+    console.log(commentCount);
+    return { ...tweet, commentCount, retweetCount };
+  });
+  console.table(newArray);
 
   // if (result.length > 0) {
   // }
 
-  res.status(200).json(retweet);
+  res.status(200).json(newArray);
 };
-
 
 // const cardTweets = async () => {
 //   const tweets = await knex.select('*').from('Tweet').join('User', function () {
