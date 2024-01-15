@@ -18,7 +18,7 @@ import { useAllUserData } from '../../api/userData';
 import { useWhoToFollow } from '../../api/actionData';
 import  randomGenerator  from '../../utils/randomGen';
 
-const Homepage = ({}) => {
+const Homepage = () => {
   const {
     isPending: isAllTweetPending,
     error: allTweetError,
@@ -35,6 +35,9 @@ const Homepage = ({}) => {
 
   const { isPending: whoTofollowPending, data: whoToFollowData } =
     useWhoToFollow();
+
+//const { isPending:isTrendPending,error:trendError, data:trendData } = useTrend()
+
   const length = whoTofollowPending ? 'Loading..' : whoToFollowData?.length - 1;
   const [firstNum, secondNum] = randomGenerator(length);
   let first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];

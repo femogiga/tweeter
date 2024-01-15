@@ -1,6 +1,13 @@
+import { useTrend } from '../../api/trendData';
 import TrendCard from './TrendCard';
 
 const Trends = () => {
+  const {
+    isPending: isTrendPending,
+    error: trendError,
+    data: trendData,
+  } = useTrend();
+  console.log('trend====>', trendData);
   return (
     <div
       className='trend'
@@ -10,17 +17,22 @@ const Trends = () => {
         height: '31rem',
         borderRadius: '12px',
         marginBlockEnd: '2rem',
-        marginBlockStart:'1rem',
+        marginBlockStart: '1rem',
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)',
       }}>
       <p className='flow-1'>Trends for you</p>
       <ul>
-        <TrendCard trendText={'Programming'} numTweets={'120'} />
-        <TrendCard trendText={'devchallenges'} numTweets={'122'} />
+        {trendData &&
+          trendData.map((trend) => {
+            return(
+              <TrendCard key={`trend-${trend.id}` } trendText={trend.tag} numTweets={trend.sum} />)
+          })}
+
+        {/* <TrendCard trendText={'devchallenges'} numTweets={'122'} />
         <TrendCard trendText={'frontend'} numTweets={'400'} />
         <TrendCard trendText={'helsinki'} numTweets={'276'} />
         <TrendCard trendText={'100DaysOfCode'} numTweets={'290'} />
-        <TrendCard trendText={'learntocode'} numTweets={'100'} />
+        <TrendCard trendText={'learntocode'} numTweets={'100'} /> */}
       </ul>
     </div>
   );

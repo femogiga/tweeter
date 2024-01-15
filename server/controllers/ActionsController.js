@@ -63,10 +63,7 @@ const getCommentLikeCount = async (req, res, next) => {
 const getWhoTofollow = async (req, res, next) => {
   try {
     //const person = parseInt(req.params.commentId);
-    const persons = await knex('User').whereNot(
-      'User.email',
-      req.user.email
-    );
+    const persons = await knex('User').whereNot('User.email', req.user.email);
 
     res.status(200).json(persons);
   } catch (error) {
@@ -98,65 +95,71 @@ const getTweetsByFollowedUsers = async (req, res, next) => {
 
 */
 const getTrend = async (req, res, next) => {
-  const tweets = await knex.from('Tweet').select('*');
-  const comment = await knex
-    .from('Tweet')
-    .select('Tweet.id')
-    .join('Comment', 'Tweet.id', '=', 'Comment.tweetId')
-    .count('Tweet.id')
-    .groupBy('Tweet.id');
+  try {
+    const tweets = await knex.from('Tweet').select('*');
+    const comment = await knex
+      .from('Tweet')
+      .select('Tweet.id')
+      .join('Comment', 'Tweet.id', '=', 'Comment.tweetId')
+      .count('Tweet.id')
+      .groupBy('Tweet.id');
 
-  const retweet = await knex
-    .from('Tweet')
-    .select('Tweet.id')
-    .join('Retweet', 'Retweet.tweetId', '=', 'Tweet.id')
-    .count('Tweet.id')
-    .groupBy('Tweet.id');
+    const retweet = await knex
+      .from('Tweet')
+      .select('Tweet.id')
+      .join('Retweet', 'Retweet.tweetId', '=', 'Tweet.id')
+      .count('Tweet.id')
+      .groupBy('Tweet.id');
 
-  /*
-   *
-   *  the newArray  is generated from the
-   * query result of comment and retweet
-   * to calculate the sum of the most popular tweets
-   */
-
-  const newArray = tweets.map((tweet) => {
-    let commentCount = comment.find((item) => tweet.id === item.id);
-    let retweetCount = retweet.find((item) => item.id === tweet.id);
-
-    console.log(commentCount);
-    return { ...tweet, commentCount, retweetCount };
-  });
-  const mostPopular = newArray.map((tweet) => {
-    if (tweet.commentCount == undefined) {
-      tweet.commentCount = { id: tweet.id, count: 0 };
-    }
-    if (tweet.retweetCount == undefined) {
-      tweet.retweetCount = { id: tweet.id, count: 0 };
-    }
-    const sum =
-      parseInt(tweet?.commentCount?.count) +
-      parseInt(tweet?.retweetCount?.count);
-
-    let contentText = tweet.content;
     /*
      *
-     *  this regular expression '/#\w+/g' extracts tags
-     * from the content of  tweets
+     *  the newArray  is generated from the
+     * query result of comment and retweet
+     * to calculate the sum of the most popular tweets
      */
-    const regex = /#\w+/g;
-    let tag = contentText.match(regex);
-    console.log('text===>', tag);
-    console.log('sum===>', sum);
-    return { id: tweet.id, tag: tag[0], sum };
-  });
-  //console.table(newArray);
 
-  console.log('mostpopular====>', mostPopular);
+    const newArray = tweets.map((tweet) => {
+      let commentCount = comment.find((item) => tweet.id === item.id);
+      let retweetCount = retweet.find((item) => item.id === tweet.id);
 
-  res.status(200).json(mostPopular);
+      console.log(commentCount);
+      return { ...tweet, commentCount, retweetCount };
+    });
+    const mostPopular = newArray
+      .map((tweet) => {
+        if (tweet.commentCount == undefined) {
+          tweet.commentCount = { id: tweet.id, count: 0 };
+        }
+        if (tweet.retweetCount == undefined) {
+          tweet.retweetCount = { id: tweet.id, count: 0 };
+        }
+        const sum =
+          parseInt(tweet?.commentCount?.count) +
+          parseInt(tweet?.retweetCount?.count);
+
+        let contentText = tweet.content;
+        /*
+         *
+         *  this regular expression '/#\w+/g' extracts tags
+         * from the content of  tweets
+         */
+        const regex = /#\w+/g;
+        let tag = contentText.match(regex);
+        console.log('text===>', tag);
+        console.log('sum===>', sum);
+        return { id: tweet.id, tag: tag[0], sum };
+      })
+      .sort((a, b) => b.sum - a.sum)
+      .slice(0, 7);
+    //console.table(newArray);
+
+    console.log('mostpopular====>', mostPopular);
+
+    res.status(200).json(mostPopular);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 };
-
 module.exports = {
   getRetweetCount,
   getAllRetweetCount,

@@ -11,9 +11,9 @@ export const useTrend = () => {
     queryKey: ['trendData'],
     queryFn: () =>
       apiService
-        .get(`http://localhost:7000/actions/trends`)
+        .get('/actions/trends')
         .then((res) => res.data),
   });
-    
+
   return { isPending, error, data };
 };
