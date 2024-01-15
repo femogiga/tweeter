@@ -16,7 +16,7 @@ import { useAllComments, useAllCommentsByTweetId } from '../../api/commentData';
 import { useAllTweetDataWithComments } from '../../api/tweetWithCommentData';
 import { useAllUserData } from '../../api/userData';
 import { useWhoToFollow } from '../../api/actionData';
-import { randomGenerator } from '../../utils/randomGen';
+import  randomGenerator  from '../../utils/randomGen';
 
 const Homepage = ({}) => {
   const {
@@ -35,7 +35,7 @@ const Homepage = ({}) => {
 
   const { isPending: whoTofollowPending, data: whoToFollowData } =
     useWhoToFollow();
-  const length = whoTofollowPending ? 'Loading..' : whoToFollowData.length - 1;
+  const length = whoTofollowPending ? 'Loading..' : whoToFollowData?.length - 1;
   const [firstNum, secondNum] = randomGenerator(length);
   let first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];
   let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];

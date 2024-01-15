@@ -23,7 +23,7 @@ app.use('/tweets', authMiddleware, tweetRoute);
 app.use('/users', authMiddleware, userTweetRoute);
 app.use('/retweets', authMiddleware, allRetweetRoute);
 app.use('/comments', authMiddleware, commentRoute);
-app.use('/actions', actionRoute);
+app.use('/actions', authMiddleware,actionRoute);
 app.use('/stats', statRoute);
 app.use('/bookmarks', authMiddleware, bookmarkedRoute);
 app.use('/explore', topRoute);
