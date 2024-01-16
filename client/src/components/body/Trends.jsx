@@ -1,7 +1,7 @@
 import { useTrend } from '../../api/trendData';
 import TrendCard from './TrendCard';
 
-const Trends = () => {
+const Trends = ({ onHandleTrendClick }) => {
   const {
     isPending: isTrendPending,
     error: trendError,
@@ -24,8 +24,14 @@ const Trends = () => {
       <ul>
         {trendData &&
           trendData.map((trend) => {
-            return(
-              <TrendCard key={`trend-${trend.id}` } trendText={trend.tag} numTweets={trend.sum} />)
+            return (
+              <TrendCard
+                key={`trend-${trend.id}`}
+                trendText={trend.tag}
+                numTweets={trend.sum}
+                onHandleTrendClick={onHandleTrendClick}
+              />
+            );
           })}
 
         {/* <TrendCard trendText={'devchallenges'} numTweets={'122'} />

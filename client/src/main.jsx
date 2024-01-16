@@ -19,6 +19,7 @@ export const Root = () => {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<App />} />
+        <Route path='home/:tags' element={<Homepage />} />
         <Route path='home' element={<Homepage />} />
         <Route path='/profile/:id' element={<ProfilePage />} />
         <Route path='/login' element={<LoginPage />} />

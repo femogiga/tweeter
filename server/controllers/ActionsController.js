@@ -160,6 +160,74 @@ const getTrend = async (req, res, next) => {
     res.status(500).json(err);
   }
 };
+
+// const getTweetByTags = async (req, res, next) => {
+//   const tags = req.params.tags
+//   const tweetArray = []
+//   try {
+//     const tweetByTrend = await knex.from('Tweet').select('*');
+//      const ByTrend = await knex.from('Comment').select('*');
+//     console.log('tagStr===>', tweetByTrend);
+
+//        const result = tweetByTrend.forEach((tweet) => {
+//          if (tweet?.content.includes(tags)) {
+//            tweetArray.push(tweet)
+//          }
+//        });
+//       //console.log('tag===>', result);
+//       res.status(200).json(tweetArray);
+
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json(err);
+//   }
+// };
+
+const getTweetByTags = async (req, res, next) => {
+  const tags = req.params.tags;
+  try {
+    const result = await knex
+
+      .from('Tweet')
+      .select(
+        'Tweet.id as id',
+        'Tweet.content as content',
+        'Tweet.imageUrl as imageUrl',
+        'Tweet.replyRestrictions as replyRestrictions',
+        'Tweet.createdAt as createdAt',
+        'Tweet.authorid as authorid',
+        knex.raw('JSONB_AGG("Comment".*) as comments'),
+
+        knex('Saved')
+          .count('*')
+          .as('savedCount')
+          .whereRaw('??=??', ['Saved.tweetId', 'Tweet.id']),
+        knex('Like')
+          .count('*')
+          .as('likeCount')
+          .whereRaw('??=??', ['Like.tweetId', 'Tweet.id']),
+        knex('Retweet')
+          .count('*')
+          .as('retweetCount')
+          .whereRaw('??=??', ['Retweet.tweetId', 'Tweet.id'])
+      )
+
+      .leftJoin('Comment', 'Tweet.id', '=', 'Comment.tweetId')
+      .groupBy('Tweet.id')
+      .orderBy('Tweet.createdAt', 'desc');
+
+    const newArr = [];
+    result.forEach((tweet) => {
+      if (tweet.content.includes(tags)) {
+        newArr.push(tweet);
+      }
+    });
+    res.status(200).json(newArr);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
 module.exports = {
   getRetweetCount,
   getAllRetweetCount,
@@ -169,4 +237,5 @@ module.exports = {
   getWhoTofollow,
   getTweetsByFollowedUsers,
   getTrend,
+  getTweetByTags,
 };

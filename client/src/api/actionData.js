@@ -5,6 +5,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 import apiService from '../utils/apiService';
+import { useParams } from 'react-router-dom';
 
 export const useRetweetCountbyId = (tweetId) => {
   const { isPending, error, data } = useQuery({
@@ -41,6 +42,21 @@ export const useWhoToFollow = () => {
       apiService
         .get("/actions/whotofollow")
         .then((res) => res.data),
+  });
+  return { isPending, error, data };
+};
+
+
+export const useGetTweetBytags = () => {
+  const { tags } = useParams()
+  //const searchTerm = tags.slice(1, tags.length)
+  const searchTerm = tags
+  console.log('searchterm',searchTerm)
+
+  const { isPending, error, data } = useQuery({
+    queryKey: ['tweetByTag'],
+    queryFn: () =>
+      apiService.get(`/actions/tweets/${searchTerm}`).then((res) => res.data),
   });
   return { isPending, error, data };
 };

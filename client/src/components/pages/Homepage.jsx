@@ -8,17 +8,28 @@ import Retweeted from '../body/cards/Retweeted';
 import FollowCard from '../body/FollowCard';
 import Trends from '../body/Trends';
 import WhocanModal from '../body/WhocanModal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useAllTweetData } from '../../api/tweetData';
 import { useAllRetweetData } from '../../api/retweetData';
 import { useAllComments, useAllCommentsByTweetId } from '../../api/commentData';
 import { useAllTweetDataWithComments } from '../../api/tweetWithCommentData';
 import { useAllUserData } from '../../api/userData';
-import { useWhoToFollow } from '../../api/actionData';
-import  randomGenerator  from '../../utils/randomGen';
+import { useGetTweetBytags, useWhoToFollow } from '../../api/actionData';
+import randomGenerator from '../../utils/randomGen';
 
 const Homepage = () => {
+  /*
+  TODO :replace the data used to render the cards in this  component
+    * AllTweetData- fetches all tweets from database
+   * alltweets - fetches all tweets with comments
+   * whtoFollow - fetches the details of users that can be followed
+   * randomGenerator : randomly selects a user to follow
+
+   */
+
+
+  const {tags} = useParams()
   const {
     isPending: isAllTweetPending,
     error: allTweetError,
@@ -36,17 +47,25 @@ const Homepage = () => {
   const { isPending: whoTofollowPending, data: whoToFollowData } =
     useWhoToFollow();
 
-//const { isPending:isTrendPending,error:trendError, data:trendData } = useTrend()
+  const { data: tweetByTagData } = useGetTweetBytags();
+
+  console.log('getTweetByTags', tweetByTagData);
 
   const length = whoTofollowPending ? 'Loading..' : whoToFollowData?.length - 1;
   const [firstNum, secondNum] = randomGenerator(length);
   let first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];
   let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];
-
-  console.log('who to ', whoToFollowData);
-  console.log('allTweetWithComment', allTweetDataWithComment);
-  console.log('retweet===>', allRetweetData);
-  console.log('alltweet===>', allTweetData);
+const [pageData, setPageData] = useState(allTweetDataWithComment);
+  //console.log('who to ', whoToFollowData);
+  //console.log('allTweetWithComment', allTweetDataWithComment);
+  //console.log('retweet===>', allRetweetData);
+  //console.log('alltweet===>', allTweetData);
+  const handleTrendClick = (e) => {
+    //e.preventDefault()
+    //navigate(`home/${tags}`)
+    //setPageData(tweetByTagData);
+   // window.location.reload();
+  }
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -54,7 +73,7 @@ const Homepage = () => {
     if (!userToken) {
       navigate('/login');
     }
-  }, [navigate]);
+  }, [navigate,tags]);
   // let b = commentData.find(ele => ele?.tweetId === 4)
   //console.log('b=====>',b)
   return (
@@ -66,8 +85,8 @@ const Homepage = () => {
           <TweetInput />
           <WhocanModal />
           {/* <Retweeted /> */}
-          {allTweetDataWithComment &&
-            allTweetDataWithComment.map((tweet) => {
+          {pageData &&
+            pageData.map((tweet) => {
               const { firstName, lastName, photo } = tweet;
 
               const key = tweet?.id + tweet.createdAt;
@@ -93,7 +112,7 @@ const Homepage = () => {
           {/* <Card /> */}
         </section>
         <aside className='side-content'>
-          <Trends />
+          <Trends onHandleTrendClick={handleTrendClick } />
           <div
             className=''
             style={{
