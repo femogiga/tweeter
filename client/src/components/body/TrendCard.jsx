@@ -6,7 +6,10 @@ const TrendCard = ({ trendText, numTweets, onHandleTrendClick }) => {
     <li className='flow-1'>
       <Link
         to={`/home/${trendText}`}
-        // onClick = {onHandleTrendClick}
+        onClick={() => {
+          window.location.href = `/home/${trendText}`;
+        }}
+        //onClick = {onHandleTrendClick}
         style={{ color: '#333333', fontWeight: 'bold' }}>
         {`#${trendText}`}
       </Link>

@@ -28,8 +28,7 @@ const Homepage = () => {
 
    */
 
-
-  const {tags} = useParams()
+  const { tags } = useParams();
   const {
     isPending: isAllTweetPending,
     error: allTweetError,
@@ -55,17 +54,21 @@ const Homepage = () => {
   const [firstNum, secondNum] = randomGenerator(length);
   let first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];
   let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];
-const [pageData, setPageData] = useState(allTweetDataWithComment);
+  const [pageData, setPageData] = useState(allTweetDataWithComment);
   //console.log('who to ', whoToFollowData);
   //console.log('allTweetWithComment', allTweetDataWithComment);
   //console.log('retweet===>', allRetweetData);
   //console.log('alltweet===>', allTweetData);
-  const handleTrendClick = (e) => {
+  const handleTrendClick = (e, tag) => {
     //e.preventDefault()
-    //navigate(`home/${tags}`)
+    // navigate(`/home/${tags}`)
     //setPageData(tweetByTagData);
-   // window.location.reload();
-  }
+    // window.location.reload();
+  };
+
+  useEffect(() => {
+    setPageData(tweetByTagData);
+  },[tags,tweetByTagData])
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -73,7 +76,7 @@ const [pageData, setPageData] = useState(allTweetDataWithComment);
     if (!userToken) {
       navigate('/login');
     }
-  }, [navigate,tags]);
+  }, [navigate]);
   // let b = commentData.find(ele => ele?.tweetId === 4)
   //console.log('b=====>',b)
   return (
@@ -112,7 +115,7 @@ const [pageData, setPageData] = useState(allTweetDataWithComment);
           {/* <Card /> */}
         </section>
         <aside className='side-content'>
-          <Trends onHandleTrendClick={handleTrendClick } />
+          <Trends onHandleTrendClick={handleTrendClick} />
           <div
             className=''
             style={{
