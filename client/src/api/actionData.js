@@ -47,17 +47,20 @@ export const useWhoToFollow = () => {
 };
 
 
-export const useGetTweetBytags = () => {
-  const { tags } = useParams()
+export const useGetTweetBytags = (tags) => {
+  //const { tags } = useParams()
   //const searchTerm = tags.slice(1, tags.length)
-  const searchTerm = tags
-  console.log('searchterm',searchTerm)
+  //const searchTerm = tags
+  //console.log('searchterm',tags)
 
   const { isPending, error, data } = useQuery({
     queryKey: ['tweetByTag'],
     queryFn: () =>
-      apiService.get(`/actions/tweets/${searchTerm}`).then((res) => res.data),
+      apiService.get(`/actions/tweets?tags=${tags}`).then((res) => res.data),
+    enabled: !!tags,
   });
+
+
   return { isPending, error, data };
 };
 

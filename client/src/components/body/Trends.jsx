@@ -1,7 +1,7 @@
 import { useTrend } from '../../api/trendData';
 import TrendCard from './TrendCard';
 
-const Trends = ({ onHandleTrendClick }) => {
+const Trends = ({ handleTrendClick, pageData, setPageData }) => {
   const {
     isPending: isTrendPending,
     error: trendError,
@@ -29,7 +29,7 @@ const Trends = ({ onHandleTrendClick }) => {
                 key={`trend-${trend.id}`}
                 trendText={trend.tag}
                 numTweets={trend.sum}
-                onHandleTrendClick={onHandleTrendClick}
+                handleTrendClick={()=>handleTrendClick}
               />
             );
           })}

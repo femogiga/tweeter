@@ -1,15 +1,33 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import logo from '../../assets/tweeter.svg';
 import '../header/header.css';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import LoginModal from '../body/LoginModal';
 import { useDispatch } from 'react-redux';
 import { setLoginModalState } from '../../features/headerSlice';
-const Header = () => {
+import { useAllTweetDataWithComments } from '../../api/tweetWithCommentData';
+import { setHomeData } from '../../features/homeSlice';
+import { useEffect } from 'react';
+import { useTrend } from '../../api/trendData';
+const Header = ({setPageData}) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { data } = useTrend();
+  const {
+    isPending: isCommentByAuthorIdPending,
+    error: isErrorPrending,
+    data: allTweetDataWithComment,
+  } = useAllTweetDataWithComments();
+
+
+  
 
   const handleLoginModalOpen = () => {
     dispatch(setLoginModalState(true));
+  };
+
+  const handleHomeClick = () => {
+   setPageData(allTweetDataWithComment);
   };
 
   const user = localStorage.getItem('userData');
@@ -24,7 +42,10 @@ const Header = () => {
       <nav className='header__nav'>
         <ul className='flex col-gap-3'>
           <li>
-            <Link to={'/home'}>Home</Link>
+
+            <Link to={`/home`} onClick={handleHomeClick}>
+              Home
+            </Link>
           </li>
           <li>
             <Link to={'/explore'}>Explore</Link>

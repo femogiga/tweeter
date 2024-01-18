@@ -17,7 +17,7 @@ router.get('/retweet/:tweetId', getRetweetCount);
 router.get('/like/:tweetId', getLikeCount);
 router.get('/saved/:tweetId', getSavedCount);
 router.get('/commentlike/:commentId', getCommentLikeCount);
-router.get('/tweets/:tags', getTweetByTags);
+router.get('/tweets', getTweetByTags);
 router.get('/whotofollow' , getWhoTofollow)
 router.get('/retweet', getAllRetweetCount);
 router.get('/tweetbyfollowers', getTweetsByFollowedUsers);

@@ -1,15 +1,14 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-const TrendCard = ({ trendText, numTweets, onHandleTrendClick }) => {
+const TrendCard = ({ trendText, numTweets, handleTrendClick }) => {
+  //const{tags} = useParams()
   trendText = trendText.slice(1, trendText.length);
+
   return (
     <li className='flow-1'>
       <Link
-        to={`/home/${trendText}`}
-        onClick={() => {
-          window.location.href = `/home/${trendText}`;
-        }}
-        //onClick = {onHandleTrendClick}
+        to={`/home?tags=${trendText}`}
+        onClick={ handleTrendClick}
         style={{ color: '#333333', fontWeight: 'bold' }}>
         {`#${trendText}`}
       </Link>

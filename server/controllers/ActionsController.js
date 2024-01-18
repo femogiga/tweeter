@@ -184,7 +184,7 @@ const getTrend = async (req, res, next) => {
 // };
 
 const getTweetByTags = async (req, res, next) => {
-  const tags = req.params.tags;
+  const tags = req.query.tags;
   try {
     const result = await knex
 
@@ -222,6 +222,7 @@ const getTweetByTags = async (req, res, next) => {
         newArr.push(tweet);
       }
     });
+    console.log('newArr',newArr)
     res.status(200).json(newArr);
   } catch (error) {
     console.log(error);
