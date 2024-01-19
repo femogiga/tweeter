@@ -74,9 +74,9 @@ const getWhoTofollow = async (req, res, next) => {
 
 //
 
-const getTweetsByFollowedUsers = async (req, res, next) => {
+const getTweetsByFollowedUsers = (req, res, next) => {
   try {
-    const tweetsByFollowedUsers = await knex('Tweet')
+    const tweetsByFollowedUsers = knex('Tweet')
       .join('Follower', 'Follower.personId', '=', 'Tweet.authorid')
       //.join('Comment', 'Comment.tweetId', '=', 'Tweet.id')
       .where('Follower.followerId', req.user.id); // Assuming req.user has the follower's ID
@@ -88,13 +88,30 @@ const getTweetsByFollowedUsers = async (req, res, next) => {
     res.status(500).json(error);
   }
 };
-/*
 
-* Get Trends feteches the count of retweet and comments
+// const calculateTweetByTag = async (tag) => {
+//   try {
+//     // const hashtag = '#Christmas';
+//     const tweetCount = await knex('Tweet').select('Tweet.id')
+//       .count('* as count')
+//       .groupBy('Tweet.id')
+//       .whereRaw('(LOWER("Tweet".content) LIKE ?)', [`%${tag}%`])
+
+//     //console.log('tweetCount', tweetCount);
+//     return  tweetCount ;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+//calculateTweetByTag('nvidia');
+
+/*
+*Get Trends feteches the count of retweet and comments
 * to calculate the most popular tweets
 
 */
 const getTrend = async (req, res, next) => {
+
   try {
     const tweets = await knex.from('Tweet').select('*');
     const comment = await knex
@@ -122,6 +139,7 @@ const getTrend = async (req, res, next) => {
       let commentCount = comment.find((item) => tweet.id === item.id);
       let retweetCount = retweet.find((item) => item.id === tweet.id);
 
+      //console.log('newtweet====>', tweetCount);
       console.log(commentCount);
       return { ...tweet, commentCount, retweetCount };
     });
@@ -133,30 +151,44 @@ const getTrend = async (req, res, next) => {
         if (tweet.retweetCount == undefined) {
           tweet.retweetCount = { id: tweet.id, count: 0 };
         }
+
         const sum =
           parseInt(tweet?.commentCount?.count) +
           parseInt(tweet?.retweetCount?.count);
 
-        let contentText = tweet.content;
         /*
          *
          *  this regular expression '/#\w+/g' extracts tags
          * from the content of  tweets
          */
         const regex = /#\w+/g;
-        let tag = contentText.match(regex);
+        let contentText = tweet.content;
+        tag = contentText.match(regex);
+
         console.log('text===>', tag);
         console.log('sum===>', sum);
         return { id: tweet.id, tag: tag[0], sum };
       })
       .sort((a, b) => b.sum - a.sum)
-      .slice(0, 7);
+    .slice(0, 7);
     //console.table(newArray);
+    // try {
+    //  // const hashtag = '#Christmas';
+    //   const tweetCount = await knex('Tweet')
+    //     .count('*')
+    //     .whereRaw('(LOWER("Tweet".content) LIKE ?)', [
+    //       `%${tag}%`,
+    //     ]);
+    //   console.log('tweetCount', tweetCount);
+    // } catch (error) {
+    //   console.error(error);
+    // }
 
     console.log('mostpopular====>', mostPopular);
 
     res.status(200).json(mostPopular);
   } catch (err) {
+    console.error(err);
     res.status(500).json(err);
   }
 };
@@ -222,7 +254,7 @@ const getTweetByTags = async (req, res, next) => {
         newArr.push(tweet);
       }
     });
-    console.log('newArr',newArr)
+    console.log('newArr', newArr);
     res.status(200).json(newArr);
   } catch (error) {
     console.log(error);

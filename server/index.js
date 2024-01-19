@@ -14,7 +14,7 @@ const topRoute = require('./routes/topRoute');
 const statRoute = require('./routes/statRoute');
 const bookmarkedRoute = require('./routes/bookmarkedRoute');
 const app = express();
-
+app.use(express.static('images'))
 app.use(morgan('tiny'));
 app.use(cors());
 app.use(express.json());

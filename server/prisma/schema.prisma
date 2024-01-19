@@ -35,6 +35,7 @@ model Tweet {
   content String?
   imageUrl String?
   replyRestrictions String
+  tag String?
   createdAt DateTime @default(now())
   like Like[]
   retweets Retweet[]
@@ -49,6 +50,7 @@ model Comment{
   reply String?
   replyImageUrl String?
   dateOfReply DateTime @default(now())
+  tag String
   like Like[]
   commentAuthor User @relation(fields:[commentAuthorid],references:[id])
   commentAuthorid Int

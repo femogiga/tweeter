@@ -1,3 +1,4 @@
+const { postTweets } = require('../controllers/postController');
 const {
   getRetweetsById,
   secondRetweets,
@@ -23,5 +24,6 @@ router.get('/allusers/alltweets', getAllTweetsWithComments);  // all tweets with
 router.get('/allusers', getAllUserData);
 router.get('/:id', getUserData);
 router.get('/retweets', getRetweetsById);
+router.post('/tweets',postTweets)
 
 module.exports = router;
