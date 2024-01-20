@@ -66,7 +66,7 @@ const Homepage = () => {
 
   const handleTrendClick = (e) => {
     //e.preventDefault();
-    //  setPageData(tweetByTagData);
+     setPageData(tweetByTagData);
     refetch();
   };
   console.log('looog', tags);

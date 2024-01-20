@@ -6,14 +6,19 @@ require('dotenv').config();
 
 const postTweets = async (req, res, next) => {
   try {
-    upload.single('image')(req, res, async (err) => {
+    upload.single('files')(req, res, async (err) => {
+       const file = req.files
+
+     console.log('file====>',req.files)
       if (err) {
         console.error(err);
         return res.status(500).json({ error: 'File upload failed' });
       }
-      if (!req.file) {
-        return res.status(400).json({ error: 'No file provided' });
-      }
+      // if (!req.files) {
+      //   // console.log('the file===>' ,req.files);
+
+      //   return res.status(400).json({ error: 'No file provided' });
+      // }
 
       // Convert the buffer to a Base64 string
       const base64String = req.file.buffer.toString('base64');
@@ -27,6 +32,7 @@ const postTweets = async (req, res, next) => {
       );
 
       const { content, replyRestrictions } = req.body;
+
       const imageUrl = result.secure_url;
 
       const posted = await knex('Tweet').insert({

@@ -10,6 +10,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import '../body/home.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setWhocanModalVisibility } from '../../features/modalSlice';
+import { setInputValue } from '../../features/tweetSlice';
 const style = {
   position: 'absolute',
   top: '29%',
@@ -39,6 +40,8 @@ const WhocanModal = () => {
     dispatch(setWhocanModalVisibility('hide'));
   };
 
+  const replyRestrictions = useSelector((state) => state.replyRestrictions);
+
   return (
     <div className='login-modal'>
       {/* <Button onClick={handleOpen}>Open modal</Button> */}
@@ -61,6 +64,14 @@ const WhocanModal = () => {
             </div>
             <div>
               <Button
+                onClick={() =>
+                  dispatch(
+                    setInputValue({
+                      fieldname: 'replyRestrictions',
+                      value: 'Everyone',
+                    })
+                  )
+                }
                 sx={{
                   color: '#4F4F4F',
                   fontSize: '12px',
@@ -74,6 +85,14 @@ const WhocanModal = () => {
             </div>
             <div>
               <Button
+                onClick={() =>
+                  dispatch(
+                    setInputValue({
+                      fieldname: 'replyRestrictions',
+                      value: 'Followers',
+                    })
+                  )
+                }
                 sx={{
                   color: '#4F4F4F',
                   fontSize: '12px',

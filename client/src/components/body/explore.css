@@ -51,6 +51,11 @@
 
 }
 
-.explore-container img{
+.explore-container img {
     /* max-width: 100%; */
+}
+
+.explore-container .tweet__image > img {
+    /* max-width:;
+    background-color: black; */
 }

@@ -9,7 +9,7 @@
 .card {
 
     /* width: 46.5rem; */
-    /* max-width: 46.5rem; */
+    max-width: 46.5rem;
     background-color: white !important;
     display: grid;
     place-items: center;

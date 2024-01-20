@@ -5,12 +5,64 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setWhocanModalVisibility } from '../../features/modalSlice';
+import { useCreateTweetMutation } from '../../api/postTweetData';
+import { setInputValue } from '../../features/tweetSlice';
+import { useEffect, useState } from 'react';
 
 const TweetInput = () => {
   const dispatch = useDispatch();
+  const { isPending, isSuccess, error, mutate } = useCreateTweetMutation();
   // const whoCanModalVisible = useSelector(
   //   (state) => state.modal.whoCanReplyModalVisible
   // );
+  const [file, setFile] = useState(null);
+  //const formData = new FormData();
+  const content = useSelector((state) => state.tweet.content);
+  const replyRestrictions = useSelector(
+    (state) => state.tweet.replyRestrictions
+  );
+console.log('file',file)
+  //  const handleFile = (files) => {
+  //    for (let i = 0; i < files.length; i++) {
+  //      formData.append('files', files[i]);
+  //    }
+  //  };
+  // const data = {
+  //   content: content,
+  //   replyRestrictions: replyRestrictions,
+  //   image,
+  // };
+
+  useEffect(() => {
+
+  },[file])
+  async function handleSubmit(e) {
+    e.preventDefault();
+    try {
+      const formData = new FormData();
+     formData.append('files', file);
+      formData.append('content', content);
+      formData.append('replyRestrictions', replyRestrictions);
+
+      const response = await mutate(formData);
+      console.log(response)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  function handleFileInputChange(e) {
+    if (e.target.files && e.target.files[0]) {
+      //console.log(e.target.files);
+      setFile(e.target.files[0]);
+      // handleFile(e.target.files);
+    }
+  }
+
+  const handleInputChange = (e) => {
+    dispatch(
+      setInputValue({ fieldname: e.target.name, value: e.target.value })
+    );
+  };
 
   const handleModalOpen = (e) => {
     e.preventDefault();
@@ -27,10 +79,15 @@ const TweetInput = () => {
         Tweet something
       </p>
       <Avatar />
-      <form className='form'>
+      <form
+        className='form'
+        // encType='multipart/form-data'
+        onSubmit={handleSubmit}>
         <textarea
+          value={content}
           placeholder='What"s happening?'
-          name=''
+          name='content'
+          onChange={handleInputChange}
           id=''
           cols=''
           rows=''
@@ -41,7 +98,12 @@ const TweetInput = () => {
           }}></textarea>
 
         <div className='insert-photo'>
-          <input type='file' />
+          <input
+            type='file'
+            onChange={(e) => handleFileInputChange(e)}
+            name='files'
+            id='files'
+          />
           <InsertPhotoOutlinedIcon />
           <Link className='who-can'>
             <PublicIcon />
@@ -49,7 +111,9 @@ const TweetInput = () => {
           <Link className='who-can-text' onClick={handleModalOpen}>
             Everyone can reply
           </Link>
-          <Button variant='contained'>Tweet</Button>
+          <Button type='submit' variant='contained' >
+            Tweet
+          </Button>
         </div>
       </form>
     </div>

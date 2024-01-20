@@ -1,13 +1,12 @@
 import axios from 'axios';
 
 const baseUrl = 'http://localhost:7000';
- const token = JSON.parse(localStorage.getItem('token'));
+const token = JSON.parse(localStorage.getItem('token'));
 const get = (url) => {
-
   return axios.get(`${baseUrl}${url}`, {
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 };
@@ -21,8 +20,16 @@ const post = (url, data) => {
   });
 };
 
-const authpost = (url, data) => {
+const postWithImage = (url, data) => {
+  return axios.post(`${baseUrl}${url}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
 
+const authpost = (url, data) => {
   return axios.post(`${baseUrl}${url}`, data, {
     headers: {
       'Content-Type': 'application/json',
@@ -50,4 +57,4 @@ const put = (url, data) => {
   });
 };
 
-export default { get, post, getById, put, authpost };
+export default { get, post, getById, put, authpost, postWithImage };
