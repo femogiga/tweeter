@@ -6,44 +6,57 @@ require('dotenv').config();
 
 const postTweets = async (req, res, next) => {
   try {
-    upload.single('files')(req, res, async (err) => {
-       const file = req.files
+    upload.single('files')(
+      req,
+      res,
+      async (err) => {
+        const file = req.files;
 
-     console.log('file====>',req.files)
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ error: 'File upload failed' });
-      }
-      // if (!req.files) {
-      //   // console.log('the file===>' ,req.files);
-
-      //   return res.status(400).json({ error: 'No file provided' });
-      // }
-
-      // Convert the buffer to a Base64 string
-      const base64String = req.file.buffer.toString('base64');
-
-      // Upload the Base64 string to Cloudinary
-      const result = await cloudinary.uploader.upload(
-        `data:image/png;base64,${base64String}`,
-        {
-          resource_type: 'auto',
+        console.log('file====>', req.files);
+        if (err) {
+          console.error(err);
+          return res.status(500).json({ error: 'File upload failed' });
         }
-      );
+         if (!req.file) {
+           // If no file is provided, handle the case for tweets without an image
+           const { content, replyRestrictions } = req.body;
 
-      const { content, replyRestrictions } = req.body;
+           const posted = await knex('Tweet').insert({
+             content,
+             replyRestrictions,
+             authorid: req.user.id,
+           });
 
-      const imageUrl = result.secure_url;
+           return res.status(200).json(posted);
+         }
 
-      const posted = await knex('Tweet').insert({
-        content,
-        imageUrl,
-        replyRestrictions,
-        authorid: req.user.id,
-      });
+        // Convert the buffer to a Base64 string
 
-      res.status(200).json(posted);
-    });
+        const base64String = req.file.buffer.toString('base64');
+
+        // Upload the Base64 string to Cloudinary
+        const result = await cloudinary.uploader.upload(
+          `data:image/png;base64,${base64String}`,
+          {
+            resource_type: 'auto',
+          }
+        );
+
+
+        const { content, replyRestrictions } = req.body;
+
+        const imageUrl = result.secure_url;
+
+        const posted = await knex('Tweet').insert({
+          content,
+          imageUrl,
+          replyRestrictions,
+          authorid: req.user.id,
+        });
+
+        res.status(200).json(posted);
+      }
+    );
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal server error' });

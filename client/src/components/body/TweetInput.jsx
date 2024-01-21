@@ -14,6 +14,9 @@ const TweetInput = () => {
   const { isPending, isSuccess, error, mutate } = useCreateTweetMutation();
   // const whoCanModalVisible = useSelector(
   //   (state) => state.modal.whoCanReplyModalVisible
+  const userData = localStorage.getItem('userData');
+  const parsedUser = JSON.parse(userData);
+  const userPhoto = parsedUser && parsedUser.photo;
   // );
   const [file, setFile] = useState(null);
   //const formData = new FormData();
@@ -47,7 +50,7 @@ const TweetInput = () => {
       if (response.isSuccess) {
         dispatch(clearInputValue({ fieldname: 'content' }));
         dispatch(clearInputValue({ fieldname: 'replyRestrictions' }));
-        setFile(null)
+        setFile(null);
       }
     } catch (error) {
       console.error(error);
@@ -81,7 +84,7 @@ const TweetInput = () => {
       <p style={{ backgroundColor: 'white', paddingInline: '.5rem' }}>
         Tweet something
       </p>
-      <Avatar />
+      <Avatar photo={userPhoto} />
       <form
         className='form'
         // encType='multipart/form-data'
