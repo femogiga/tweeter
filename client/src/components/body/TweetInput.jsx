@@ -6,7 +6,7 @@ import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { setWhocanModalVisibility } from '../../features/modalSlice';
 import { useCreateTweetMutation } from '../../api/postTweetData';
-import { setInputValue } from '../../features/tweetSlice';
+import { clearInputValue, setInputValue } from '../../features/tweetSlice';
 import { useEffect, useState } from 'react';
 
 const TweetInput = () => {
@@ -21,7 +21,7 @@ const TweetInput = () => {
   const replyRestrictions = useSelector(
     (state) => state.tweet.replyRestrictions
   );
-console.log('file',file)
+  console.log('file', file);
   //  const handleFile = (files) => {
   //    for (let i = 0; i < files.length; i++) {
   //      formData.append('files', files[i]);
@@ -33,19 +33,22 @@ console.log('file',file)
   //   image,
   // };
 
-  useEffect(() => {
-
-  },[file])
+  useEffect(() => {}, [file]);
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       const formData = new FormData();
-     formData.append('files', file);
+      formData.append('files', file);
       formData.append('content', content);
       formData.append('replyRestrictions', replyRestrictions);
 
       const response = await mutate(formData);
-      console.log(response)
+      console.log(response);
+      if (response.isSuccess) {
+        dispatch(clearInputValue({ fieldname: 'content' }));
+        dispatch(clearInputValue({ fieldname: 'replyRestrictions' }));
+        setFile(null)
+      }
     } catch (error) {
       console.error(error);
     }
@@ -111,7 +114,7 @@ console.log('file',file)
           <Link className='who-can-text' onClick={handleModalOpen}>
             Everyone can reply
           </Link>
-          <Button type='submit' variant='contained' >
+          <Button type='submit' variant='contained'>
             Tweet
           </Button>
         </div>

@@ -64,14 +64,15 @@ const WhocanModal = () => {
             </div>
             <div>
               <Button
-                onClick={() =>
+                onClick={() => {
                   dispatch(
                     setInputValue({
                       fieldname: 'replyRestrictions',
                       value: 'Everyone',
                     })
-                  )
-                }
+                  );
+                  dispatch(setWhocanModalVisibility(false));
+                }}
                 sx={{
                   color: '#4F4F4F',
                   fontSize: '12px',
@@ -85,14 +86,15 @@ const WhocanModal = () => {
             </div>
             <div>
               <Button
-                onClick={() =>
+                onClick={() => {
                   dispatch(
                     setInputValue({
                       fieldname: 'replyRestrictions',
                       value: 'Followers',
                     })
-                  )
-                }
+                  );
+                  dispatch(setWhocanModalVisibility(false));
+                }}
                 sx={{
                   color: '#4F4F4F',
                   fontSize: '12px',
