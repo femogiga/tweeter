@@ -47,11 +47,10 @@ const TweetInput = () => {
 
       const response = await mutate(formData);
       console.log(response);
-      if (response.isSuccess) {
-        dispatch(clearInputValue({ fieldname: 'content' }));
-        dispatch(clearInputValue({ fieldname: 'replyRestrictions' }));
-        setFile(null);
-      }
+
+      dispatch(clearInputValue({ fieldname: 'content' }));
+      dispatch(clearInputValue({ fieldname: 'replyRestrictions' }));
+      setFile(null);
     } catch (error) {
       console.error(error);
     }
