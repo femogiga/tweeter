@@ -27,6 +27,7 @@ const Card = ({
   authorid,
   retweetCount,
   savedCount,
+
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
   // const { isPending: isRetweetCountPending, data: retweetCount } =
@@ -36,6 +37,7 @@ const Card = ({
   //console.log('count: ' + countRetweet);
   // let cardUser = allUsers.find((user) => user?.id === authorid);CO
   // console.log('theuser', theUserData);
+  console.log('tweetid =====>', id)
   const [commentVisible, setCommentVisible] = useState(false); //handle comment Visible set the state
   const handleCommentVisibility = (e) => {
     e.preventDefault();
@@ -67,7 +69,7 @@ const Card = ({
             savedCount={savedCount}
           />
           <Actions onCommentVisible={handleCommentVisibility} />
-          <Comment />
+          <Comment id={id } />
         </div>
       </div>
       <div className='comment-card-cont'>

@@ -83,7 +83,7 @@ const TweetInput = () => {
       <p style={{ backgroundColor: 'white', paddingInline: '.5rem' }}>
         Tweet something
       </p>
-      <Avatar photo={userPhoto} />
+      <Avatar photo={userPhoto} id={parsedUser.id } />
       <form
         className='form'
         // encType='multipart/form-data'

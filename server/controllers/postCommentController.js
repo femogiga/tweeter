@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const postComments = async (req, res, next) => {
   try {
-    upload.single('replyImageUrl')(req, res, async (err) => {
+    upload.single('replyImage')(req, res, async (err) => {
       if (err) {
         console.error(err);
         return res.status(500).json({ error: 'File upload failed' });

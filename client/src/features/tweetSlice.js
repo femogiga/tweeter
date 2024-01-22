@@ -5,6 +5,7 @@ const tweetSlice = createSlice({
   initialState: {
     content: '',
     replyRestrictions: 'Everyone',
+    reply:''
   },
   reducers: {
     setInputValue: (state, action) => {
