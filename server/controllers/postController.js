@@ -58,4 +58,37 @@ const postTweets = async (req, res, next) => {
   }
 };
 
-module.exports = { postTweets };
+const followPerson = async (req, res) => {
+  const { followerId, personId } = req.body;
+  let message = '';
+  let result = null;
+  try {
+    /*
+     * this block check if the user is already following
+    by taking the result  of the follow middlware and deletes or updates as you usual
+    //  */
+
+    if (req.follower === 'following') {
+      console.log('Follower is already following');
+      result = await knex
+        .from('Follower')
+        .delete('*')
+        .where('Follower.followerId', followerId)
+        .andWhere('Follower.personId', personId);
+      message = 'no longer following';
+    } else {
+      console.log('follower is not following');
+      result = await knex('Follower').insert({
+        followerId: followerId,
+        personId: personId,
+      });
+      message = 'now following';
+    }
+    res.status(200).json({ result, message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
+module.exports = { postTweets, followPerson };
