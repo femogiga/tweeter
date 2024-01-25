@@ -3,6 +3,7 @@ import Avatar from './cards/Avatar';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Fullname from './cards/Fullname';
 import { useFollowPerson } from '../../api/cardActionsData';
+import { useEffect, useState } from 'react';
 
 const FollowCard = ({
   id,
@@ -13,16 +14,30 @@ const FollowCard = ({
   profileImageBackground,
 }) => {
   const fullName = firstName + ' ' + lastName;
-  console.log('====>ert', +' ' + lastName);
-  const { mutate, isPending } = useFollowPerson();
-  function handleFollowButton() {
+  //console.log('====>ert', +' ' + lastName);//
+  const { mutateAsync, isPending,onSuccess } = useFollowPerson();
+  const[buttonState,setButtonState] = useState('Follow')
+  /*
+  *
+  */
+
+  useEffect(() => {
+    console.log('buttonState', buttonState)
+   },[buttonState,mutateAsync])
+   async function handleFollowButton() {
     const data = { personId: id };
     try {
-      const response = mutate(data);
+      const response = await mutateAsync(data)
+      setButtonState(response?.message)
+      console.log('response=====>',response)
+
     } catch (err) {
       console.error(err);
     }
   }
+
+    //console.log('buttonState2', response);
+//
   return (
     <article
       className='follow-card flow-1'

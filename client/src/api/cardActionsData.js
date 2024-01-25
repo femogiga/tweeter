@@ -11,12 +11,12 @@ import apiService from '../utils/apiService';
  */
 export const useFollowPerson = () => {
   const queryClient = useQueryClient();
-  const { isPending, error, mutate, isSuccess } = useMutation({
+  const { isPending, error, mutateAsync, isSuccess,onSuccess } = useMutation({
     mutationFn: async (data) => {
       const response = await apiService.post(`/follow`, data);
       return response.data;
     },
-    onSuccess: {},
+    onSuccess: response => response.data
   });
-  return { isPending, error, mutate, isSuccess };
+  return { isPending, error, mutateAsync, isSuccess,onSuccess };
 };

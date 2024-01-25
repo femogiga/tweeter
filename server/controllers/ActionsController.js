@@ -60,19 +60,110 @@ const getCommentLikeCount = async (req, res, next) => {
   }
 };
 
+// const getWhoTofollow = async (req, res, next) => {
+//   const newArr = [];
+//   try {
+//     //const person = parseInt(req.params.commentId);
+//     const persons = await knex
+//       .from('User')
+//       .whereNot('User.email', req.user.email)
+//       .select(
+//         'User.id',
+//         'User.firstName',
+//         'User.lastName',
+//         'User.photo',
+//         'User.profile',
+//         'User.profileImageBackground'
+//         // 'Follower.followerId'
+//       );
+//     // .andWhere('Follower.personId', 'User.id')
+
+//     //  .join('Follower', req.user.id, '=', 'Follower.personId');
+
+//     const allFollowers = await knex
+//       .from('Follower')
+//       .select('*')
+//       .where('Follower.followerId', '=', req.user.id);
+//     console.log('allFollower', allFollowers);
+//     const notFollowing = persons.filter((person) => {
+//       for (all of allFollowers) {
+//         if (all.personId !== person.id) {
+//           return all;
+//         }
+//       }
+//     });
+//     console.log('notFollowing', notFollowing);
+//     //const newArray = persons.map((person) =>person.followerId !=req.user.id)
+//     res.status(200).json(notFollowing);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json(error);
+//   }
+// };
+
 const getWhoTofollow = async (req, res, next) => {
   try {
-    //const person = parseInt(req.params.commentId);
-    const persons = await knex('User').whereNot('User.email', req.user.email);
+    const persons = await knex
+      .from('User')
+      .whereNot('User.email', req.user.email)
+      .select(
+        'User.id',
+        'User.firstName',
+        'User.lastName',
+        'User.photo',
+        'User.profile',
+        'User.profileImageBackground'
+      );
 
-    res.status(200).json(persons);
+    const allFollowers = await knex
+      .from('Follower')
+      .select('*')
+      .where('Follower.followerId', '=', req.user.id);
+
+    const notFollowing = persons.filter((person) => {
+      return !allFollowers.some((follower) => follower.personId === person.id);
+    });
+
+    console.log('notFollowing', notFollowing);
+    res.status(200).json(notFollowing);
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
   }
 };
 
+
 //
+
+// const getWhoTofollow = async (req, res, next) => {
+//   try {
+//     const persons = await knex
+//       .from('User')
+//       .whereNot('User.email', req.user.email)
+//       .whereNotExists(function () {
+//         // Subquery to check if the user is already following the person
+//         this.select('*')
+//           .from('Follower')
+//           .whereRaw('"Follower"."personId" = "User"."id"') // Use double quotes for table and column names
+//           .andWhere('"Follower"."followerId" = ?', req.user.id);
+//       })
+//       .select(
+//         'User.id',
+//         'User.firstName',
+//         'User.lastName',
+//         'User.photo',
+//         'User.profile',
+//         'User.profileImageBackground'
+//       );
+
+//     console.log(persons);
+
+//     res.status(200).json(persons);
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json(error);
+//   }
+// };
 
 const getTweetsByFollowedUsers = (req, res, next) => {
   try {
@@ -111,7 +202,6 @@ const getTweetsByFollowedUsers = (req, res, next) => {
 
 */
 const getTrend = async (req, res, next) => {
-
   try {
     const tweets = await knex.from('Tweet').select('*');
     const comment = await knex
@@ -170,7 +260,7 @@ const getTrend = async (req, res, next) => {
         return { id: tweet.id, tag: tag[0], sum };
       })
       .sort((a, b) => b.sum - a.sum)
-    .slice(0, 7);
+      .slice(0, 7);
     //console.table(newArray);
     // try {
     //  // const hashtag = '#Christmas';
