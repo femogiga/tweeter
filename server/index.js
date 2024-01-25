@@ -39,12 +39,7 @@ app.use('/stats', authMiddleware, statRoute);
 app.use('/bookmarks', authMiddleware, bookmarkedRoute);
 app.use('/like', authMiddleware, likeMiddleware, likeRoute);
 app.use('/explore', topRoute);
-app.use(
-  '/follow',
-  authMiddleware,
-  followMiddleware,
-  followRoute
-);
+app.use('/follow', authMiddleware, followMiddleware, followRoute);
 app.use('/saved', authMiddleware, savedMiddleware, savedRoute);
 
 app.get('/', (req, res) => {

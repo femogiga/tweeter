@@ -1,9 +1,9 @@
 const { knex } = require('../knex');
 
 const followMiddleware = async (req, res, next) => {
-  const { followerId, personId } = req.body;
+  const {  personId } = req.body;
   try {
-    if (followerId && personId) {
+    if (req.user.id && personId) {
       /*
        * the follower middleware  check if the user is already following or not.
        *  the {follower} property is attached as {following or not following}. this is then used in the

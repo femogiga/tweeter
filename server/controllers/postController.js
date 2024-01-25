@@ -59,7 +59,7 @@ const postTweets = async (req, res, next) => {
 };
 
 const followPerson = async (req, res) => {
-  const { followerId, personId } = req.body;
+  const {  personId } = req.body;
   let message = '';
   let result = null;
   try {
@@ -73,13 +73,13 @@ const followPerson = async (req, res) => {
       result = await knex
         .from('Follower')
         .delete('*')
-        .where('Follower.followerId', followerId)
+        .where('Follower.followerId', req.user.id)
         .andWhere('Follower.personId', personId);
       message = 'no longer following';
     } else {
       console.log('follower is not following');
       result = await knex('Follower').insert({
-        followerId: followerId,
+        followerId: req.user.id,
         personId: personId,
       });
       message = 'now following';

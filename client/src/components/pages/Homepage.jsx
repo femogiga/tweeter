@@ -77,6 +77,8 @@ const Homepage = () => {
   //console.log('who to ', whoToFollowData);
   console.log('allTweetWithComment', allTweetDataWithComment);
 
+
+  console.log('who to follow ====> ', first);
   /*
   TODO: fix the pageData in the useAllTweetwithcommentddata.
 
@@ -151,7 +153,7 @@ const Homepage = () => {
               Who to follow
             </p>
 
-            <FollowCard {...first} />
+            <FollowCard {...first}  />
             <FollowCard {...second} />
           </div>
         </aside>
