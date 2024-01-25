@@ -19,6 +19,9 @@ const followRoute = require('./routes/followRoute');
 const savedRoute = require('./routes/savedRoute');
 const followMiddleware = require('./middleware/followMiddleware');
 const savedMiddleware = require('./middleware/savedMidlleware');
+const retweetMiddleware = require('./middleware/retweetMiddleware');
+const likeMiddleware = require('./middleware/likeMiddleware');
+const likeRoute = require('./routes/likeRoute');
 const app = express();
 app.use(express.static('images'));
 app.use(morgan('tiny'));
@@ -29,20 +32,20 @@ app.use(express.json());
 app.use('/auth', authRoute);
 app.use('/tweets', authMiddleware, tweetRoute);
 app.use('/users', authMiddleware, userTweetRoute);
-app.use('/retweets', authMiddleware, allRetweetRoute);
+app.use('/retweets', authMiddleware, retweetMiddleware, allRetweetRoute);
 app.use('/comments', authMiddleware, commentRoute);
 app.use('/actions', authMiddleware, actionRoute);
 app.use('/stats', authMiddleware, statRoute);
 app.use('/bookmarks', authMiddleware, bookmarkedRoute);
+app.use('/like', authMiddleware, likeMiddleware, likeRoute);
 app.use('/explore', topRoute);
-app.use('/follow', authMiddleware, followMiddleware, savedMiddleware, followRoute);
 app.use(
-  '/saved',
+  '/follow',
   authMiddleware,
   followMiddleware,
-  savedMiddleware,
-  savedRoute
+  followRoute
 );
+app.use('/saved', authMiddleware, savedMiddleware, savedRoute);
 
 app.get('/', (req, res) => {
   res.send('Welcome to my application');

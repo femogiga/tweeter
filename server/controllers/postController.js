@@ -91,8 +91,6 @@ const followPerson = async (req, res) => {
   }
 };
 
-
-
 const savePost = async (req, res) => {
   const { userId, tweetId } = req.body;
   let message = '';
@@ -112,7 +110,7 @@ const savePost = async (req, res) => {
         .andWhere('Saved.tweetId', tweetId);
       message = 'savedRemoved';
     } else {
-     // console.log('follower is not following');
+      // console.log('follower is not following');
       result = await knex('Saved').insert({
         userId: userId,
         tweetId: tweetId,
@@ -126,4 +124,70 @@ const savePost = async (req, res) => {
   }
 };
 
-module.exports = { postTweets, followPerson ,savePost};
+const retweetPost = async (req, res) => {
+  const { userId, tweetId } = req.body;
+  let message = '';
+  let result = null;
+  try {
+    /*
+     * this block check if the user post is already saved
+    by taking the result  of the savedmiddlware and deletes or updates as you usual
+    //  */
+
+    if (req.retweeted === 'retweeted') {
+      //console.log('post is already saved');
+      result = await knex
+        .from('Retweet')
+        .delete('*')
+        .where('Retweet.userId', req.user.id)
+        .andWhere('Retweet.tweetId', tweetId);
+      message = 'retweetRemoved';
+    } else {
+      // console.log('follower is not following');
+      result = await knex('Retweet').insert({
+        userId: userId,
+        tweetId: tweetId,
+      });
+      message = 'retweeted';
+    }
+    res.status(200).json({ result, message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
+const likePost = async (req, res, next) => {
+  const { userId, tweetId } = req.body;
+  let message = '';
+  let result = null;
+  try {
+    /*
+     * this block check if the user post is already saved
+    by taking the result  of the savedmiddlware and deletes or updates as you usual
+    //  */
+
+    if (req.liked === 'liked') {
+      //console.log('post is already saved');
+      result = await knex
+        .from('Like')
+        .delete('*')
+        .where('Like.userId', req.user.id)
+        .andWhere('Like.tweetId', tweetId);
+      message = 'likeRemoved';
+    } else {
+      // console.log('follower is not following');
+      result = await knex('Like').insert({
+        userId: userId,
+        tweetId: tweetId,
+      });
+      message = 'liked';
+    }
+    res.status(200).json({ result, message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
+module.exports = { postTweets, followPerson, savePost, retweetPost, likePost };
