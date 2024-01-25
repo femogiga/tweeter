@@ -1,9 +1,8 @@
-const { followPerson } = require('../controllers/postController')
+const { followPerson, savePost } = require('../controllers/postController');
 
-const router = require('express').Router()
+const router = require('express').Router();
+
+router.post('/', followPerson);
 
 
-router.post('/', followPerson)
-
-
-module.exports = router
+module.exports = router;

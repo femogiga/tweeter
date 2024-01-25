@@ -16,7 +16,9 @@ const topRoute = require('./routes/topRoute');
 const statRoute = require('./routes/statRoute');
 const bookmarkedRoute = require('./routes/bookmarkedRoute');
 const followRoute = require('./routes/followRoute');
+const savedRoute = require('./routes/savedRoute');
 const followMiddleware = require('./middleware/followMiddleware');
+const savedMiddleware = require('./middleware/savedMidlleware');
 const app = express();
 app.use(express.static('images'));
 app.use(morgan('tiny'));
@@ -33,7 +35,15 @@ app.use('/actions', authMiddleware, actionRoute);
 app.use('/stats', authMiddleware, statRoute);
 app.use('/bookmarks', authMiddleware, bookmarkedRoute);
 app.use('/explore', topRoute);
-app.use('/follow', followMiddleware, followRoute);
+app.use('/follow', authMiddleware, followMiddleware, savedMiddleware, followRoute);
+app.use(
+  '/saved',
+  authMiddleware,
+  followMiddleware,
+  savedMiddleware,
+  savedRoute
+);
+
 app.get('/', (req, res) => {
   res.send('Welcome to my application');
 });

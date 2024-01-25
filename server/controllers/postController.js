@@ -91,4 +91,39 @@ const followPerson = async (req, res) => {
   }
 };
 
-module.exports = { postTweets, followPerson };
+
+
+const savePost = async (req, res) => {
+  const { userId, tweetId } = req.body;
+  let message = '';
+  let result = null;
+  try {
+    /*
+     * this block check if the user post is already saved
+    by taking the result  of the savedmiddlware and deletes or updates as you usual
+    //  */
+
+    if (req.saved === 'saved') {
+      //console.log('post is already saved');
+      result = await knex
+        .from('Saved')
+        .delete('*')
+        .where('Saved.userId', req.user.id)
+        .andWhere('Saved.tweetId', tweetId);
+      message = 'savedRemoved';
+    } else {
+     // console.log('follower is not following');
+      result = await knex('Saved').insert({
+        userId: userId,
+        tweetId: tweetId,
+      });
+      message = 'Saved';
+    }
+    res.status(200).json({ result, message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
+
+module.exports = { postTweets, followPerson ,savePost};
