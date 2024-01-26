@@ -155,18 +155,26 @@ const getWhoTofollow = async (req, res, next) => {
  *state of follow button on profile page
  */
 const getFollowByUserIdForButtonStatus = async (req, res, next) => {
-  let buttonStatus = 'Follow';
-  const personId = req.query.personId;
-  const follower = await knex
-    .from('Follower')
-    .select('*')
-    .where('Follower.personId', '=', personId)
-    .andWhere('Follower.followerId', '=', req.user.id);
-  if (follower.length > 0) {
-    buttonStatus = 'Following';
-  }
+  try {
+    let buttonStatus = 'Follow';
+    const personId = req.query.personId;
+    // if (personId === req.user.id) {
+    //   buttonStatus: 'disabled';
+    //   //return res.status(200).json({buttonStatus});
+    // }
+    const follower = await knex
+      .from('Follower')
+      .select('*')
+      .where('Follower.personId', '=', personId)
+      .andWhere('Follower.followerId', '=', req.user.id);
+    if (follower.length > 0) {
+      buttonStatus = 'Following';
+    }
 
-  res.status(200).json({buttonStatus});
+    res.status(200).json({ buttonStatus });
+  } catch (error) {
+    res.status(400).json({ error });
+  }
 };
 
 //

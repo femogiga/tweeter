@@ -6,12 +6,15 @@ import { useUserData } from '../../api/userData';
 import { useParams } from 'react-router-dom';
 import { useStatByAuthorId } from '../../api/statData';
 import { useGetFollowByUserIdForButtonStatus } from '../../api/actionData';
+import { useFollowPerson } from '../../api/cardActionsData';
+import { useEffect, useState } from 'react';
 const PageImage = () => {
   // button follower activates the followingModal with handleFollowingModal
   const dispatch = useDispatch();
   const handleFollowingModalVisibility = (e) => {
     e.preventDefault();
     dispatch(setFollowingModalVisibility('show'));
+    handleFollowButton();
   };
   const parsedUser = JSON.parse(localStorage.getItem('userData'));
   const { id } = useParams();
@@ -29,6 +32,27 @@ const PageImage = () => {
   console.log(buttonStatusData);
   const fullName = `${data?.firstName} ${data?.lastName}`;
   // const status = isButtonStatusPending ?'loading': buttonStatusData[0]?.buttonStatus;
+
+  const { mutateAsync, onSuccess } = useFollowPerson();
+  const [buttonState, setButtonState] = useState('Follow');
+  /*
+   *
+   */
+
+  useEffect(() => {
+    //console.log('buttonState', buttonState)
+  }, [buttonState, mutateAsync]);
+  async function handleFollowButton() {
+    const data = { personId: id };
+    try {
+      const response = await mutateAsync(data);
+      setButtonState(response?.message);
+      console.log('response=====>', response);
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <div className='page-image '>
       <img
