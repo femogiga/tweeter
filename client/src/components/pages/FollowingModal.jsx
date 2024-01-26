@@ -10,6 +10,8 @@ import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFollowingModalVisibility } from '../../features/ModalSlice';
+import { useGetFollowBForModal } from '../../api/actionData';
+import { useParams } from 'react-router-dom';
 const FollowingModal = () => {
   const followingModalVisible = useSelector(
     (state) => state.modal.followingModalVisible
@@ -19,6 +21,9 @@ const FollowingModal = () => {
   const handleFollowingModalClose = () => {
     disaptch(setFollowingModalVisibility('hide'));
   };
+
+  const{id} = useParams()
+  const{isPending,error,data} = useGetFollowBForModal(1)
   const style = {
     position: 'absolute',
     top: '50%',
@@ -31,6 +36,7 @@ const FollowingModal = () => {
     //   border: '2px solid #000',
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.3)',
     borderRadius: '8px',
+    overflow: 'scroll',
     // zIndex: 9,
     //
   };
@@ -48,10 +54,11 @@ const FollowingModal = () => {
               <CloseIcon />
             </IconButton>
           </div>
+          {data && data.map((item) => (<ModalInnerCard key={item.id} {...item} />))}
+
+          {/* <ModalInnerCard />
           <ModalInnerCard />
-          <ModalInnerCard />
-          <ModalInnerCard />
-          <ModalInnerCard />
+          <ModalInnerCard /> */}
         </Box>
       </Modal>
     </div>

@@ -74,6 +74,21 @@ export const useGetFollowByUserIdForButtonStatus = (personId) => {
   return { isPending, error, data };
 };
 
+
+export const useGetFollowBForModal = (personId) => {
+  const queryClient = new QueryClient();
+  const { isPending, error, data } = useQuery({
+    queryKey: ['modalFollower'],
+    queryFn: () =>
+      apiService
+        .get(`/actions/followermodal?personId=${personId}`)
+        .then((res) => res.data),
+  });
+  queryClient.invalidateQueries({ queryKey: ['modalFollower'] });
+  return { isPending, error, data };
+};
+
+
 // export const useCard = () => {
 //   const { isPending, error, data } = useQuery({
 //     queryKey: ['useCard'],

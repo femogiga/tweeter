@@ -223,22 +223,32 @@ const getTweetsByFollowedUsers = (req, res, next) => {
     res.status(500).json(error);
   }
 };
+/*
+ * this getFollowed the list of people followedby a user
+ */
+const getFollowedUsers = async (req, res, next) => {
+  try {
+    const personId = req.query.personId;
+    const usersWithCount = await knex
+      .from('Follower')
+      .join('User', 'Follower.personId', '=', 'User.id')
+      .groupBy('Follower.personId', 'User.id')
+      .select('Follower.personId', 'User.*')
+      .countDistinct('Follower.followerId as followerCount');
 
-// const calculateTweetByTag = async (tag) => {
-//   try {
-//     // const hashtag = '#Christmas';
-//     const tweetCount = await knex('Tweet').select('Tweet.id')
-//       .count('* as count')
-//       .groupBy('Tweet.id')
-//       .whereRaw('(LOWER("Tweet".content) LIKE ?)', [`%${tag}%`])
-
-//     //console.log('tweetCount', tweetCount);
-//     return  tweetCount ;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-//calculateTweetByTag('nvidia');
+    const usersFollowed = await knex
+      .from('Follower')
+      .select('*')
+      .where('Follower.personId', personId);
+    const arr = usersWithCount.filter((user) => {
+      return usersFollowed.some((item) => item.followerId === user.id);
+    });
+    res.status(200).json(arr);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
 
 /*
 *Get Trends feteches the count of retweet and comments
@@ -406,4 +416,5 @@ module.exports = {
   getTrend,
   getTweetByTags,
   getFollowByUserIdForButtonStatus,
+  getFollowedUsers,
 };
