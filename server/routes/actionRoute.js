@@ -9,6 +9,7 @@ const {
   getTweetsByFollowedUsers,
   getTrend,
   getTweetByTags,
+  getFollowByUserIdForButtonStatus,
 } = require('../controllers/ActionsController');
 
 const router = require('express').Router();
@@ -18,9 +19,10 @@ router.get('/like/:tweetId', getLikeCount);
 router.get('/saved/:tweetId', getSavedCount);
 router.get('/commentlike/:commentId', getCommentLikeCount);
 router.get('/tweets', getTweetByTags);
-router.get('/whotofollow' , getWhoTofollow)
+router.get('/whotofollow', getWhoTofollow);
 router.get('/retweet', getAllRetweetCount);
 router.get('/tweetbyfollowers', getTweetsByFollowedUsers);
-router.get('/trends',getTrend)
+router.get('/trends', getTrend);
+router.get('/buttonstatus', getFollowByUserIdForButtonStatus);
 // router.get('/trials',cardTweets)
 module.exports = router;

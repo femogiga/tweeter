@@ -66,7 +66,7 @@ const Homepage = () => {
 
   const handleTrendClick = (e) => {
     //e.preventDefault();
-     setPageData(tweetByTagData);
+    setPageData(tweetByTagData);
     refetch();
   };
   console.log('looog', tags);
@@ -76,7 +76,6 @@ const Homepage = () => {
   let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];
   //console.log('who to ', whoToFollowData);
   console.log('allTweetWithComment', allTweetDataWithComment);
-
 
   console.log('who to follow ====> ', first);
   /*
@@ -153,7 +152,7 @@ const Homepage = () => {
               Who to follow
             </p>
 
-            <FollowCard {...first}  />
+            <FollowCard {...first} />
             <FollowCard {...second} />
           </div>
         </aside>

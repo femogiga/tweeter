@@ -10,11 +10,11 @@ import { useParams } from 'react-router-dom';
 export const useRetweetCountbyId = (tweetId) => {
   const { isPending, error, data } = useQuery({
     queryKey: ['retweetCountById'],
-    queryFn: () => apiService.get(`/actions/retweet/${tweetId}`).then((res) => res.data),
+    queryFn: () =>
+      apiService.get(`/actions/retweet/${tweetId}`).then((res) => res.data),
   });
   return { isPending, error, data };
 };
-
 
 export const useLikeCountbyId = (tweetId) => {
   const { isPending, error, data } = useQuery({
@@ -25,12 +25,13 @@ export const useLikeCountbyId = (tweetId) => {
   return { isPending, error, data };
 };
 
-
 export const useCommentLikeCountbyId = (commentId) => {
   const { isPending, error, data } = useQuery({
     queryKey: ['commentLikeCountById'],
     queryFn: () =>
-      apiService.get(`/actions/commentlike/${commentId}`).then((res) => res.data),
+      apiService
+        .get(`/actions/commentlike/${commentId}`)
+        .then((res) => res.data),
   });
   return { isPending, error, data };
 };
@@ -39,13 +40,10 @@ export const useWhoToFollow = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ['whoToFollow'],
     queryFn: () =>
-      apiService
-        .get("/actions/whotofollow")
-        .then((res) => res.data),
+      apiService.get('/actions/whotofollow').then((res) => res.data),
   });
   return { isPending, error, data };
 };
-
 
 export const useGetTweetBytags = (tags) => {
   //const { tags } = useParams()
@@ -60,13 +58,21 @@ export const useGetTweetBytags = (tags) => {
     enabled: !!tags,
   });
 
-
   return { isPending, error, data };
 };
 
-
-
-
+export const useGetFollowByUserIdForButtonStatus = (personId) => {
+  const queryClient = new QueryClient();
+  const { isPending, error, data } = useQuery({
+    queryKey: ['buttonstatus'],
+    queryFn: () =>
+      apiService
+        .get(`/actions/buttonstatus?personId=${personId}`)
+        .then((res) => res.data),
+  });
+  queryClient.invalidateQueries({ queryKey: ['buttonstatus'] });
+  return { isPending, error, data };
+};
 
 // export const useCard = () => {
 //   const { isPending, error, data } = useQuery({

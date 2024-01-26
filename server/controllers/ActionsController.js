@@ -102,6 +102,7 @@ const getCommentLikeCount = async (req, res, next) => {
 // };
 
 const getWhoTofollow = async (req, res, next) => {
+  const arr = [];
   try {
     const persons = await knex
       .from('User')
@@ -114,17 +115,34 @@ const getWhoTofollow = async (req, res, next) => {
         'User.profile',
         'User.profileImageBackground'
       );
-
     const allFollowers = await knex
       .from('Follower')
       .select('*')
       .where('Follower.followerId', '=', req.user.id);
 
-    const notFollowing = persons.filter((person) => {
+    const countFollower = await knex
+      .from('Follower')
+      .groupBy('personId')
+      .select('personId')
+      .countDistinct('followerId as followerCount');
+
+    const arr = persons.map((person) => {
+      const item = countFollower.find((item) => item.personId === person.id);
+
+      const count = item ? item.followerCount : 0;
+
+      return { ...person, count };
+    });
+
+    console.log('arr======>', arr);
+
+    const notFollowing = arr.filter((person) => {
       return !allFollowers.some((follower) => follower.personId === person.id);
     });
 
-    console.log('notFollowing', notFollowing);
+    console.log('countFollower======>', notFollowing);
+
+    //console.log('notFollowing', notFollowing);
     res.status(200).json(notFollowing);
   } catch (error) {
     console.log(error);
@@ -132,6 +150,24 @@ const getWhoTofollow = async (req, res, next) => {
   }
 };
 
+/*
+ * this api is used to determine the
+ *state of follow button on profile page
+ */
+const getFollowByUserIdForButtonStatus = async (req, res, next) => {
+  let buttonStatus = 'Follow';
+  const personId = req.query.personId;
+  const follower = await knex
+    .from('Follower')
+    .select('*')
+    .where('Follower.personId', '=', personId)
+    .andWhere('Follower.followerId', '=', req.user.id);
+  if (follower.length > 0) {
+    buttonStatus = 'Following';
+  }
+
+  res.status(200).json({buttonStatus});
+};
 
 //
 
@@ -255,8 +291,8 @@ const getTrend = async (req, res, next) => {
         let contentText = tweet.content;
         tag = contentText.match(regex);
 
-        console.log('text===>', tag);
-        console.log('sum===>', sum);
+        //console.log('text===>', tag);
+        //console.log('sum===>', sum);
         return { id: tweet.id, tag: tag[0], sum };
       })
       .sort((a, b) => b.sum - a.sum)
@@ -361,4 +397,5 @@ module.exports = {
   getTweetsByFollowedUsers,
   getTrend,
   getTweetByTags,
+  getFollowByUserIdForButtonStatus,
 };

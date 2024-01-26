@@ -5,6 +5,7 @@ import { setFollowingModalVisibility } from '../../features/ModalSlice';
 import { useUserData } from '../../api/userData';
 import { useParams } from 'react-router-dom';
 import { useStatByAuthorId } from '../../api/statData';
+import { useGetFollowByUserIdForButtonStatus } from '../../api/actionData';
 const PageImage = () => {
   // button follower activates the followingModal with handleFollowingModal
   const dispatch = useDispatch();
@@ -22,9 +23,12 @@ const PageImage = () => {
     data: statData,
   } = useStatByAuthorId(id);
 
-  console.table(statData);
-  const fullName = `${data?.firstName} ${data?.lastName}`;
+  const { isPending: isButtonStatusPending, data: buttonStatusData } =
+    useGetFollowByUserIdForButtonStatus(id);
 
+  console.log(buttonStatusData);
+  const fullName = `${data?.firstName} ${data?.lastName}`;
+  // const status = isButtonStatusPending ?'loading': buttonStatusData[0]?.buttonStatus;
   return (
     <div className='page-image '>
       <img
@@ -71,7 +75,7 @@ const PageImage = () => {
             onClick={handleFollowingModalVisibility}
             variant='contained'
             startIcon={<PersonAddIcon />}>
-            Follower
+            {buttonStatusData?.buttonStatus}
           </Button>
         </div>
       </article>

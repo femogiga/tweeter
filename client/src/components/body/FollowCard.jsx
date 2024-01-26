@@ -12,6 +12,7 @@ const FollowCard = ({
   photo,
   profile,
   profileImageBackground,
+  count
 }) => {
   const fullName = firstName + ' ' + lastName;
   //console.log('====>ert', +' ' + lastName);//
@@ -22,7 +23,7 @@ const FollowCard = ({
   */
 
   useEffect(() => {
-    console.log('buttonState', buttonState)
+    //console.log('buttonState', buttonState)
    },[buttonState,mutateAsync])
    async function handleFollowButton() {
     const data = { personId: id };
@@ -47,7 +48,7 @@ const FollowCard = ({
         <div>
           <Fullname fullName={fullName} />
           <p className='font-sm' style={{ color: '#828282' }}>
-            <span>230k </span>
+            <span>{count} </span>
             follower
           </p>
         </div>
