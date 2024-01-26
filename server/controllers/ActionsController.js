@@ -177,37 +177,7 @@ const getFollowByUserIdForButtonStatus = async (req, res, next) => {
   }
 };
 
-//
 
-// const getWhoTofollow = async (req, res, next) => {
-//   try {
-//     const persons = await knex
-//       .from('User')
-//       .whereNot('User.email', req.user.email)
-//       .whereNotExists(function () {
-//         // Subquery to check if the user is already following the person
-//         this.select('*')
-//           .from('Follower')
-//           .whereRaw('"Follower"."personId" = "User"."id"') // Use double quotes for table and column names
-//           .andWhere('"Follower"."followerId" = ?', req.user.id);
-//       })
-//       .select(
-//         'User.id',
-//         'User.firstName',
-//         'User.lastName',
-//         'User.photo',
-//         'User.profile',
-//         'User.profileImageBackground'
-//       );
-
-//     console.log(persons);
-
-//     res.status(200).json(persons);
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json(error);
-//   }
-// };
 
 const getTweetsByFollowedUsers = (req, res, next) => {
   try {

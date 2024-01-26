@@ -10,20 +10,40 @@ import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFollowingModalVisibility } from '../../features/ModalSlice';
-import { useGetFollowBForModal } from '../../api/actionData';
+import {
+  useGetFollowBForModal,
+  useGetFollowByUserIdForButtonStatus,
+} from '../../api/actionData';
 import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useQueries } from '@tanstack/react-query';
 const FollowingModal = () => {
   const followingModalVisible = useSelector(
     (state) => state.modal.followingModalVisible
   );
+   const { id } = useParams();
+  const { isPending, error, data } = useGetFollowBForModal(id);
+const arr =  useGetFollowByUserIdForButtonStatus()
   const disaptch = useDispatch();
+  // const {
+  //   isPending: isButtonStatusPending,
+  //   refetch: refetchButtonStatus,
+  //   data: buttonStatusData,
+  // } = useGetFollowByUserIdForButtonStatus(id);
+
+
+
+
 
   const handleFollowingModalClose = () => {
     disaptch(setFollowingModalVisibility('hide'));
   };
 
-  const{id} = useParams()
-  const{isPending,error,data} = useGetFollowBForModal(1)
+  useEffect(() => { }, [id]);
+
+
+
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -37,8 +57,6 @@ const FollowingModal = () => {
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.3)',
     borderRadius: '8px',
     overflow: 'scroll',
-    // zIndex: 9,
-    //
   };
   return (
     <div className='following-modal'>
@@ -54,7 +72,8 @@ const FollowingModal = () => {
               <CloseIcon />
             </IconButton>
           </div>
-          {data && data.map((item) => (<ModalInnerCard key={item.id} {...item} />))}
+          {data &&
+            data.map((item) => <ModalInnerCard key={item.id} {...item} buttonStatus={ ''} />)}
 
           {/* <ModalInnerCard />
           <ModalInnerCard />

@@ -30,13 +30,7 @@ const Card = ({
 
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
-  // const { isPending: isRetweetCountPending, data: retweetCount } =
-  // useRetweetCountbyId(id);
-  //console.log('commentCountLike=====>' , commentLikeCount)
-  //const countRetweet = isRetweetCountPending ? 'loading' : retweetCount[0];
-  //console.log('count: ' + countRetweet);
-  // let cardUser = allUsers.find((user) => user?.id === authorid);CO
-  // console.log('theuser', theUserData);
+ 
   console.log('tweetid =====>', id)
   const [commentVisible, setCommentVisible] = useState(false); //handle comment Visible set the state
   const handleCommentVisibility = (e) => {

@@ -90,10 +90,10 @@ console.log('id: ' + id);
                 <Card
                   key={`Retweet-${retweet?.id}`}
                   {...retweet}
-                  author={allUsers.find(
+                  author={allUsers?.find(
                     (user) => user?.id === retweet?.authorid
                   )}
-                  commentUser={allUsers.find(
+                  commentUser={allUsers?.find(
                     (user) => user?.id === retweet?.commentAuthorid
                   )}
                   commentAuthorid={retweet?.commentAuthorid}

@@ -3,6 +3,7 @@ import {
   useMutation,
   QueryClient,
   useQueryClient,
+  useQueries,
 } from '@tanstack/react-query';
 import apiService from '../utils/apiService';
 import { useParams } from 'react-router-dom';
@@ -87,6 +88,9 @@ export const useGetFollowBForModal = (personId) => {
   queryClient.invalidateQueries({ queryKey: ['modalFollower'] });
   return { isPending, error, data };
 };
+
+
+
 
 
 // export const useCard = () => {
