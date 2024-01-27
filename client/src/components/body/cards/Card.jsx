@@ -17,6 +17,7 @@ import {
   useAllCommentsByTweetId,
 } from '../../../api/commentData';
 import { useCreateLikeMutation } from '../../../api/postTweetData';
+import useActionHandlers from '../../../utils/actionHandlers';
 const Card = ({
   content,
   imageUrl,
@@ -28,16 +29,18 @@ const Card = ({
   authorid,
   retweetCount,
   savedCount,
-  onHandleLike
-
+  onHandleLike,
+  onHandleRetweet
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
-  console.log('tweetid =====>', id)
+  console.log('tweetid =====>', id);
   // const handleLikeClick = (e) => {
   //   const data = {id}
   //   e.preventDefault()
   //   const response = mutate(data)
   // }
+
+  //const{handleRetweet}= useActionHandlers()
 
   const [commentVisible, setCommentVisible] = useState(false); //handle comment Visible set the state
   const handleCommentVisibility = (e) => {
@@ -69,8 +72,12 @@ const Card = ({
             commentCount={commentCount}
             savedCount={savedCount}
           />
-          <Actions onCommentVisible={handleCommentVisibility} onHandleLike = {onHandleLike} />
-          <Comment id={id } />
+          <Actions
+            onCommentVisible={handleCommentVisibility}
+            onHandleLike={onHandleLike}
+            onHandleRetweet={onHandleRetweet}
+          />
+          <Comment id={id} />
         </div>
       </div>
       <div className='comment-card-cont'>
@@ -81,9 +88,12 @@ const Card = ({
                 <CommentCard
                   key={comment?.id}
                   {...comment}
-                  commentUser={allUsers && allUsers.find(
-                    (user) => user?.id === comment?.commentAuthorid
-                  )}
+                  commentUser={
+                    allUsers &&
+                    allUsers.find(
+                      (user) => user?.id === comment?.commentAuthorid
+                    )
+                  }
                   commentId={comment?.id}
                 />
               )

@@ -4,7 +4,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import LoopIcon from '@mui/icons-material/Loop';
-const Actions = ({ onCommentVisible ,onHandleLike}) => {
+const Actions = ({ onCommentVisible ,onHandleLike,onHandleRetweet}) => {
   return (
     <div className='actions flow-05'>
       <ul className='actions__list flex space-between'>
@@ -17,13 +17,17 @@ const Actions = ({ onCommentVisible ,onHandleLike}) => {
           </Link>
         </li>
         <li>
-          <Link className='actions__list__items flex align-items--center'>
+          <Link
+            onClick={onHandleRetweet}
+            className='actions__list__items flex align-items--center'>
             <LoopIcon />
             Retweets
           </Link>
         </li>
         <li>
-          <Link className='actions__list__items flex align-items--center' onClick={onHandleLike}>
+          <Link
+            className='actions__list__items flex align-items--center'
+            onClick={onHandleLike}>
             <FavoriteBorderIcon />
             Likes
           </Link>

@@ -1,10 +1,10 @@
 const { knex } = require('../knex');
 
 const retweetMiddleware = async (req, res, next) => {
-  const { userId, tweetId } = req.body;
+  const {tweetId } = req.body;
 
   try {
-    if (tweetId && userId) {
+    if (tweetId) {
       /*
        * the follower middleware  check if the post is already saved or not.
        *  the {saved} property is attached as {saved or not saved}. this is then used in the
@@ -15,7 +15,7 @@ const retweetMiddleware = async (req, res, next) => {
         .from('Retweet')
         .select('*')
         .where('Retweet.tweetId', tweetId)
-        .andWhere('Retweet.userId', userId);
+        .andWhere('Retweet.userId', req.user.id);
       if (Object.keys(isPostRetweeted).length > 0) {
         req.retweeted = 'retweeted';
       } else {

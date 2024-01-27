@@ -61,3 +61,20 @@ export const useCreateLikeMutation = () => {
   });
   return { isPending, isSuccess, error, mutate };
 };
+
+export const useCreateRetweetMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { isPending, error, mutate, isSuccess } = useMutation({
+    mutationFn: async (data) => {
+      const response = await apiService.post('/retweets', data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKeys: ['getRetweet'],
+      });
+    },
+  });
+  return { isPending, isSuccess, error, mutate };
+};
