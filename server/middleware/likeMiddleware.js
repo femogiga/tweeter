@@ -1,10 +1,10 @@
 const { knex } = require('../knex');
 
 const likeMiddleware = async (req, res, next) => {
-  const { userId, tweetId } = req.body;
+  const { userId, id } = req.body;
 
   try {
-    if (tweetId && userId) {
+    if (id) {
       /*
        * the follower middleware  check if the post is already saved or not.
        *  the {saved} property is attached as {saved or not saved}. this is then used in the
@@ -14,8 +14,8 @@ const likeMiddleware = async (req, res, next) => {
       const isPostLiked = await knex
         .from('Like')
         .select('*')
-        .where('Like.tweetId', tweetId)
-        .andWhere('Like.userId', userId);
+        .where('Like.tweetId', id)
+        .andWhere('Like.userId', req.user.id);
       if (Object.keys(isPostLiked).length > 0) {
         req.liked = 'liked';
       } else {

@@ -16,6 +16,7 @@ import {
   useAllComments,
   useAllCommentsByTweetId,
 } from '../../../api/commentData';
+import { useCreateLikeMutation } from '../../../api/postTweetData';
 const Card = ({
   content,
   imageUrl,
@@ -27,11 +28,17 @@ const Card = ({
   authorid,
   retweetCount,
   savedCount,
+  onHandleLike
 
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
- 
   console.log('tweetid =====>', id)
+  // const handleLikeClick = (e) => {
+  //   const data = {id}
+  //   e.preventDefault()
+  //   const response = mutate(data)
+  // }
+
   const [commentVisible, setCommentVisible] = useState(false); //handle comment Visible set the state
   const handleCommentVisibility = (e) => {
     e.preventDefault();
@@ -62,13 +69,13 @@ const Card = ({
             commentCount={commentCount}
             savedCount={savedCount}
           />
-          <Actions onCommentVisible={handleCommentVisibility} />
+          <Actions onCommentVisible={handleCommentVisibility} onHandleLike = {onHandleLike} />
           <Comment id={id } />
         </div>
       </div>
       <div className='comment-card-cont'>
         {comments &&
-          comments.map((comment) => {
+          comments?.map((comment) => {
             return (
               commentVisible && (
                 <CommentCard

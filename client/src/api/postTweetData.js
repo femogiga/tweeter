@@ -44,3 +44,20 @@ export const useCreateCommentMutation = () => {
   });
   return { isPending, isSuccess, error, mutate };
 };
+
+export const useCreateLikeMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { isPending, error, mutate, isSuccess } = useMutation({
+    mutationFn: async (data) => {
+      const response = await apiService.post('/like', data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKeys: ['getlike'],
+      });
+    },
+  });
+  return { isPending, isSuccess, error, mutate };
+};

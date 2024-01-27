@@ -19,6 +19,8 @@ import randomGenerator from '../../utils/randomGen';
 import { useDispatch, useSelector } from 'react-redux';
 import { setHomeData } from '../../features/homeSlice';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
+import { useCreateLikeMutation } from '../../api/postTweetData';
+import useActionHandlers from '../../utils/actionHandlers';
 
 const Homepage = () => {
   /*
@@ -57,7 +59,7 @@ const Homepage = () => {
   // }, [queryClient, tags]);
   const { isPending: whoTofollowPending, data: whoToFollowData } =
     useWhoToFollow();
-
+const{handleLikeClick} = useActionHandlers()
   const { data: tweetByTagData, refetch } = useGetTweetBytags(tags);
   const [pageData, setPageData] = useState(allTweetDataWithComment);
   useEffect(() => {
@@ -82,6 +84,13 @@ const Homepage = () => {
   TODO: fix the pageData in the useAllTweetwithcommentddata.
 
 */
+  // const { mutate } = useCreateLikeMutation();
+
+  // const handleLikeClick = (e, id) => {
+  //   e.preventDefault();
+  //   const data = { id };
+  //   const response = mutate(data);
+  // };
 
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
@@ -117,6 +126,7 @@ const Homepage = () => {
                 return (
                   <Card
                     key={`Card${key}`}
+                    onHandleLike={(e, id) => handleLikeClick(e, tweet?.id)}
                     {...tweet}
                     // photo={tweet?.photo}
                     author={

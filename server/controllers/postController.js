@@ -92,7 +92,7 @@ const followPerson = async (req, res) => {
 };
 
 const savePost = async (req, res) => {
-  const { userId, tweetId } = req.body;
+  const { tweetId } = req.body;
   let message = '';
   let result = null;
   try {
@@ -112,7 +112,7 @@ const savePost = async (req, res) => {
     } else {
       // console.log('follower is not following');
       result = await knex('Saved').insert({
-        userId: userId,
+        userId: req.user.id,
         tweetId: tweetId,
       });
       message = 'Saved';
@@ -125,7 +125,7 @@ const savePost = async (req, res) => {
 };
 
 const retweetPost = async (req, res) => {
-  const { userId, tweetId } = req.body;
+  const { tweetId } = req.body;
   let message = '';
   let result = null;
   try {
@@ -145,7 +145,7 @@ const retweetPost = async (req, res) => {
     } else {
       // console.log('follower is not following');
       result = await knex('Retweet').insert({
-        userId: userId,
+        userId: req.user.id,
         tweetId: tweetId,
       });
       message = 'retweeted';
@@ -158,7 +158,7 @@ const retweetPost = async (req, res) => {
 };
 
 const likePost = async (req, res, next) => {
-  const { userId, tweetId } = req.body;
+  const { id } = req.body;
   let message = '';
   let result = null;
   try {
@@ -173,13 +173,13 @@ const likePost = async (req, res, next) => {
         .from('Like')
         .delete('*')
         .where('Like.userId', req.user.id)
-        .andWhere('Like.tweetId', tweetId);
+        .andWhere('Like.tweetId', id);
       message = 'likeRemoved';
     } else {
       // console.log('follower is not following');
       result = await knex('Like').insert({
-        userId: userId,
-        tweetId: tweetId,
+        userId: req.user.id,
+        tweetId: parseInt(id),
       });
       message = 'liked';
     }
