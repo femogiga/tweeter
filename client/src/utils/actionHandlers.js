@@ -1,8 +1,9 @@
-import { useCreateLikeMutation, useCreateRetweetMutation } from '../api/postTweetData';
+import { useCreateLikeMutation, useCreateRetweetMutation, useCreateSaveMutation } from '../api/postTweetData';
 
 export const useActionHandlers = () => {
     const { mutate } = useCreateLikeMutation();
-    const{mutate:mutateRetweet} = useCreateRetweetMutation()
+    const { mutate: mutateRetweet } = useCreateRetweetMutation()
+    const { mutate:mutateSaved } = useCreateSaveMutation()
   const handleLikeClick = (e, id) => {
     e.preventDefault();
     const data = { id };
@@ -19,8 +20,10 @@ export const useActionHandlers = () => {
     const handleSaveClick = (e, id) => {
       e.preventDefault();
       const data = { tweetId:id };
-      const response = mutate(data);
+      const response = mutateSaved(data);
     };
+
+
   return { handleRetweetClick, handleLikeClick, handleSaveClick };
 };
 

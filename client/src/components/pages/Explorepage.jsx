@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { useLatestExploreData, useTopExploreData, useTopMediaData, useTopPeopleData } from '../../api/exploreData';
 import { useAllUserData } from '../../api/userData';
 import { useStatByAuthorId } from '../../api/statData';
+import useActionHandlers from '../../utils/actionHandlers';
 
 const Explorepage = () => {
   //const { isPending, error, data } = useCard()
@@ -36,7 +37,8 @@ const Explorepage = () => {
     const { isPending: isTopMediaPending, data: topMediaData } =
     useTopMediaData();
 
-
+  const { handleLikeClick, handleRetweetClick, handleSaveClick } =
+    useActionHandlers();
 
 
   const [data, setData] = useState(topData);
@@ -75,6 +77,9 @@ const Explorepage = () => {
             {data &&
               data.map((item) => (
                 <Card
+                  onHandleLike={(e, id) => handleLikeClick(e, item?.id)}
+                  onHandleRetweet={(e, id) => handleRetweetClick(e, item?.id)}
+                  onHandleSave={(e, id) => handleSaveClick(e, item?.id)}
                   key={item.id}
                   {...item}
                   author={

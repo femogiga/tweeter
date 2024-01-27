@@ -59,7 +59,8 @@ const Homepage = () => {
   // }, [queryClient, tags]);
   const { isPending: whoTofollowPending, data: whoToFollowData } =
     useWhoToFollow();
-  const { handleLikeClick ,handleRetweetClick} = useActionHandlers();
+  const { handleLikeClick, handleRetweetClick, handleSaveClick } =
+    useActionHandlers();
   const { data: tweetByTagData, refetch } = useGetTweetBytags(tags);
   const [pageData, setPageData] = useState(allTweetDataWithComment);
   useEffect(() => {
@@ -127,7 +128,10 @@ const Homepage = () => {
                   <Card
                     key={`Card${key}`}
                     onHandleLike={(e, id) => handleLikeClick(e, tweet?.id)}
-                    onHandleRetweet={(e, id) => handleRetweetClick(e, tweet?.id)}
+                    onHandleRetweet={(e, id) =>
+                      handleRetweetClick(e, tweet?.id)
+                    }
+                    onHandleSave={(e, id) => handleSaveClick(e, tweet?.id)}
                     {...tweet}
                     // photo={tweet?.photo}
                     author={

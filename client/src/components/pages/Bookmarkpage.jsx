@@ -15,6 +15,7 @@ import {
   useTweetBookmarkDataById,
 } from '../../api/bookmarkedData';
 import { useAllUserData } from '../../api/userData';
+import useActionHandlers from '../../utils/actionHandlers';
 
 const Bookmarkpage = () => {
   const navigate = useNavigate();
@@ -35,6 +36,8 @@ const Bookmarkpage = () => {
     useMediaBookmarkData();
   const { isPending: isLatestDataPending, data: latestData } =
     useLatestBookmarkDataById();
+  const { handleLikeClick, handleRetweetClick, handleSaveClick } =
+    useActionHandlers();
 
   const [data, setData] = useState(tweetData);
 
@@ -79,6 +82,9 @@ const Bookmarkpage = () => {
               data.map((item) => {
                 return (
                   <Card
+                    onHandleLike={(e, id) => handleLikeClick(e, item?.id)}
+                    onHandleRetweet={(e, id) => handleRetweetClick(e, item?.id)}
+                    onHandleSave={(e, id) => handleSaveClick(e, item?.id)}
                     key={`like-${item.createdAt}`}
                     {...item}
                     author={

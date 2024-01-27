@@ -4,7 +4,12 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import LoopIcon from '@mui/icons-material/Loop';
-const Actions = ({ onCommentVisible ,onHandleLike,onHandleRetweet}) => {
+const Actions = ({
+  onCommentVisible,
+  onHandleLike,
+  onHandleRetweet,
+  onHandleSave,
+}) => {
   return (
     <div className='actions flow-05'>
       <ul className='actions__list flex space-between'>
@@ -33,7 +38,9 @@ const Actions = ({ onCommentVisible ,onHandleLike,onHandleRetweet}) => {
           </Link>
         </li>
         <li>
-          <Link className='actions__list__items flex align-items--center'>
+          <Link
+            onClick={onHandleSave}
+            className='actions__list__items flex align-items--center'>
             <BookmarkBorderIcon />
             Saved
           </Link>

@@ -113,7 +113,7 @@ const savePost = async (req, res) => {
       // console.log('follower is not following');
       result = await knex('Saved').insert({
         userId: req.user.id,
-        tweetId: tweetId,
+        tweetId: parseInt(tweetId),
       });
       message = 'Saved';
     }

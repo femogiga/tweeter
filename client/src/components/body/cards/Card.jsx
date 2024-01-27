@@ -30,7 +30,8 @@ const Card = ({
   retweetCount,
   savedCount,
   onHandleLike,
-  onHandleRetweet
+  onHandleRetweet,
+  onHandleSave
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
   console.log('tweetid =====>', id);
@@ -76,6 +77,7 @@ const Card = ({
             onCommentVisible={handleCommentVisibility}
             onHandleLike={onHandleLike}
             onHandleRetweet={onHandleRetweet}
+            onHandleSave = {onHandleSave}
           />
           <Comment id={id} />
         </div>

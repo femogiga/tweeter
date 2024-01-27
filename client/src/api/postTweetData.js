@@ -78,3 +78,22 @@ export const useCreateRetweetMutation = () => {
   });
   return { isPending, isSuccess, error, mutate };
 };
+
+
+
+export const useCreateSaveMutation = () => {
+  const queryClient = useQueryClient();
+
+  const { isPending, error, mutate, isSuccess } = useMutation({
+    mutationFn: async (data) => {
+      const response = await apiService.post('/saved', data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKeys: ['getSaved'],
+      });
+    },
+  });
+  return { isPending, isSuccess, error, mutate };
+};
