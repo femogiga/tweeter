@@ -17,31 +17,29 @@ import {
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useQueries } from '@tanstack/react-query';
+import { useAllUserData } from '../../api/userData';
 const FollowingModal = () => {
   const followingModalVisible = useSelector(
     (state) => state.modal.followingModalVisible
   );
-   const { id } = useParams();
-  const { isPending, error, data } = useGetFollowBForModal(id);
-const arr =  useGetFollowByUserIdForButtonStatus()
+  const { id } = useParams();
+   useEffect(() => {}, [id]);
+  const { isPending, error, data } = useGetFollowBForModal(parseInt(id));
+  const arr = useGetFollowByUserIdForButtonStatus();
   const disaptch = useDispatch();
   // const {
   //   isPending: isButtonStatusPending,
   //   refetch: refetchButtonStatus,
   //   data: buttonStatusData,
   // } = useGetFollowByUserIdForButtonStatus(id);
-
-
-
-
+  const { isPending:isDataPending,data: userData } = useAllUserData();
+  const myUsers = isDataPending? 'loading' : userData?.filter((user) => user?.id === parseInt(id));
+  console.log('useeeerr', myUsers);
+  const userName = myUsers[0]?.firstName + ' ' + myUsers[0]?.lastName;
 
   const handleFollowingModalClose = () => {
     disaptch(setFollowingModalVisibility('hide'));
   };
-
-  useEffect(() => { }, [id]);
-
-
 
 
   const style = {
@@ -67,13 +65,13 @@ const arr =  useGetFollowByUserIdForButtonStatus()
         aria-describedby='modal-modal-description'>
         <Box sx={style}>
           <div className='flex space-between'>
-            <p style={{ padding: '1rem' }}>Daniel Jensen is following</p>
+            <p style={{ padding: '1rem' }}>{`${userName} is following`}</p>
             <IconButton aria-label='delete' onClick={handleFollowingModalClose}>
               <CloseIcon />
             </IconButton>
           </div>
           {data &&
-            data.map((item) => <ModalInnerCard key={item.id} {...item} buttonStatus={ ''} />)}
+            data.map((item) => <ModalInnerCard key={item.id} {...item} />)}
 
           {/* <ModalInnerCard />
           <ModalInnerCard />

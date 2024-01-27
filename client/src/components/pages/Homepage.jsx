@@ -9,7 +9,7 @@ import FollowCard from '../body/FollowCard';
 import Trends from '../body/Trends';
 import WhocanModal from '../body/WhocanModal';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useAllTweetData } from '../../api/tweetData';
 import { useAllRetweetData } from '../../api/retweetData';
 import { useAllTweetDataWithComments } from '../../api/tweetWithCommentData';
@@ -71,7 +71,7 @@ const Homepage = () => {
   };
   console.log('looog', tags);
   const length = whoTofollowPending ? 'Loading..' : whoToFollowData?.length - 1;
-  const [firstNum, secondNum] = randomGenerator(length);
+  const [firstNum, secondNum] = useMemo(() => randomGenerator(length));
   let first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];
   let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];
   //console.log('who to ', whoToFollowData);
