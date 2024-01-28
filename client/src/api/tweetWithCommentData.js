@@ -27,7 +27,7 @@ export const useTweetDataByAuthorIdWithMedia = (authorid) => {
 };
 
 
-export const useAllTweetDataWithComments = (authorid) => {
+export const useAllTweetDataWithComments = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ['allTweetWithComments'],
     queryFn: () =>

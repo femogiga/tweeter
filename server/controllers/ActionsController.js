@@ -177,8 +177,6 @@ const getFollowByUserIdForButtonStatus = async (req, res, next) => {
   }
 };
 
-
-
 const getTweetsByFollowedUsers = (req, res, next) => {
   try {
     const tweetsByFollowedUsers = knex('Tweet')
@@ -375,6 +373,35 @@ const getTweetByTags = async (req, res, next) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
+/*
+ *   getAllretweets is used to Style the color state of retweet button
+ */
+const getAllRetweetsForCard = async (req, res, next) => {
+  try {
+    const tweetId = parseInt(req.query.tweetId);
+    console.log('idforparam', tweetId);
+
+    const retweets = await knex
+      .from('Retweet')
+      .select(
+        'Retweet.userId',
+        'Retweet.tweetId',
+        'User.firstName'
+      ) // Adjust fields as needed
+      .join('User', 'User.id', '=', 'Retweet.userId')
+
+      .where('User.id', req.user.id);
+
+    res.status(200).json(retweets);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
+
+
+
 module.exports = {
   getRetweetCount,
   getAllRetweetCount,
@@ -387,4 +414,5 @@ module.exports = {
   getTweetByTags,
   getFollowByUserIdForButtonStatus,
   getFollowedUsers,
+  getAllRetweetsForCard,
 };

@@ -9,6 +9,7 @@ const Actions = ({
   onHandleLike,
   onHandleRetweet,
   onHandleSave,
+  retweetState,
 }) => {
   return (
     <div className='actions flow-05'>
@@ -25,7 +26,7 @@ const Actions = ({
           <Link
             onClick={onHandleRetweet}
             className='actions__list__items flex align-items--center'>
-            <LoopIcon />
+            {retweetState !== undefined ? <LoopIcon /> : null}
             Retweets
           </Link>
         </li>
@@ -33,7 +34,7 @@ const Actions = ({
           <Link
             className='actions__list__items flex align-items--center'
             onClick={onHandleLike}>
-            <FavoriteBorderIcon />
+            { <FavoriteBorderIcon /> }
             Likes
           </Link>
         </li>

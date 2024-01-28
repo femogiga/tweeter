@@ -21,6 +21,7 @@ import { setHomeData } from '../../features/homeSlice';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { useCreateLikeMutation } from '../../api/postTweetData';
 import useActionHandlers from '../../utils/actionHandlers';
+import { AllRetweetCardStyle } from '../../api/cardActionsData';
 
 const Homepage = () => {
   /*
@@ -93,8 +94,13 @@ const Homepage = () => {
   //   const response = mutate(data);
   // };
 
+  const { isPrending: isRetweetData, data: retweetData } =
+    AllRetweetCardStyle();
+
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
+    const parsedUser = JSON.parse(userToken)
+    const id = parsedUser?.id
     if (!userToken) {
       navigate('/login');
     }
@@ -144,6 +150,10 @@ const Homepage = () => {
                     }
                     tweetId={tweet?.tweetId}
                     id={tweet?.id}
+                    retweetState={
+                      retweetData?.find((retweet) => retweet?.tweetId === tweet?.id)
+
+                    }
                   />
                 );
               })}
