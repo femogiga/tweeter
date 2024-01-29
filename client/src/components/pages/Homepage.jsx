@@ -21,7 +21,10 @@ import { setHomeData } from '../../features/homeSlice';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { useCreateLikeMutation } from '../../api/postTweetData';
 import useActionHandlers from '../../utils/actionHandlers';
-import { AllRetweetCardStyle } from '../../api/cardActionsData';
+import {
+  AllRetweetCardStyle,
+  AllSavesForCardStyle,
+} from '../../api/cardActionsData';
 
 const Homepage = () => {
   /*
@@ -73,15 +76,15 @@ const Homepage = () => {
     setPageData(tweetByTagData);
     refetch();
   };
-  console.log('looog', tags);
+  // console.log('looog', tags);
   const length = whoTofollowPending ? 'Loading..' : whoToFollowData?.length - 1;
   const [firstNum, secondNum] = useMemo(() => randomGenerator(length));
   let first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];
   let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];
   //console.log('who to ', whoToFollowData);
-  console.log('allTweetWithComment', allTweetDataWithComment);
+  //console.log('allTweetWithComment', allTweetDataWithComment);
 
-  console.log('who to follow ====> ', first);
+  //console.log('who to follow ====> ', first);
   /*
   TODO:RetweetState which is found via retweetdata and used to set the stat
 
@@ -94,8 +97,11 @@ const Homepage = () => {
   //   const response = mutate(data);
   // };
 
-  const { isPrending: isRetweetData, data: retweetData } =
+  const { isPending: isRetweetDataPending, data: retweetData } =
     AllRetweetCardStyle();
+
+  const { isPending: isSavedDataPending, data: savesData } =
+    AllSavesForCardStyle();
 
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
@@ -152,6 +158,9 @@ const Homepage = () => {
                     id={tweet?.id}
                     retweetState={retweetData?.find(
                       (retweet) => retweet?.tweetId === tweet?.id
+                    )}
+                    savedState={savesData?.find(
+                      (saved) => saved?.tweetId === tweet?.id
                     )}
                   />
                 );

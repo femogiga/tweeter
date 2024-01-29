@@ -33,6 +33,7 @@ const Card = ({
   onHandleRetweet,
   onHandleSave,
   retweetState,
+  savedState,
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
   console.log('tweetid =====>', id);
@@ -41,9 +42,9 @@ const Card = ({
   //   e.preventDefault()
   //   const response = mutate(data)
   // }
-
+  console.log('saved===>',savedState)
   //const{handleRetweet}= useActionHandlers()
-  console.log('retweetState' ,retweetState)
+  console.log('retweetState', retweetState);
   const [commentVisible, setCommentVisible] = useState(false); //handle comment Visible set the state
   const handleCommentVisibility = (e) => {
     e.preventDefault();
@@ -80,6 +81,7 @@ const Card = ({
             onHandleRetweet={onHandleRetweet}
             onHandleSave={onHandleSave}
             retweetState={retweetState}
+            savedState={savedState}
           />
           <Comment id={id} />
         </div>

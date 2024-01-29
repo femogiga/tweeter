@@ -402,6 +402,27 @@ const getAllRetweetsForCard = async (req, res, next) => {
 
 
 
+const getAllSavedForCard = async (req, res, next) => {
+  try {
+    const tweetId = parseInt(req.query.tweetId);
+    console.log('idforparam', tweetId);
+
+    const saves = await knex
+      .from('Saved')
+      .select('Saved.userId', 'Saved.tweetId', 'User.firstName') // Adjust fields as needed
+      .join('User', 'User.id', '=', 'Saved.userId')
+
+      .where('User.id', req.user.id);
+
+    res.status(200).json(saves);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
+
+
+
 module.exports = {
   getRetweetCount,
   getAllRetweetCount,
@@ -415,4 +436,5 @@ module.exports = {
   getFollowByUserIdForButtonStatus,
   getFollowedUsers,
   getAllRetweetsForCard,
+  getAllSavedForCard,
 };

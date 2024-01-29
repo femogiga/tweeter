@@ -55,7 +55,7 @@ export const useCreateLikeMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKeys: ['getlike'],
+        queryKeys: ['likescardstyle'],
       });
     },
   });
@@ -91,7 +91,7 @@ export const useCreateSaveMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKeys: ['getSaved'],
+        queryKeys: ['savescardstyle'],
       });
     },
   });

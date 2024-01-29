@@ -46,12 +46,21 @@ export const useFollowPerson = () => {
 //     retweetQueries,
 //   };
 // };
-
+//actions/savesforstyle
 export const AllRetweetCardStyle = () => {
   const { isPending, data } = useQuery({
     queryKey: ['retweetscardstyle'],
     queryFn: () =>
       apiService.get('/actions/retweetsforStyle').then((res) => res.data),
   });
-  return {isPending,data}
+  return { isPending, data };
+};
+
+export const AllSavesForCardStyle = () => {
+  const { isPending, data } = useQuery({
+    queryKey: ['savescardstyle'],
+    queryFn: () =>
+      apiService.get('/actions/savesforstyle').then((res) => res.data),
+  });
+  return { isPending, data };
 };
