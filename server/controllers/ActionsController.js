@@ -275,6 +275,13 @@ const getTrend = async (req, res, next) => {
          */
         const regex = /#\w+/g;
         let contentText = tweet.content;
+        /*
+         * the below check content contains # and
+        *prevent server from crashing if it doesn't
+         */
+        if (!contentText.includes('#')) {
+          return;
+        }
         tag = contentText.match(regex);
 
         //console.log('text===>', tag);

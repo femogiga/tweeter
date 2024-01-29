@@ -34,3 +34,4 @@ router.get('/savesforstyle', getAllSavedForCard);
 router.get('/likesforstyle', getAllLikeForCard);
 // router.get('/trials',cardTweets)
 module.exports = router;
+
