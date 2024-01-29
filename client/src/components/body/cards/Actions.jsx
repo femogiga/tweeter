@@ -11,18 +11,25 @@ const Actions = ({
   onHandleSave,
   retweetState,
   savedState,
+  likeState,
 }) => {
   const green = {
     color: '#27AE60',
   };
   const blue = {
-    color:'blue'
-  }
+    color: 'blue',
+  };
+
+  const red = {
+    color: 'red',
+  };
 
   const retweetStyle = retweetState !== undefined ? green : null;
   const retweetText = retweetState !== undefined ? 'Retweeted' : 'Retweet';
   const savedStyle = savedState !== undefined ? blue : null;
-    const saveText = savedState !== undefined ? 'Saved' : 'Save';
+  const saveText = savedState !== undefined ? 'Saved' : 'Save';
+  const likeStyle = likeState !== undefined ? red : null;
+  const likeText = likeState !== undefined ? 'Liked' : 'Like';
 
   return (
     <div className='actions flow-05'>
@@ -37,7 +44,8 @@ const Actions = ({
         </li>
         <li>
           <Link
-            style={retweetState !== undefined ? retweetStyle : null}
+            // style={retweetState !== undefined ? retweetStyle : null}
+            style={retweetStyle}
             onClick={onHandleRetweet}
             className={`actions__list__items flex align-items--center`}>
             {/* {retweetState !== undefined ? <LoopIcon /> : null} */}
@@ -47,15 +55,17 @@ const Actions = ({
         </li>
         <li>
           <Link
+            style={likeStyle}
             className='actions__list__items flex align-items--center'
             onClick={onHandleLike}>
             {<FavoriteBorderIcon />}
-            Likes
+            {likeText}
           </Link>
         </li>
         <li>
           <Link
-            style={savedState !== undefined ? savedStyle : null}
+            // style={savedState !== undefined ? savedStyle : null}
+            style={savedStyle}
             onClick={onHandleSave}
             className='actions__list__items flex align-items--center'>
             <BookmarkBorderIcon />

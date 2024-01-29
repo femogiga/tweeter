@@ -64,3 +64,12 @@ export const AllSavesForCardStyle = () => {
   });
   return { isPending, data };
 };
+
+export const AllLikesForCardStyle = () => {
+  const { isPending, data } = useQuery({
+    queryKey: ['likescardstyle'],
+    queryFn: () =>
+      apiService.get('/actions/likesforstyle').then((res) => res.data),
+  });
+  return { isPending, data };
+};

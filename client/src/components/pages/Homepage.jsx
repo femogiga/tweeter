@@ -22,6 +22,7 @@ import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { useCreateLikeMutation } from '../../api/postTweetData';
 import useActionHandlers from '../../utils/actionHandlers';
 import {
+  AllLikesForCardStyle,
   AllRetweetCardStyle,
   AllSavesForCardStyle,
 } from '../../api/cardActionsData';
@@ -103,6 +104,9 @@ const Homepage = () => {
   const { isPending: isSavedDataPending, data: savesData } =
     AllSavesForCardStyle();
 
+  const { isPending: isLikesDataPending, data: likesData } =
+    AllLikesForCardStyle();
+
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
     const parsedUser = JSON.parse(userToken);
@@ -161,6 +165,9 @@ const Homepage = () => {
                     )}
                     savedState={savesData?.find(
                       (saved) => saved?.tweetId === tweet?.id
+                    )}
+                    likeState={likesData?.find(
+                      (like) => like?.tweetId === tweet?.id
                     )}
                   />
                 );

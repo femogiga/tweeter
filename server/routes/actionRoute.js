@@ -13,6 +13,7 @@ const {
   getFollowedUsers,
   getAllRetweetsForCard,
   getAllSavedForCard,
+  getAllLikeForCard,
 } = require('../controllers/ActionsController');
 
 const router = require('express').Router();
@@ -30,5 +31,6 @@ router.get('/buttonstatus', getFollowByUserIdForButtonStatus);
 router.get('/followermodal', getFollowedUsers);
 router.get('/retweetsforstyle', getAllRetweetsForCard);
 router.get('/savesforstyle', getAllSavedForCard);
+router.get('/likesforstyle', getAllLikeForCard);
 // router.get('/trials',cardTweets)
 module.exports = router;

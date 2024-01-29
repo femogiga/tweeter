@@ -384,11 +384,7 @@ const getAllRetweetsForCard = async (req, res, next) => {
 
     const retweets = await knex
       .from('Retweet')
-      .select(
-        'Retweet.userId',
-        'Retweet.tweetId',
-        'User.firstName'
-      ) // Adjust fields as needed
+      .select('Retweet.userId', 'Retweet.tweetId', 'User.firstName') // Adjust fields as needed
       .join('User', 'User.id', '=', 'Retweet.userId')
 
       .where('User.id', req.user.id);
@@ -399,8 +395,6 @@ const getAllRetweetsForCard = async (req, res, next) => {
     res.status(500).json({ error });
   }
 };
-
-
 
 const getAllSavedForCard = async (req, res, next) => {
   try {
@@ -421,7 +415,24 @@ const getAllSavedForCard = async (req, res, next) => {
   }
 };
 
+const getAllLikeForCard = async (req, res, next) => {
+  try {
+    const tweetId = parseInt(req.query.tweetId);
+    //console.log('idforparam', tweetId);
 
+    const likes = await knex
+      .from('Like')
+      .select('Like.userId', 'Like.tweetId', 'User.firstName') // Adjust fields as needed
+      .join('User', 'User.id', '=', 'Like.userId')
+
+      .where('User.id', req.user.id);
+
+    res.status(200).json(likes);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
 
 module.exports = {
   getRetweetCount,
@@ -437,4 +448,5 @@ module.exports = {
   getFollowedUsers,
   getAllRetweetsForCard,
   getAllSavedForCard,
+  getAllLikeForCard,
 };

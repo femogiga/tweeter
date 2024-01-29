@@ -79,8 +79,6 @@ export const useCreateRetweetMutation = () => {
   return { isPending, isSuccess, error, mutate };
 };
 
-
-
 export const useCreateSaveMutation = () => {
   const queryClient = useQueryClient();
 
