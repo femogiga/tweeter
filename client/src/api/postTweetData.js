@@ -72,7 +72,7 @@ export const useCreateRetweetMutation = () => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKeys: ['getRetweet'],
+        queryKeys: ['retweetscardstyle'],
       });
     },
   });

@@ -11,6 +11,12 @@ const Actions = ({
   onHandleSave,
   retweetState,
 }) => {
+  const green = {
+    color: '#27AE60',
+  };
+
+  const retweetStyle = retweetState !== undefined ? green : null;
+  const retweetText = retweetState !== undefined ? 'Retweeted' : 'Retweet';
   return (
     <div className='actions flow-05'>
       <ul className='actions__list flex space-between'>
@@ -24,17 +30,19 @@ const Actions = ({
         </li>
         <li>
           <Link
+            style={retweetState !== undefined ? retweetStyle : null}
             onClick={onHandleRetweet}
-            className='actions__list__items flex align-items--center'>
-            {retweetState !== undefined ? <LoopIcon /> : null}
-            Retweets
+            className={`actions__list__items flex align-items--center`}>
+            {/* {retweetState !== undefined ? <LoopIcon /> : null} */}
+            <LoopIcon />
+            {retweetText}
           </Link>
         </li>
         <li>
           <Link
             className='actions__list__items flex align-items--center'
             onClick={onHandleLike}>
-            { <FavoriteBorderIcon /> }
+            {<FavoriteBorderIcon />}
             Likes
           </Link>
         </li>

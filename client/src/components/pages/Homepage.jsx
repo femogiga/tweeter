@@ -83,7 +83,7 @@ const Homepage = () => {
 
   console.log('who to follow ====> ', first);
   /*
-  TODO: fix the pageData in the useAllTweetwithcommentddata.
+  TODO:RetweetState which is found via retweetdata and used to set the stat
 
 */
   // const { mutate } = useCreateLikeMutation();
@@ -99,8 +99,8 @@ const Homepage = () => {
 
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
-    const parsedUser = JSON.parse(userToken)
-    const id = parsedUser?.id
+    const parsedUser = JSON.parse(userToken);
+    const id = parsedUser?.id;
     if (!userToken) {
       navigate('/login');
     }
@@ -150,10 +150,9 @@ const Homepage = () => {
                     }
                     tweetId={tweet?.tweetId}
                     id={tweet?.id}
-                    retweetState={
-                      retweetData?.find((retweet) => retweet?.tweetId === tweet?.id)
-
-                    }
+                    retweetState={retweetData?.find(
+                      (retweet) => retweet?.tweetId === tweet?.id
+                    )}
                   />
                 );
               })}

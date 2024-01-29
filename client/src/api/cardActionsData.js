@@ -49,7 +49,7 @@ export const useFollowPerson = () => {
 
 export const AllRetweetCardStyle = () => {
   const { isPending, data } = useQuery({
-    queryKey: ['retweets'],
+    queryKey: ['retweetscardstyle'],
     queryFn: () =>
       apiService.get('/actions/retweetsforStyle').then((res) => res.data),
   });
