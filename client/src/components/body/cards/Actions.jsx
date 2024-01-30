@@ -17,12 +17,16 @@ const Actions = ({
     color: '#27AE60',
   };
   const blue = {
-    color: 'blue',
+    color: '#2D9CDB',
   };
 
   const red = {
-    color: 'red',
+    color: '#EB5757',
   };
+
+  /*
+   * style and text sets the color and text of buttons when clicked
+   */
 
   const retweetStyle = retweetState !== undefined ? green : null;
   const retweetText = retweetState !== undefined ? 'Retweeted' : 'Retweet';

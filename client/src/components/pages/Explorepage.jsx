@@ -7,10 +7,16 @@ import ExploreNav from './../body/ExploreNav';
 import { Button } from '@mui/material';
 import Card from '../body/cards/Card';
 import { useEffect, useState } from 'react';
-import { useLatestExploreData, useTopExploreData, useTopMediaData, useTopPeopleData } from '../../api/exploreData';
+import {
+  useLatestExploreData,
+  useTopExploreData,
+  useTopMediaData,
+  useTopPeopleData,
+} from '../../api/exploreData';
 import { useAllUserData } from '../../api/userData';
 import { useStatByAuthorId } from '../../api/statData';
 import useActionHandlers from '../../utils/actionHandlers';
+import actionhandlerCardStyle from '../../utils/actionHandlerDataForCardStyle';
 
 const Explorepage = () => {
   //const { isPending, error, data } = useCard()
@@ -27,34 +33,37 @@ const Explorepage = () => {
 
   const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
 
-  const { isPending: isTopDataPending, error, data: topData } = useTopExploreData();
-   const {
-     isPending: isLatestDataPending,
-     error:latestError,
-     data: latestData,
+  const {
+    isPending: isTopDataPending,
+    error,
+    data: topData,
+  } = useTopExploreData();
+  const {
+    isPending: isLatestDataPending,
+    error: latestError,
+    data: latestData,
   } = useLatestExploreData();
-  const { isPending: isTopPeoplePending, data: topPeopleData } = useTopPeopleData()
-    const { isPending: isTopMediaPending, data: topMediaData } =
+  const { isPending: isTopPeoplePending, data: topPeopleData } =
+    useTopPeopleData();
+  const { isPending: isTopMediaPending, data: topMediaData } =
     useTopMediaData();
 
   const { handleLikeClick, handleRetweetClick, handleSaveClick } =
     useActionHandlers();
-
 
   const [data, setData] = useState(topData);
 
   const handleTweet = (e, dataToSet) => {
     e.preventDefault();
     setData(dataToSet);
-    return
+    return;
   };
   useEffect(() => {
     isTopDataPending ? 'loading' : setData(topData);
-
-  }, [topData,isTopDataPending]);
-  console.log('latestexploreData====>', latestData);
-    console.log('topexploreData====>', topData);
-
+  }, [topData, isTopDataPending]);
+  //console.log('latestexploreData====>', latestData);
+  // console.log('topexploreData====>', topData);
+  const { retweetData, likesData, savesData } = actionhandlerCardStyle();
   return (
     <Container>
       <Header />
@@ -86,6 +95,15 @@ const Explorepage = () => {
                     allUsers &&
                     allUsers.find((user) => user?.id === item?.authorid)
                   }
+                  retweetState={retweetData?.find(
+                    (retweet) => retweet?.tweetId === item?.id
+                  )}
+                  savedState={savesData?.find(
+                    (saved) => saved?.tweetId === item?.id
+                  )}
+                  likeState={likesData?.find(
+                    (like) => like?.tweetId === item?.id
+                  )}
                 />
               ))}
             {/* <Card /> */}

@@ -13,16 +13,16 @@ import { useAllUserData } from '../../api/userData';
 import { userFinder } from '../../utils/userFinder';
 import { useRetweetDataByAuthorId } from '../../api/retweetData';
 import { useNavigate, useParams } from 'react-router-dom';
+import actionhandlerCardStyle from '../../utils/actionHandlerDataForCardStyle';
+import useActionHandlers from '../../utils/actionHandlers';
 const Main = () => {
-  const userData = JSON.parse(localStorage.getItem('userData'));
+  // const userData = JSON.parse(localStorage.getItem('userData'));
   //const id = parseInt(userData?.id);
   //const[id1,setId] = useState(userData?.id)
   const navigate = useNavigate();
   let { id } = useParams();
-console.log('id: ' + id);
-  useEffect(() => {
-
-  }, [id, navigate]);
+  //console.log('id: ' + id);
+  useEffect(() => {}, [id, navigate]);
   const {
     isPending: isTweetDataPending,
     error: tweetError,
@@ -40,9 +40,13 @@ console.log('id: ' + id);
     data: tweetWIthMediaData,
   } = useTweetDataByAuthorIdWithMedia(id);
   const { isPending: isAllUserDataPending, data: allUsers } = useAllUserData();
-  const { isPending: isRetweetpending, data: retweetData } =useRetweetDataByAuthorId(id);
+  const { isPending: isRetweetpending, data: retweetDataById } =
+    useRetweetDataByAuthorId(id);
+  const { retweetData, likesData, savesData } = actionhandlerCardStyle();
 
-  console.log('tweetComment', tweetWithCommentData);
+  const { handleLikeClick, handleRetweetClick, handleSaveClick } =
+    useActionHandlers();
+  // console.log('tweetComment', tweetWithCommentData);
   //console.log('tweet', tweetData);
   //console.log('retweet===>', retweetData);
 
@@ -51,13 +55,13 @@ console.log('id: ' + id);
 
   const handleTweet = async (e, dataToSet) => {
     e.preventDefault();
-   await setData(dataToSet);
+    await setData(dataToSet);
   };
   useEffect(() => {
     isTweetDataPending ? 'loading' : setData(tweetData);
   }, [tweetData]);
 
-  console.log('data', data);
+  //console.log('data', data);
   return (
     <main className='main'>
       <div className='main__container'>
@@ -67,21 +71,41 @@ console.log('id: ' + id);
           onClickTweetWithMedia={(e) => handleTweet(e, tweetWIthMediaData)}
         />
         <div className='card-parent'>
-          {
-            data && data.map((item) => {
-              return(
-              <Card
-                key={item?.id}
-                // author={userFinder(allUsers, item?.authorid)}
-                author={allUsers && allUsers.find((user) => user?.id == item?.authorid)}
-                {...item}
-                user={allUsers && allUsers.find((user) => user?.id == item?.authorid)}
-                id={item?.id}
-              />);
+          {data &&
+            data.map((item) => {
+              return (
+                <Card
+                  key={item?.id}
+                  retweetState={retweetData?.find(
+                    (retweet) => retweet?.tweetId === item?.id
+                  )}
+                  savedState={savesData?.find(
+                    (saved) => saved?.tweetId === item?.id
+                  )}
+                  likeState={likesData?.find(
+                    (like) => like?.tweetId === item?.id
+                  )}
+                  // author={userFinder(allUsers, item?.authorid)}
+                  onHandleLike={(e, id) => handleLikeClick(e, item?.id)}
+                  onHandleRetweet={(e, id) => handleRetweetClick(e, item?.id)}
+                  onHandleSave={(e, id) => handleSaveClick(e, item?.id)}
+                  // {...tweet}
+                  author={
+                    allUsers &&
+                    allUsers.find((user) => user?.id == item?.authorid)
+                  }
+                  {...item}
+                  user={
+                    allUsers &&
+                    allUsers.find((user) => user?.id == item?.authorid)
+                  }
+                  id={item?.id}
+                />
+              );
             })}
-          {/* to do -- fix rewteet */}
-          {retweetData &&
-            retweetData.map((retweet) => (
+
+          {retweetDataById &&
+            retweetDataById.map((retweet) => (
               <div key={`RetweetContainer-${retweet?.id}`}>
                 <Retweeted
                   firstName={retweet?.firstName}
@@ -89,6 +113,11 @@ console.log('id: ' + id);
                 />
                 <Card
                   key={`Retweet-${retweet?.id}`}
+                  onHandleLike={(e, id) => handleLikeClick(e, retweet?.id)}
+                  onHandleRetweet={(e, id) =>
+                    handleRetweetClick(e, retweet?.id)
+                  }
+                  onHandleSave={(e, id) => handleSaveClick(e, retweet?.id)}
                   {...retweet}
                   author={allUsers?.find(
                     (user) => user?.id === retweet?.authorid
@@ -97,6 +126,15 @@ console.log('id: ' + id);
                     (user) => user?.id === retweet?.commentAuthorid
                   )}
                   commentAuthorid={retweet?.commentAuthorid}
+                  retweetState={retweetData?.find(
+                    (retweet) => retweet?.tweetId === retweet?.id
+                  )}
+                  savedState={savesData?.find(
+                    (saved) => saved?.tweetId === retweet?.id
+                  )}
+                  likeState={likesData?.find(
+                    (like) => like?.tweetId === retweet?.id
+                  )}
                 />
               </div>
             ))}

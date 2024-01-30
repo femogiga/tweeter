@@ -26,6 +26,7 @@ import {
   AllRetweetCardStyle,
   AllSavesForCardStyle,
 } from '../../api/cardActionsData';
+import actionhandlerCardStyle from '../../utils/actionHandlerDataForCardStyle';
 
 const Homepage = () => {
   /*
@@ -40,7 +41,7 @@ const Homepage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const dataToRender = useSelector((state) => state.home.dataToRender);
-  console.log('dataToRender', dataToRender);
+  //console.log('dataToRender', dataToRender);
   const navigate = useNavigate();
   //const { tags } = useParams();
   let tags = searchParams.get('tags');
@@ -98,14 +99,15 @@ const Homepage = () => {
   //   const response = mutate(data);
   // };
 
-  const { isPending: isRetweetDataPending, data: retweetData } =
-    AllRetweetCardStyle();
+  // const { isPending: isRetweetDataPending, data: retweetData } =
+  //   AllRetweetCardStyle();
 
-  const { isPending: isSavedDataPending, data: savesData } =
-    AllSavesForCardStyle();
+  // const { isPending: isSavedDataPending, data: savesData } =
+  //   AllSavesForCardStyle();
 
-  const { isPending: isLikesDataPending, data: likesData } =
-    AllLikesForCardStyle();
+  // const { isPending: isLikesDataPending, data: likesData } =
+  //   AllLikesForCardStyle();
+  const{retweetData,likesData,savesData} = actionhandlerCardStyle()
 
   useEffect(() => {
     const userToken = localStorage.getItem('userData');

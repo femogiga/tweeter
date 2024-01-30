@@ -16,6 +16,7 @@ import {
 } from '../../api/bookmarkedData';
 import { useAllUserData } from '../../api/userData';
 import useActionHandlers from '../../utils/actionHandlers';
+import actionhandlerCardStyle from '../../utils/actionHandlerDataForCardStyle';
 
 const Bookmarkpage = () => {
   const navigate = useNavigate();
@@ -38,6 +39,7 @@ const Bookmarkpage = () => {
     useLatestBookmarkDataById();
   const { handleLikeClick, handleRetweetClick, handleSaveClick } =
     useActionHandlers();
+  const { retweetData, likesData, savesData } = actionhandlerCardStyle();
 
   const [data, setData] = useState(tweetData);
 
@@ -49,9 +51,9 @@ const Bookmarkpage = () => {
     isLatestPending ? 'loading' : setData(tweetData);
   }, [tweetData, likeData, isLatestPending]);
 
-  console.log('tweetData', tweetData);
-  console.log('like==>', likeData);
-  console.log('MediaData=>`', mediaData);
+ // console.log('tweetData', tweetData);
+  //console.log('like==>', likeData);
+  //console.log('MediaData=>`', mediaData);
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
     if (!userToken) {
@@ -91,6 +93,15 @@ const Bookmarkpage = () => {
                       allUsers &&
                       allUsers.find((user) => user?.id === item?.authorid)
                     }
+                    retweetState={retweetData?.find(
+                      (retweet) => retweet?.tweetId === item?.id
+                    )}
+                    savedState={savesData?.find(
+                      (saved) => saved?.tweetId === item?.id
+                    )}
+                    likeState={likesData?.find(
+                      (like) => like?.tweetId === item?.id
+                    )}
                   />
                 );
               })}
