@@ -74,6 +74,10 @@ export const useCreateRetweetMutation = () => {
       queryClient.invalidateQueries({
         queryKeys: ['retweetscardstyle'],
       });
+      //retweetByidOne
+      queryClient.invalidateQueries({
+        queryKeys: ['retweetByidOne'],
+      });
     },
   });
   return { isPending, isSuccess, error, mutate };
