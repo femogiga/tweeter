@@ -170,6 +170,7 @@ const Homepage = () => {
                     )}
                     likeCount={tweet.like.length}
                     savedCount={tweet.saved.length}
+                    retweetCount={tweet.retweets.length}
                   />
                 );
               })}

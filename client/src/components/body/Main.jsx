@@ -100,6 +100,8 @@ const Main = () => {
                     allUsers.find((user) => user?.id == item?.authorid)
                   }
                   id={item?.id}
+                  // likeCount={item.like.length}
+                  // savedCount={item.saved.length}
                 />
               );
             })}
@@ -135,6 +137,7 @@ const Main = () => {
                   likeState={likesData?.find(
                     (like) => like?.tweetId === retweet?.id
                   )}
+
                 />
               </div>
             ))}

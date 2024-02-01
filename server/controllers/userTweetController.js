@@ -48,20 +48,9 @@ const getAllTweetsWithComments = async (req, res) => {
     const result = await prisma.tweet.findMany({
       include: {
         comments: true,
-        like: {
-          // Include the likes association
-          select: {
-            id: true, // Include any other fields you need
-          },
-        },
-        saved: {
-          // Include the saved association
-          select: {
-            id: true,
-            tweetId:true// Include any other fields you need
-          },
-        },
-
+        like: true,
+        saved: true,
+        retweets: true, // Assuming Retweet is the correct field name
       },
       orderBy: {
         createdAt: 'desc',
@@ -74,6 +63,9 @@ const getAllTweetsWithComments = async (req, res) => {
     res.status(500).json(error);
   }
 };
+
+
+
 
 
 
