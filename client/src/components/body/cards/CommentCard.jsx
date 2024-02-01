@@ -5,6 +5,8 @@ import Fullname from './Fullname';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useUserData } from '../../../api/userData';
 import { useCommentLikeCountbyId } from '../../../api/actionData';
+import HandleCommentsLike from '../../../utils/commentHandler';
+import useActionHandlers from '../../../utils/actionHandlers';
 
 const CommentCard = ({
   reply,
@@ -14,7 +16,8 @@ const CommentCard = ({
   id,
   comment,
   commentId,
-  commentLikeCount
+  commentLikeCount,
+  onHandleCommentLikeClick,
 }) => {
   console.log('CommentId=====>', commentId);
   console.log('comment', comment);
@@ -29,7 +32,10 @@ const CommentCard = ({
   // console.log('userData', userDataById);
   // const { firstName, lastName, photo } = userDataById;
   //const fullName = firstName + ' ' + lastName;
-  const likeCount = commentLikeCount?.count == null ? 0 : commentLikeCount?.count
+  const { handleCommentLikeClick } = useActionHandlers();
+  const likeCount =
+    commentLikeCount?.count == null ? 0 : commentLikeCount?.count;
+  let commentIdFromCount = commentLikeCount?.commentId;
   return (
     <div className=' comment-card flow-1'>
       <div className='flex'>
@@ -58,14 +64,16 @@ const CommentCard = ({
       </div>
       <ul className='like flex' style={{ paddingInline: '2rem' }}>
         <li>
-          <Link className='actions__list__items flex align-items--center'>
+          <Link
+            className='actions__list__items flex align-items--center'
+            onClick={onHandleCommentLikeClick}>
             <FavoriteBorderIcon />
             Like
           </Link>
         </li>
         <li>
           <Link className='actions__list__items flex align-items--center'>
-            {likeCount +  ' likes' ||  '0 Like'}
+            {likeCount + ' likes' || '0 Like'}
           </Link>
         </li>
       </ul>

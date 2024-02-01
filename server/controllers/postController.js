@@ -188,6 +188,7 @@ const likePost = async (req, res, next) => {
     console.error(error);
     res.status(500).json(error);
   }
+  next()
 };
 
 module.exports = { postTweets, followPerson, savePost, retweetPost, likePost };

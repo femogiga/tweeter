@@ -38,6 +38,7 @@ const Card = ({
   likeState,
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
+  const{handleCommentLikeClick} = useActionHandlers()
   //console.log('tweetid =====>', id);
   // const handleLikeClick = (e) => {
   //   const data = {id}
@@ -106,7 +107,8 @@ const Card = ({
                     )
                   }
                   commentId={comment?.id}
-                  commentLikeCount={commentLikeData?.find(item=> item?.commentId === comment?.id)}
+                  commentLikeCount={commentLikeData?.find(item => item?.commentId === comment?.id)}
+                  onHandleCommentLikeClick={(e, commentId) => handleCommentLikeClick(e, comment?.id)}
                 />
               )
             );

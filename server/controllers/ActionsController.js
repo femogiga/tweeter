@@ -50,10 +50,12 @@ const getLikeCount = async (req, res, next) => {
 const getCommentLikeCount = async (req, res, next) => {
   try {
     //  const commentId = parseInt(req.params.commentId);
-    const count = await knex.from('Like').select('Like.commentId')
+    const count = await knex
+      .from('Like')
+      .select('Like.commentId')
       .count('commentId')
-    .groupBy('commentId')
-      //.where('Like.commentId', '=', commentId);
+      .groupBy('commentId');
+    //.where('Like.commentId', '=', commentId);
     res.status(200).json(count);
   } catch (error) {
     console.log(error);
@@ -135,13 +137,13 @@ const getWhoTofollow = async (req, res, next) => {
       return { ...person, count };
     });
 
-    console.log('arr======>', arr);
+    //console.log('arr======>', arr);
 
     const notFollowing = arr.filter((person) => {
       return !allFollowers.some((follower) => follower.personId === person.id);
     });
 
-    console.log('countFollower======>', notFollowing);
+    //console.log('countFollower======>', notFollowing);
 
     //console.log('notFollowing', notFollowing);
     res.status(200).json(notFollowing);
@@ -278,7 +280,7 @@ const getTrend = async (req, res, next) => {
         let contentText = tweet.content;
         /*
          * the below check content contains # and
-        *prevent server from crashing if it doesn't
+         *prevent server from crashing if it doesn't
          */
         if (!contentText.includes('#')) {
           return;
@@ -304,7 +306,7 @@ const getTrend = async (req, res, next) => {
     //   console.error(error);
     // }
 
-    console.log('mostpopular====>', mostPopular);
+    //console.log('mostpopular====>', mostPopular);
 
     res.status(200).json(mostPopular);
   } catch (err) {
@@ -374,7 +376,7 @@ const getTweetByTags = async (req, res, next) => {
         newArr.push(tweet);
       }
     });
-    console.log('newArr', newArr);
+    //console.log('newArr', newArr);
     res.status(200).json(newArr);
   } catch (error) {
     console.log(error);
@@ -388,7 +390,7 @@ const getTweetByTags = async (req, res, next) => {
 const getAllRetweetsForCard = async (req, res, next) => {
   try {
     const tweetId = parseInt(req.query.tweetId);
-    console.log('idforparam', tweetId);
+    //console.log('idforparam', tweetId);
 
     const retweets = await knex
       .from('Retweet')
@@ -407,7 +409,7 @@ const getAllRetweetsForCard = async (req, res, next) => {
 const getAllSavedForCard = async (req, res, next) => {
   try {
     const tweetId = parseInt(req.query.tweetId);
-    console.log('idforparam', tweetId);
+    // console.log('idforparam', tweetId);
 
     const saves = await knex
       .from('Saved')
@@ -442,6 +444,33 @@ const getAllLikeForCard = async (req, res, next) => {
   }
 };
 
+const postCommentLike = async (req, res, next) => {
+  let message = '';
+  let result = null;
+  const { commentId } = req.body;
+  try {
+    if (req.liked === 'liked') {
+      const postLike = await knex('Like').insert({
+        commentId: commentId,
+        userId: req.user.id,
+      });
+      console.log('postLike=====>', postLike);
+      message = 'Liked added';
+    } else {
+      const deleted = await knex
+        .from('Like')
+        .delete('*')
+        .where('Like.commentId', commentId)
+        .andWhere('Like.userId', req.user.id);
+      message = 'Like removed';
+    }
+    res.status(200).json({ message: 'deleted successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error });
+  }
+};
+
 module.exports = {
   getRetweetCount,
   getAllRetweetCount,
@@ -457,4 +486,5 @@ module.exports = {
   getAllRetweetsForCard,
   getAllSavedForCard,
   getAllLikeForCard,
+  postCommentLike,
 };
