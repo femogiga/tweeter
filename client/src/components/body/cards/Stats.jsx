@@ -9,14 +9,14 @@ const Stats = ({ retweetCount, commentCount, savedCount }) => {
         paddingInlineEnd: '.4rem',
       }}>
       <p>
-        <span>{commentCount || '449'} </span> Comment
+        <span>{commentCount || 0} </span> Comment
       </p>
       <p>
-        <span>{retweetCount || '59K'} </span>
+        <span>{retweetCount || 0} </span>
         Retweets
       </p>
       <p>
-        <span>{savedCount || '3K'} </span>
+        <span>{savedCount || 0} </span>
         Saved
       </p>
     </div>
