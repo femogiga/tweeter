@@ -21,7 +21,8 @@ const router = require('express').Router();
 router.get('/retweet/:tweetId', getRetweetCount);
 router.get('/like/:tweetId', getLikeCount);
 router.get('/saved/:tweetId', getSavedCount);
-router.get('/commentlike/:commentId', getCommentLikeCount);
+// router.get('/commentlike/:commentId', getCommentLikeCount);
+router.get('/commentlike', getCommentLikeCount);
 router.get('/tweets', getTweetByTags);
 router.get('/whotofollow', getWhoTofollow);
 router.get('/retweet', getAllRetweetCount);
@@ -34,4 +35,3 @@ router.get('/savesforstyle', getAllSavedForCard);
 router.get('/likesforstyle', getAllLikeForCard);
 // router.get('/trials',cardTweets)
 module.exports = router;
-

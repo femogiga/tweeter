@@ -118,7 +118,7 @@ const Main = () => {
                     handleRetweetClick(e, retweet?.id)
                   }
                   onHandleSave={(e, id) => handleSaveClick(e, retweet?.id)}
-                   {...retweet}
+                  {...retweet}
                   author={allUsers?.find(
                     (user) => user?.id === retweet?.authorid
                   )}

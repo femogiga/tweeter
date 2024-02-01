@@ -4,7 +4,6 @@ import '../header/header.css';
 import '../body/home.css';
 import TweetInput from '../body/TweetInput';
 import Card from '../body/cards/Card';
-import Retweeted from '../body/cards/Retweeted';
 import FollowCard from '../body/FollowCard';
 import Trends from '../body/Trends';
 import WhocanModal from '../body/WhocanModal';
@@ -17,9 +16,7 @@ import { useAllUserData } from '../../api/userData';
 import { useGetTweetBytags, useWhoToFollow } from '../../api/actionData';
 import randomGenerator from '../../utils/randomGen';
 import { useDispatch, useSelector } from 'react-redux';
-import { setHomeData } from '../../features/homeSlice';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
-import { useCreateLikeMutation } from '../../api/postTweetData';
 import useActionHandlers from '../../utils/actionHandlers';
 import {
   AllLikesForCardStyle,
@@ -84,7 +81,7 @@ const Homepage = () => {
   let first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];
   let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];
   //console.log('who to ', whoToFollowData);
-  //console.log('allTweetWithComment', allTweetDataWithComment);
+  console.log('allTweetWithComment', allTweetDataWithComment);
 
   //console.log('who to follow ====> ', first);
   /*
@@ -107,7 +104,7 @@ const Homepage = () => {
 
   // const { isPending: isLikesDataPending, data: likesData } =
   //   AllLikesForCardStyle();
-  const{retweetData,likesData,savesData} = actionhandlerCardStyle()
+  const { retweetData, likesData, savesData } = actionhandlerCardStyle();
 
   useEffect(() => {
     const userToken = localStorage.getItem('userData');
@@ -171,6 +168,8 @@ const Homepage = () => {
                     likeState={likesData?.find(
                       (like) => like?.tweetId === tweet?.id
                     )}
+                    likeCount={tweet.like.length}
+                    savedCount={tweet.saved.length}
                   />
                 );
               })}

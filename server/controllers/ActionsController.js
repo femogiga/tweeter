@@ -49,7 +49,7 @@ const getLikeCount = async (req, res, next) => {
 
 const getCommentLikeCount = async (req, res, next) => {
   try {
-    const commentId = parseInt(req.params.commentId);
+     const commentId = parseInt(req.params.commentId);
     const count = await knex('Like')
       .count('commentId')
       .where('Like.commentId', '=', commentId);
