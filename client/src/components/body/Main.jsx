@@ -61,7 +61,7 @@ const Main = () => {
     isTweetDataPending ? 'loading' : setData(tweetData);
   }, [tweetData]);
 
-  //console.log('data', data);
+  console.log('retweetdata', retweetDataById);
   return (
     <main className='main'>
       <div className='main__container'>
@@ -100,8 +100,9 @@ const Main = () => {
                     allUsers.find((user) => user?.id == item?.authorid)
                   }
                   id={item?.id}
-                  // likeCount={item.like.length}
-                  // savedCount={item.saved.length}
+                  likeCount={item?.like?.length}
+                  savedCount={item?.saved?.length}
+                  retweetCount={item?.retweets?.length}
                 />
               );
             })}
@@ -137,7 +138,12 @@ const Main = () => {
                   likeState={likesData?.find(
                     (like) => like?.tweetId === retweet?.id
                   )}
-
+                  // likeCount={retweet?.like?.length}
+                  // savedCount={retweet?.saved?.length}
+                  // retweetCount={retweet?.retweets?.length}
+                  likeCount={retweet?.savecount}
+                  savedCount={retweet?.likecount}
+                  retweetCount={retweet?.retweetcount}
                 />
               </div>
             ))}
