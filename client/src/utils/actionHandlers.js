@@ -3,7 +3,7 @@ import { useCreateLikeMutation, useCreateRetweetMutation, useCreateSaveMutation 
 export const useActionHandlers = () => {
     const { mutate } = useCreateLikeMutation();
     const { mutate: mutateRetweet } = useCreateRetweetMutation()
-    const { mutate:mutateSaved } = useCreateSaveMutation()
+  const { mutate: mutateSaved } = useCreateSaveMutation()
   const handleLikeClick = (e, id) => {
     e.preventDefault();
     const data = { id };

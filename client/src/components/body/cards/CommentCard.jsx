@@ -14,6 +14,7 @@ const CommentCard = ({
   id,
   comment,
   commentId,
+  commentLikeCount
 }) => {
   console.log('CommentId=====>', commentId);
   console.log('comment', comment);
@@ -28,6 +29,7 @@ const CommentCard = ({
   // console.log('userData', userDataById);
   // const { firstName, lastName, photo } = userDataById;
   //const fullName = firstName + ' ' + lastName;
+  const likeCount = commentLikeCount?.count == null ? 0 : commentLikeCount?.count
   return (
     <div className=' comment-card flow-1'>
       <div className='flex'>
@@ -63,7 +65,7 @@ const CommentCard = ({
         </li>
         <li>
           <Link className='actions__list__items flex align-items--center'>
-            {'12k' + ' Likes'}
+            {likeCount +  ' likes' ||  '0 Like'}
           </Link>
         </li>
       </ul>

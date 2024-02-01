@@ -49,10 +49,11 @@ const getLikeCount = async (req, res, next) => {
 
 const getCommentLikeCount = async (req, res, next) => {
   try {
-     const commentId = parseInt(req.params.commentId);
-    const count = await knex('Like')
+    //  const commentId = parseInt(req.params.commentId);
+    const count = await knex.from('Like').select('Like.commentId')
       .count('commentId')
-      .where('Like.commentId', '=', commentId);
+    .groupBy('commentId')
+      //.where('Like.commentId', '=', commentId);
     res.status(200).json(count);
   } catch (error) {
     console.log(error);

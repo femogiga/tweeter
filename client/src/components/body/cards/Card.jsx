@@ -18,6 +18,7 @@ import {
 } from '../../../api/commentData';
 import { useCreateLikeMutation } from '../../../api/postTweetData';
 import useActionHandlers from '../../../utils/actionHandlers';
+import HandleCommentsLike from '../../../utils/commentHandler';
 const Card = ({
   content,
   imageUrl,
@@ -53,6 +54,8 @@ const Card = ({
   };
   const fullName = author?.firstName + ' ' + author?.lastName;
   const commentCount = comments?.length;
+  const {data:commentLikeData} = useCommentLikeCountbyId()
+  console.log('commentLike===>',commentLikeData)
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
@@ -103,6 +106,7 @@ const Card = ({
                     )
                   }
                   commentId={comment?.id}
+                  commentLikeCount={commentLikeData?.find(item=> item?.commentId === comment?.id)}
                 />
               )
             );

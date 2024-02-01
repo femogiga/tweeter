@@ -26,12 +26,12 @@ export const useLikeCountbyId = (tweetId) => {
   return { isPending, error, data };
 };
 
-export const useCommentLikeCountbyId = (commentId) => {
+export const useCommentLikeCountbyId = () => {
   const { isPending, error, data } = useQuery({
     queryKey: ['commentLikeCountById'],
     queryFn: () =>
       apiService
-        .get(`/actions/commentlike/${commentId}`)
+        .get(`/actions/commentlike/`)
         .then((res) => res.data),
   });
   return { isPending, error, data };
