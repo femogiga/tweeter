@@ -2,6 +2,7 @@ import {
   AllRetweetCardStyle,
   AllSavesForCardStyle,
   AllLikesForCardStyle,
+  AllcommentLikesForCardStyle,
 } from '../api/cardActionsData';
 
 const actionhandlerCardStyle = () => {
@@ -14,7 +15,10 @@ const actionhandlerCardStyle = () => {
   const { isPending: isLikesDataPending, data: likesData } =
     AllLikesForCardStyle();
 
-  return { retweetData, savesData, likesData };
+  const { isPending: isCommentLikePending, data: commentLikeStyleData } =
+    AllcommentLikesForCardStyle();
+
+  return { retweetData, savesData, likesData, commentLikeStyleData };
 };
 
-export default  actionhandlerCardStyle ;
+export default actionhandlerCardStyle;

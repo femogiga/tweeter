@@ -62,6 +62,36 @@ const getCommentLikeCount = async (req, res, next) => {
     res.status(500).json(error);
   }
 };
+// getCommentLikeStatusForStyle = async (req, res, next) => {
+//   const{commentId} =req.body
+//   try {
+
+//     const result = await knex
+//       .from('Like')
+//       .where('Like.commentId', commentId)
+//       .where('Like.userId', req.user.id);
+//     res.status(200).json(result);
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+
+const getCommentLikeStatusForStyle = async (req, res, next) => {
+  // const { commentId } = req.body;
+  try {
+    const result = await knex
+      .from('Like')
+      .where('Like.userId', req.user.id)
+
+      .select('Like.commentId', 'Like.userId')
+      .whereNotNull('Like.commentId');
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error);
+  }
+};
 
 // const getWhoTofollow = async (req, res, next) => {
 //   const newArr = [];
@@ -449,7 +479,7 @@ const postCommentLike = async (req, res, next) => {
   let result = null;
   const { commentId } = req.body;
   //console.log('commentId===>', commentId);
- // console.log('req.commentLike====>', req.commentLiked);
+  // console.log('req.commentLike====>', req.commentLiked);
 
   try {
     if (req.commentLiked === 'notLiked') {
@@ -490,4 +520,5 @@ module.exports = {
   getAllSavedForCard,
   getAllLikeForCard,
   postCommentLike,
+  getCommentLikeStatusForStyle,
 };

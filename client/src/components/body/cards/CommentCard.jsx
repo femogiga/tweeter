@@ -18,11 +18,17 @@ const CommentCard = ({
   commentId,
   commentLikeCount,
   onHandleCommentLikeClick,
+  commentLikeState,
 }) => {
-  console.log('CommentId=====>', commentId);
-  console.log('comment', comment);
+
+  const red = {
+    color: 'red'
+  }
+  //console.log('CommentId=====>', commentId);
+  //console.log('comment', comment);
   // const { isPending, error, data: userDataById } = useUserData(commentAuthorid);
-  console.log('commentUser', commentUser);
+  //console.log('commentUser', commentUser);
+  console.log('commentLikeState===>', commentLikeState);
   //const { firstName, lastName, photo } = commentUser;
   //console.log('commentUser===>', commentUser);
   //const { isPending: iscommentLikeCountPending, data: commentLikeCount } =
@@ -33,6 +39,7 @@ const CommentCard = ({
   // const { firstName, lastName, photo } = userDataById;
   //const fullName = firstName + ' ' + lastName;
   //const { handleCommentLikeClick } = useActionHandlers();
+  const commentLikeStyle = commentLikeState !== undefined ? red : null;
   const likeCount =
     commentLikeCount?.count == null ? 0 : commentLikeCount?.count;
   let commentIdFromCount = commentLikeCount?.commentId;
@@ -66,6 +73,7 @@ const CommentCard = ({
         <li>
           <Link
             className='actions__list__items flex align-items--center'
+            style={commentLikeStyle}
             onClick={onHandleCommentLikeClick}>
             <FavoriteBorderIcon />
             Like

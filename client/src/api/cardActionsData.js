@@ -73,3 +73,12 @@ export const AllLikesForCardStyle = () => {
   });
   return { isPending, data };
 };
+
+export const AllcommentLikesForCardStyle = () => {
+  const { isPending, data } = useQuery({
+    queryKey: ['commentlikescardstyle'],
+    queryFn: () =>
+      apiService.get('/comments/commentlikes').then((res) => res.data),
+  });
+  return { isPending, data };
+};

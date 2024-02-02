@@ -115,7 +115,13 @@ export const useCreateCommentLikeMutation = () => {
       queryClient.invalidateQueries({
         queryKeys: ['commentLikeCount'],
       });
+
+      queryClient.invalidateQueries({
+        queryKeys: ['commentlike'],
+      });
+
     },
   });
   return { isPending, isSuccess, error, mutate };
 };
+//commentlike

@@ -16,6 +16,10 @@ const commentLikeMiddleware = async (req, res, next) => {
         .where('Like.commentId', commentId)
         .andWhere('Like.userId', req.user.id);
 
+      console.log('isPostLiked', isPostLiked);
+      // if (isPostLiked[0].userId === req.user.id) {
+      //   return;
+      // }
       if (isPostLiked.length > 0) {
         req.commentLiked = 'liked';
       } else {

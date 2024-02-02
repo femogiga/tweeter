@@ -19,6 +19,7 @@ import {
 import { useCreateLikeMutation } from '../../../api/postTweetData';
 import useActionHandlers from '../../../utils/actionHandlers';
 import HandleCommentsLike from '../../../utils/commentHandler';
+import actionhandlerCardStyle from '../../../utils/actionHandlerDataForCardStyle';
 const Card = ({
   content,
   imageUrl,
@@ -55,8 +56,9 @@ const Card = ({
   };
   const fullName = author?.firstName + ' ' + author?.lastName;
   const commentCount = comments?.length;
-  const {data:commentLikeData} = useCommentLikeCountbyId()
-  console.log('commentLike===>',commentLikeData)
+  const { data: commentLikeData } = useCommentLikeCountbyId()
+  const { commentLikeStyleData } = actionhandlerCardStyle();
+  console.log('commentLikeStyleData===>', commentLikeStyleData);
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
@@ -107,8 +109,15 @@ const Card = ({
                     )
                   }
                   commentId={comment?.id}
-                  commentLikeCount={commentLikeData?.find(item => item?.commentId === comment?.id)}
-                  onHandleCommentLikeClick={(e,commentId)=> handleCommentLikeClick(e, comment?.id)}
+                  commentLikeCount={commentLikeData?.find(
+                    (item) => item?.commentId === comment?.id
+                  )}
+                  onHandleCommentLikeClick={(e, commentId) =>
+                    handleCommentLikeClick(e, comment?.id)
+                  }
+                  commentLikeState={commentLikeStyleData&& commentLikeStyleData?.find(
+                    (item) => item?.commentId === comment?.id
+                  )}
                 />
               )
             );
