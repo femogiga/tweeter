@@ -73,7 +73,7 @@ const postComments = async (req, res, next) => {
       if (!req.file) {
         // If no file is provided, handle the case for tweets without an image
         const { reply, tweetId } = req.body;
-        console.log('reply=====>', reply);
+        // console.log('reply=====>', reply);
         const posted = await knex('Comment').insert({
           reply,
           commentAuthorid: req.user.id,

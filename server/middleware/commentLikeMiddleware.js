@@ -4,25 +4,26 @@ const commentLikeMiddleware = async (req, res, next) => {
   const { commentId } = req.body;
 
   try {
+    /*
+     * The commentLike middleware checks if a comment is already liked or not.
+     * The controller determines whether the user needs to delete or update the relationship.
+     */
+    console.log('middlewareCommentId', commentId);
     if (commentId) {
-      /*
-       * the commentLike middleware  check if the a comment is already liked or not.
-
-       * the controller to determine if the user whether to delete or update the relationship
-       */
-
       const isPostLiked = await knex
         .from('Like')
         .select('*')
         .where('Like.commentId', commentId)
         .andWhere('Like.userId', req.user.id);
-      if (Object.keys(isPostLiked).length > 0) {
-        req.liked = 'liked';
+
+      if (isPostLiked.length > 0) {
+        req.commentLiked = 'liked';
       } else {
-        req.liked = 'notLiked';
+        req.commentLiked = 'notLiked';
       }
+
+      next();
     }
-    next();
   } catch (err) {
     console.error(err);
   }

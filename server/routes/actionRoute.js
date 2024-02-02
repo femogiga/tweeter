@@ -34,6 +34,5 @@ router.get('/followermodal', getFollowedUsers);
 router.get('/retweetsforstyle', getAllRetweetsForCard);
 router.get('/savesforstyle', getAllSavedForCard);
 router.get('/likesforstyle', getAllLikeForCard);
-router.post('/commentlike', postCommentLike);
 // router.get('/trials',cardTweets)
 module.exports = router;

@@ -36,7 +36,7 @@ const getTopBookmarkedTweets = async (req, res, next) => {
 
       .groupBy('Tweet.id')
       .orderBy('retweetCount', 'desc');
-    console.log(result);
+    // console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -80,7 +80,7 @@ const getLatestBookmarkedTweets = async (req, res, next) => {
 
       .groupBy('Tweet.id')
       .orderBy('Tweet.createdAt', 'desc');
-    console.log(result);
+    // console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -125,7 +125,7 @@ const getMediaBookmarkedTweets = async (req, res, next) => {
 
       .groupBy('Tweet.id')
       .orderBy('Tweet.createdAt', 'desc');
-    console.log(result);
+    // console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -172,7 +172,7 @@ const getLikedBookmarkedTweets = async (req, res, next) => {
 
       .groupBy('Tweet.id')
       .orderBy('Tweet.createdAt', 'desc');
-    console.log(result);
+    // console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

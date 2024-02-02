@@ -166,7 +166,6 @@ const likePost = async (req, res, next) => {
      * this block check if the user post is already saved
     by taking the result  of the savedmiddlware and deletes or updates as you usual
     //  */
-
     if (req.liked === 'liked') {
       //console.log('post is already saved');
       result = await knex

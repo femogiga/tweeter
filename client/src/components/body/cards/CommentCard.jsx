@@ -32,7 +32,7 @@ const CommentCard = ({
   // console.log('userData', userDataById);
   // const { firstName, lastName, photo } = userDataById;
   //const fullName = firstName + ' ' + lastName;
-  const { handleCommentLikeClick } = useActionHandlers();
+  //const { handleCommentLikeClick } = useActionHandlers();
   const likeCount =
     commentLikeCount?.count == null ? 0 : commentLikeCount?.count;
   let commentIdFromCount = commentLikeCount?.commentId;

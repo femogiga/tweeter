@@ -95,7 +95,7 @@ const getUserTweetsWithMedia = async (req, res) => {
         },
       },
     });
-    console.log(result);
+    //console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.error(error);

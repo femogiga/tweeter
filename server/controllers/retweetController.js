@@ -4,7 +4,7 @@ const { knex } = require('../knex');
 
 const getRetweetsById = async (req, res, next) => {
   const result = await knex('Tweet').join('User', 'authorid', '=', 'User.id');
-  console.log(result);
+  //console.log(result);
   res.status(200).json(result);
 };
 
@@ -27,7 +27,7 @@ const secondRetweets = async (req, res, next) => {
           .where('userId', id);
 
 
-    console.log(result);
+    //console.log(result);
     res.status(200).json(result);
   } catch (err) {
         console.log(err);
@@ -72,7 +72,7 @@ const AllRetweets = async (req, res, next) => {
     const result = await knex('Retweet')
       .join('User', 'User.id', '=', 'Retweet.userId')
       .join('Tweet', 'Tweet.id', '=', 'Retweet.tweetId');
-    console.log(result);
+   // console.log(result);
     res.status(200).json(result);
   } catch (err) {
     console.error(err);

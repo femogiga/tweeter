@@ -137,7 +137,7 @@ const topPeople = async (req, res) => {
       .groupBy('Tweet.id')
       .orderBy('followerCount', 'desc');
 
-    console.log(result);
+    //console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);
@@ -183,7 +183,7 @@ const topMedia = async (req, res) => {
 
       .orderBy('retweetCount', 'desc');
 
-    console.log(result);
+    //console.log(result);
     res.status(200).json(result);
   } catch (error) {
     console.log(error);

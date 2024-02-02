@@ -105,7 +105,10 @@ export const useCreateCommentLikeMutation = () => {
 
   const { isPending, error, mutate, isSuccess } = useMutation({
     mutationFn: async (data) => {
-      const response = await apiService.post('/actions/commentlike', data);
+      const response = await apiService.post(
+        '/commentlike',
+        data
+      );
       return response.data;
     },
     onSuccess: () => {

@@ -255,7 +255,7 @@ const getTrend = async (req, res, next) => {
       let retweetCount = retweet.find((item) => item.id === tweet.id);
 
       //console.log('newtweet====>', tweetCount);
-      console.log(commentCount);
+      // console.log(commentCount);
       return { ...tweet, commentCount, retweetCount };
     });
     const mostPopular = newArray
@@ -448,23 +448,26 @@ const postCommentLike = async (req, res, next) => {
   let message = '';
   let result = null;
   const { commentId } = req.body;
+  //console.log('commentId===>', commentId);
+ // console.log('req.commentLike====>', req.commentLiked);
+
   try {
-    if (req.liked === 'liked') {
-      const postLike = await knex('Like').insert({
+    if (req.commentLiked === 'notLiked') {
+      result = await knex('Like').insert({
         commentId: commentId,
         userId: req.user.id,
       });
-      console.log('postLike=====>', postLike);
+      // console.log('postLike=====>', postLike);
       message = 'Liked added';
     } else {
-      const deleted = await knex
+      result = await knex
         .from('Like')
         .delete('*')
         .where('Like.commentId', commentId)
         .andWhere('Like.userId', req.user.id);
       message = 'Like removed';
     }
-    res.status(200).json({ message: 'deleted successfully' });
+    res.status(200).json({ result, message: 'deleted successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error });

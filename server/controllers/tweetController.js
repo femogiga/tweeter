@@ -18,7 +18,7 @@ const prisma = new PrismaClient();
 const createMessage = async (req, res) => {
   const { content, imageUrl, replyRestrictions, authorId } = req.body;
 
-  console.log(req.body);
+ // console.log(req.body);
   try {
     const message = await prisma.tweet.create({
       data: {

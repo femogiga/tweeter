@@ -108,7 +108,7 @@ const Card = ({
                   }
                   commentId={comment?.id}
                   commentLikeCount={commentLikeData?.find(item => item?.commentId === comment?.id)}
-                  onHandleCommentLikeClick={(e, commentId) => handleCommentLikeClick(e, comment?.id)}
+                  onHandleCommentLikeClick={(e,commentId)=> handleCommentLikeClick(e, comment?.id)}
                 />
               )
             );
