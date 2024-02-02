@@ -1,7 +1,7 @@
 import SearchIcon from '@mui/icons-material/Search';
 import { Button } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import {  } from '../../features/tweetSlice';
+import {} from '../../features/tweetSlice';
 import { setInput } from '../../features/authSlice';
 
 const Search = () => {
@@ -10,10 +10,12 @@ const Search = () => {
   const handleSearchInputChange = (e) => {
     dispatch(setInput({ fieldName: 'searchText', value: e.target.value }));
   };
-  console.log('searchText', searchText);
-  const handleSearch = () => {};
+  //console.log('searchText', searchText);
+  const handleSearch = (e) => {
+    e.preventDefault();
+  };
   return (
-    <form action='' className='search-form flow-1'>
+    <form action='' onSubmit={handleSearch} className='search-form flow-1'>
       <SearchIcon />
       <input
         type='text'
@@ -22,7 +24,9 @@ const Search = () => {
         placeholder='Search'
         onChange={(e) => handleSearchInputChange(e)}
       />
-      <Button variant='contained'>Search</Button>
+      <Button variant='contained' onClick={handleSearch}>
+        Search
+      </Button>
     </form>
   );
 };

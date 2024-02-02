@@ -27,9 +27,9 @@ const Trends = ({ handleTrendClick, pageData, setPageData }) => {
             return (
               <TrendCard
                 key={`trend-${trend.id}`}
-                trendText={trend.tag}
-                numTweets={trend.sum}
-                handleTrendClick={()=>handleTrendClick}
+                trendText={trend.hashtag}
+                numTweets={trend.length}
+                handleTrendClick={() => handleTrendClick}
               />
             );
           })}
@@ -40,6 +40,21 @@ const Trends = ({ handleTrendClick, pageData, setPageData }) => {
         <TrendCard trendText={'100DaysOfCode'} numTweets={'290'} />
         <TrendCard trendText={'learntocode'} numTweets={'100'} /> */}
       </ul>
+      {/* <ul>
+        {trendData &&
+          trendData.map((trend) => {
+            return (
+              <TrendCard
+                key={`trend-${trend.id}`}
+                trendText={trend.tag}
+                numTweets={trend.sum}
+                handleTrendClick={() => handleTrendClick}
+              />
+            );
+          })}
+
+
+      </ul> */}
     </div>
   );
 };

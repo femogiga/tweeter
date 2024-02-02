@@ -77,16 +77,19 @@ const Bookmarkpage = () => {
           />
         </aside>
         <div className='explore-content' style={{ marginBlockStart: '1rem' }}>
-          {/* <form action='' className='search-form flow-1'>
-            <SearchIcon />
-            <input type='text' placeholder='Search' />
-            <Button variant='contained'>Search</Button>
-          </form> */}
-          <Search />
+          
+          <div>
+            <Search />
+          </div>
+
           <div>
             {data &&
               data
-                .filter((searchItem) => searchItem.content.includes(searchText))
+                .filter((searchItem) =>
+                  searchItem.content
+                    .toLowerCase()
+                    .includes(searchText.toLowerCase())
+                )
                 .map((item) => {
                   return (
                     <Card

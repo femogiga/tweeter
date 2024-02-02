@@ -92,7 +92,7 @@ const Explorepage = () => {
           <div>
             {data &&
               data
-                .filter((str) => str.content.includes(searchText))
+                .filter((str) => str.content.toLowerCase().includes(searchText.toLowerCase()))
                 .map((item) => (
                   <Card
                     onHandleLike={(e, id) => handleLikeClick(e, item?.id)}

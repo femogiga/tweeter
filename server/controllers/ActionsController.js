@@ -256,7 +256,7 @@ const getFollowedUsers = async (req, res, next) => {
 * to calculate the most popular tweets
 
 */
-const getTrend = async (req, res, next) => {
+const getTrends = async (req, res, next) => {
   try {
     const tweets = await knex.from('Tweet').select('*');
     const comment = await knex
@@ -317,31 +317,60 @@ const getTrend = async (req, res, next) => {
         }
         tag = contentText.match(regex);
 
-        //console.log('text===>', tag);
-        //console.log('sum===>', sum);
+        const remapped = tweets.map((tweet) =>
+          tweet.content.toLowerCase().includes(tag[0].toLowerCase())
+            ? { ...tweet }
+            : null
+        );
+        console.log(remapped);
+
         return { id: tweet.id, tag: tag[0], sum };
       })
       .sort((a, b) => b.sum - a.sum)
       .slice(0, 7);
-    //console.table(newArray);
-    // try {
-    //  // const hashtag = '#Christmas';
-    //   const tweetCount = await knex('Tweet')
-    //     .count('*')
-    //     .whereRaw('(LOWER("Tweet".content) LIKE ?)', [
-    //       `%${tag}%`,
-    //     ]);
-    //   console.log('tweetCount', tweetCount);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-
-    //console.log('mostpopular====>', mostPopular);
 
     res.status(200).json(mostPopular);
   } catch (err) {
     console.error(err);
     res.status(500).json(err);
+  }
+};
+const getTrend = async (req, res, next) => {
+  try {
+    const regex = /#\w+/g;
+    const tweets = await knex.from('Tweet').select('*');
+    const arr = tweets.map((tweet) => {
+      let tagged = tweet.content.match(regex);
+      return { ...tweet, tagged: tagged };
+    });
+    const obj = {};
+
+    arr.forEach(async (tweet) => {
+      if (tweet.tagged && tweet.tagged.length > 0) {
+        let key = tweet.tagged[0];
+
+        if (!obj[key]) {
+          obj[key] = [];
+        }
+        obj[key].push(tweet.content);
+      }
+    });
+    const trend = [];
+    let id = 0;
+    for (key in obj) {
+      ++id;
+      const length = obj[key].length;
+      const hashtag = key;
+      trend.push({ id, hashtag, length });
+    }
+    const trendArr = trend.sort((t1, t2) => {
+      return t2.length - t1.length;
+    });
+
+    res.status(200).json(trendArr);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
 
