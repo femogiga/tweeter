@@ -1,26 +1,23 @@
-
 import { createSlice } from '@reduxjs/toolkit';
 
-
-
 const authSlice = createSlice({
-    name: 'auth',
-    initialState: {
-        email: '',
-        password: ''
+  name: 'auth',
+  initialState: {
+    email: '',
+    password: '',
+    searchText: '',
+  },
+  reducers: {
+    setInput: (state, action) => {
+      const { fieldName, value } = action.payload;
+      state[fieldName] = value;
     },
-    reducers: {
-        setInput: (state, action) => {
-            const { fieldName ,value} = action.payload
-            state[fieldName] = value
-        },
-        clearInput: (state,action) => {
-            const{fieldName} = action.payload
-            state[fieldName] = ''
-        }
-    }
-})
+    clearInput: (state, action) => {
+      const { fieldName } = action.payload;
+      state[fieldName] = '';
+    },
+  },
+});
 
-
-export const { setInput, clearInput } = authSlice.actions
-export default authSlice.reducer
+export const { setInput, clearInput } = authSlice.actions;
+export default authSlice.reducer;

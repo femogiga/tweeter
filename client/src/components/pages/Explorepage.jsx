@@ -17,10 +17,13 @@ import { useAllUserData } from '../../api/userData';
 import { useStatByAuthorId } from '../../api/statData';
 import useActionHandlers from '../../utils/actionHandlers';
 import actionhandlerCardStyle from '../../utils/actionHandlerDataForCardStyle';
+import Search from '../body/Search';
+import { useSelector } from 'react-redux';
 
 const Explorepage = () => {
   //const { isPending, error, data } = useCard()
   //console.log('cardDataCentral',data)
+  const searchText = useSelector((state) => state.auth.searchText);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -77,35 +80,41 @@ const Explorepage = () => {
           />
         </aside>
         <div className='explore-content' style={{ marginBlockStart: '1rem' }}>
-          <form action='' className='search-form flow-1'>
+          {/* <form action='' className='search-form flow-1'>
             <SearchIcon />
             <input type='text' placeholder='Search' />
             <Button variant='contained'>Search</Button>
-          </form>
+          </form> */}
+          <div>
+            <Search />
+          </div>
+
           <div>
             {data &&
-              data.map((item) => (
-                <Card
-                  onHandleLike={(e, id) => handleLikeClick(e, item?.id)}
-                  onHandleRetweet={(e, id) => handleRetweetClick(e, item?.id)}
-                  onHandleSave={(e, id) => handleSaveClick(e, item?.id)}
-                  key={item.id}
-                  {...item}
-                  author={
-                    allUsers &&
-                    allUsers.find((user) => user?.id === item?.authorid)
-                  }
-                  retweetState={retweetData?.find(
-                    (retweet) => retweet?.tweetId === item?.id
-                  )}
-                  savedState={savesData?.find(
-                    (saved) => saved?.tweetId === item?.id
-                  )}
-                  likeState={likesData?.find(
-                    (like) => like?.tweetId === item?.id
-                  )}
-                />
-              ))}
+              data
+                .filter((str) => str.content.includes(searchText))
+                .map((item) => (
+                  <Card
+                    onHandleLike={(e, id) => handleLikeClick(e, item?.id)}
+                    onHandleRetweet={(e, id) => handleRetweetClick(e, item?.id)}
+                    onHandleSave={(e, id) => handleSaveClick(e, item?.id)}
+                    key={item.id}
+                    {...item}
+                    author={
+                      allUsers &&
+                      allUsers.find((user) => user?.id === item?.authorid)
+                    }
+                    retweetState={retweetData?.find(
+                      (retweet) => retweet?.tweetId === item?.id
+                    )}
+                    savedState={savesData?.find(
+                      (saved) => saved?.tweetId === item?.id
+                    )}
+                    likeState={likesData?.find(
+                      (like) => like?.tweetId === item?.id
+                    )}
+                  />
+                ))}
             {/* <Card /> */}
           </div>
         </div>
