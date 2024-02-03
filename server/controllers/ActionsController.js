@@ -365,7 +365,7 @@ const getTrend = async (req, res, next) => {
     }
     const trendArr = trend.sort((t1, t2) => {
       return t2.length - t1.length;
-    });
+    }).slice(0,7);
 
     res.status(200).json(trendArr);
   } catch (error) {
