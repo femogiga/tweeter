@@ -61,6 +61,14 @@ const Main = () => {
     isTweetDataPending ? 'loading' : setData(tweetData);
   }, [tweetData]);
 
+  useEffect(() => {
+    const userToken = localStorage.getItem('userData');
+    // setToken(userToken);
+    if (!userToken) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   console.log('retweetdata', retweetDataById);
   return (
     <main className='main'>

@@ -23,7 +23,9 @@ const LoginPage = () => {
     const parsedUser = JSON.parse(user);
     const id = parsedUser?.id;
     if (isSuccess) {
-      navigate(`/profile/${id}`);
+     // navigate(`/profile/${id}`);
+     navigate(`/home`);
+
       window.location.reload();
     }
   }, [isSuccess, navigate]);
