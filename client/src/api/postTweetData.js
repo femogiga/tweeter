@@ -30,7 +30,7 @@ export const useCreateCommentMutation = () => {
 
   const { isPending, error, mutate, isSuccess } = useMutation({
     mutationFn: async (data) => {
-      const response = await apiService.postWithImage('/users/comment', data);
+      const response = await apiService.postWithImage('/createcomment', data);
       return response.data;
     },
     onSuccess: () => {

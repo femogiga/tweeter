@@ -20,6 +20,7 @@ import { useCreateLikeMutation } from '../../../api/postTweetData';
 import useActionHandlers from '../../../utils/actionHandlers';
 import HandleCommentsLike from '../../../utils/commentHandler';
 import actionhandlerCardStyle from '../../../utils/actionHandlerDataForCardStyle';
+import {motion, AnimatePresence } from 'framer-motion';
 const Card = ({
   content,
   imageUrl,
@@ -58,7 +59,7 @@ const Card = ({
   const commentCount = comments?.length;
   const { data: commentLikeData } = useCommentLikeCountbyId()
   const { commentLikeStyleData } = actionhandlerCardStyle();
-  console.log('commentLikeStyleData===>', commentLikeStyleData);
+  //console.log('commentLikeStyleData===>', commentLikeStyleData);
   return (
     <article className='card shadow flow-2'>
       <div className='flow-1'>
@@ -99,26 +100,37 @@ const Card = ({
           comments?.map((comment) => {
             return (
               commentVisible && (
-                <CommentCard
-                  key={comment?.id}
-                  {...comment}
-                  commentUser={
-                    allUsers &&
-                    allUsers.find(
-                      (user) => user?.id === comment?.commentAuthorid
-                    )
-                  }
-                  commentId={comment?.id}
-                  commentLikeCount={commentLikeData?.find(
-                    (item) => item?.commentId === comment?.id
-                  )}
-                  onHandleCommentLikeClick={(e, commentId) =>
-                    handleCommentLikeClick(e, comment?.id)
-                  }
-                  commentLikeState={commentLikeStyleData&& commentLikeStyleData?.find(
-                    (item) => item?.commentId === comment?.id
-                  )}
-                />
+                <AnimatePresence>
+                  <motion.div
+                    initial={{ height: 0,opacity:0 }}
+                    animate={{ height: 1, transition: { duration: 0.1 } }}
+                    exit={{ height: 0,opacity:0, transition: { duration: 0.1 } }}
+                  />
+                      <CommentCard
+                                        key={comment?.id}
+
+                    {...comment}
+                    commentUser={
+                      allUsers &&
+                      allUsers.find(
+                        (user) => user?.id === comment?.commentAuthorid
+                      )
+                    }
+                    commentId={comment?.id}
+                    commentLikeCount={commentLikeData?.find(
+                      (item) => item?.commentId === comment?.id
+                    )}
+                    onHandleCommentLikeClick={(e, commentId) =>
+                      handleCommentLikeClick(e, comment?.id)
+                    }
+                    commentLikeState={
+                      commentLikeStyleData &&
+                      commentLikeStyleData?.find(
+                        (item) => item?.commentId === comment?.id
+                      )
+                    }
+                  />
+                </AnimatePresence>
               )
             );
           })}

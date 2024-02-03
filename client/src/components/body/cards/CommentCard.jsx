@@ -44,6 +44,7 @@ const CommentCard = ({
     commentLikeCount?.count == null ? 0 : commentLikeCount?.count;
   let commentIdFromCount = commentLikeCount?.commentId;
   return (
+    
     <div className=' comment-card flow-1'>
       <div className='flex'>
         <Avatar photo={commentUser?.photo} id={commentUser?.id} />
