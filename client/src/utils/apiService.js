@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:7000';
+//const baseUrl = 'http://localhost:7000';
+const baseUrl = 'https://tweeter-production-ae19.up.railway.app';
 const token = JSON.parse(localStorage.getItem('token'));
 const get = (url) => {
   return axios.get(`${baseUrl}${url}`, {
