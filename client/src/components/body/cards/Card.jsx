@@ -6,8 +6,8 @@ import Comment from './Comment';
 import Stats from './Stats';
 import TweetImage from './TweetImage';
 import CommentCard from './CommentCard';
-import { useAllUserData, useUserData } from '../../../api/userData';
-import { useEffect, useState } from 'react';
+import { useAllUserData } from '../../../api/userData';
+import {  useState } from 'react';
 import {
   useCommentLikeCountbyId,
   useRetweetCountbyId,
@@ -20,7 +20,7 @@ import { useCreateLikeMutation } from '../../../api/postTweetData';
 import useActionHandlers from '../../../utils/actionHandlers';
 import HandleCommentsLike from '../../../utils/commentHandler';
 import actionhandlerCardStyle from '../../../utils/actionHandlerDataForCardStyle';
-import {motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useAnimate } from 'framer-motion';
 const Card = ({
   content,
   imageUrl,
@@ -40,7 +40,7 @@ const Card = ({
   likeState,
 }) => {
   const { isPending: isAllUsersPending, data: allUsers } = useAllUserData();
-  const{handleCommentLikeClick} = useActionHandlers()
+  const { handleCommentLikeClick } = useActionHandlers();
   //console.log('tweetid =====>', id);
   // const handleLikeClick = (e) => {
   //   const data = {id}
@@ -50,14 +50,20 @@ const Card = ({
   //console.log('saved===>', savedState);
   //const{handleRetweet}= useActionHandlers()
   //console.log('retweetState', retweetState);
-  const [commentVisible, setCommentVisible] = useState(false); //handle comment Visible set the state
+  //  useEffect(() => {
+  //    // This "li" selector will only select children
+  //    // of the element that receives `scope`.
+  //    animate('article', { opacity: 1 });
+  //  });
+
+  const [commentVisible, setCommentVisible] = useState(false);
   const handleCommentVisibility = (e) => {
     e.preventDefault();
     setCommentVisible((commentVisible) => !commentVisible);
   };
   const fullName = author?.firstName + ' ' + author?.lastName;
   const commentCount = comments?.length;
-  const { data: commentLikeData } = useCommentLikeCountbyId()
+  const { data: commentLikeData } = useCommentLikeCountbyId();
   const { commentLikeStyleData } = actionhandlerCardStyle();
   //console.log('commentLikeStyleData===>', commentLikeStyleData);
   return (
@@ -102,13 +108,16 @@ const Card = ({
               commentVisible && (
                 <AnimatePresence>
                   <motion.div
-                    initial={{ height: 0,opacity:0 }}
+                    initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 1, transition: { duration: 0.1 } }}
-                    exit={{ height: 0,opacity:0, transition: { duration: 0.1 } }}
+                    exit={{
+                      height: 0,
+                      opacity: 0,
+                      transition: { duration: 0.1 },
+                    }}
                   />
-                      <CommentCard
-                                        key={comment?.id}
-
+                  <CommentCard
+                    key={comment?.id}
                     {...comment}
                     commentUser={
                       allUsers &&
@@ -134,9 +143,6 @@ const Card = ({
               )
             );
           })}
-
-        {/* <CommentCard /> */}
-        {/* <CommentCard /> */}
       </div>
     </article>
   );

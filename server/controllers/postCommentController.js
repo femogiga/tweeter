@@ -65,6 +65,9 @@ require('dotenv').config();
 
 const postComments = async (req, res, next) => {
   try {
+    // if (req.canReply !== 'canReply') {
+    //   return
+    // }
     upload.single('replyImage')(req, res, async (err) => {
       if (err) {
         console.error(err);
@@ -106,7 +109,7 @@ const postComments = async (req, res, next) => {
         replyImageUrl: imageUrl,
       });
 
-      res.status(200).json(posted);
+      res.status(201).json(posted);
     });
   } catch (error) {
     console.error(error);

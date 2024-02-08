@@ -8,7 +8,7 @@ const SideNav = ({
 }) => {
   return (
     <aside>
-      <nav className='sidenav shadow'>
+      <nav className='sidenav shadow font-poppins'>
         <ul
           className='flex flex-column color-mid-gray bold-6'
           style={{ fontSize: '14px' }}>

@@ -24,6 +24,7 @@ import {
   AllSavesForCardStyle,
 } from '../../api/cardActionsData';
 import actionhandlerCardStyle from '../../utils/actionHandlerDataForCardStyle';
+import { animate } from 'framer-motion';
 
 const Homepage = () => {
   /*
@@ -76,10 +77,21 @@ const Homepage = () => {
     refetch();
   };
   // console.log('looog', tags);
-  const length = whoTofollowPending ? 'Loading..' : whoToFollowData?.length - 1;
-  const [firstNum, secondNum] = useMemo(() => randomGenerator(length));
-  let first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];
-  let second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];
+  const length = whoTofollowPending ? 'Loading..' : whoToFollowData?.length;
+  let first;
+  let second;
+  if (length) {
+    const [firstNum, secondNum] = randomGenerator(length);
+    //console.log('firstNum', firstNum)
+    //console.log('secondNum', secondNum)
+    first = whoTofollowPending ? 'Loading' : whoToFollowData[firstNum];
+    second = whoTofollowPending ? 'Loading  ' : whoToFollowData[secondNum];
+    if (firstNum === secondNum) {
+      second == null;
+    }
+  }
+
+
   //console.log('who to ', whoToFollowData);
   console.log('allTweetWithComment', allTweetDataWithComment);
 
@@ -194,8 +206,8 @@ const Homepage = () => {
               Who to follow
             </p>
 
-            <FollowCard {...first} />
-            <FollowCard {...second} />
+            {first && <FollowCard {...first} />}
+            {second && <FollowCard {...second} />}
           </div>
         </aside>
       </div>

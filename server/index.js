@@ -12,6 +12,7 @@ const allRetweetRoute = require('./routes/retweetRoute');
 const commentRoute = require('./routes/commentRoute');
 const actionRoute = require('./routes/actionRoute');
 const authMiddleware = require('./authentication/authMiddleware');
+const postCommentRoute = require('./routes/postCommentRoute');
 const topRoute = require('./routes/topRoute');
 const statRoute = require('./routes/statRoute');
 const bookmarkedRoute = require('./routes/bookmarkedRoute');
@@ -24,6 +25,7 @@ const likeMiddleware = require('./middleware/likeMiddleware');
 const likeRoute = require('./routes/likeRoute');
 const commentLikeMiddleware = require('./middleware/commentLikeMiddleware');
 const commentLikeRoute = require('./routes/commentLikeRoute');
+const whocanReplyMiddleware = require('./middleware/whocanReplyMiddleware');
 const app = express();
 app.use(express.static('images'));
 app.use(morgan('tiny'));
@@ -48,6 +50,12 @@ app.use(
   authMiddleware,
   commentLikeMiddleware,
   commentLikeRoute
+);
+app.use(
+  '/createcomment',
+  authMiddleware,
+  // whocanReplyMiddleware,
+  postCommentRoute
 );
 
 app.get('/', (req, res) => {

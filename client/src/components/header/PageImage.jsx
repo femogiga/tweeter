@@ -73,7 +73,7 @@ const PageImage = () => {
             />
           </div>
           <div className='profile__text flex flex-column'>
-            <div className='flex align-items--center '>
+            <div className='flex align-items--center font-poppins'>
               <p className='font-xl bold-6 color-dark-grey'>{fullName}</p>
               <p className=''>
                 <span className='bold-6'>

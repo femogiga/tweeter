@@ -1,12 +1,12 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family:'Noto Sans', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --font-sm: .75rem;
   --font-md: 1rem;
   --font-xl: 1.5rem;
   --font-lg: 2rem;
   --clr-dark-gray: #333333;
   --clr-mid-gray: #828282;
-  --clr-darker-gray: #4F4F4F
+  --clr-darker-gray: #4F4F4F;
 }
 
 *,
@@ -146,6 +146,10 @@ button {
   font-size: var(--font-xl);
 }
 
+.font-poppins{
+  font-family: 'Poppins';
+}
+
 .color-mid-gray {
   color: var(--clr-mid-gray);
 }
@@ -207,7 +211,7 @@ button {
    background-size: cover;
    background-position: 35% 50% ;
    content:'';
- 
+
 }
 
 /* .loginpage::before{

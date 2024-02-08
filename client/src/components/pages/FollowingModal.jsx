@@ -34,7 +34,7 @@ const FollowingModal = () => {
   // } = useGetFollowByUserIdForButtonStatus(id);
   const { isPending:isDataPending,data: userData } = useAllUserData();
   const myUsers = isDataPending? 'loading' : userData?.filter((user) => user?.id === parseInt(id));
-  console.log('useeeerr', myUsers);
+  //console.log('useeeerr', myUsers);
   const userName = myUsers[0]?.firstName + ' ' + myUsers[0]?.lastName;
 
   const handleFollowingModalClose = () => {

@@ -20,7 +20,7 @@ const Header = ({setPageData}) => {
   } = useAllTweetDataWithComments();
 
 
-  
+
 
   const handleLoginModalOpen = () => {
     dispatch(setLoginModalState(true));
@@ -35,7 +35,7 @@ const Header = ({setPageData}) => {
   const fullName = parsedUser?.firstName + ' ' + parsedUser?.lastName;
 
   return (
-    <header className='header flex space-between align-items--center flow-1'>
+    <header className='header flex space-between align-items--center flow-1 font-poppins'>
       <Link to={'/home'} className='header__icon'>
         <img src={logo} alt='logo' />
       </Link>
