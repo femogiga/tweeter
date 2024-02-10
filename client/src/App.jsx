@@ -3,10 +3,11 @@ import FollowingModal from './components/pages/FollowingModal';
 import Homepage from './components/pages/HomePage';
 import ProfilePage from './components/pages/ProfilePage';
 import WhocanModal from './components/body/WhocanModal';
+import LoginPage from './components/pages/LoginPage';
 function App() {
   return (
     <div>
-      <ProfilePage />
+      <LoginPage/>
       {/* <Homepage/> */}
       {/* <FollowingModal/> */}
       {/* <LoginModal/> */}

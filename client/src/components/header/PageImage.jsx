@@ -29,7 +29,7 @@ const PageImage = () => {
   const { isPending: isButtonStatusPending, data: buttonStatusData } =
     useGetFollowByUserIdForButtonStatus(id);
 
-  console.log(buttonStatusData);
+  //console.log(buttonStatusData);
   const fullName = `${data?.firstName} ${data?.lastName}`;
   // const status = isButtonStatusPending ?'loading': buttonStatusData[0]?.buttonStatus;
 
@@ -47,7 +47,7 @@ const PageImage = () => {
     try {
       const response = await mutateAsync(data);
       setButtonState(response?.message);
-      console.log('response=====>', response);
+      //console.log('response=====>', response);
     } catch (err) {
       console.error(err);
     }

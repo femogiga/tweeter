@@ -31,7 +31,7 @@ const ModalInnerCard = ({
     try {
       const response = await mutateAsync(data);
       setButtonState(response?.message);
-      console.log('response=====>', response);
+     // console.log('response=====>', response);
     } catch (err) {
       console.error(err);
     }

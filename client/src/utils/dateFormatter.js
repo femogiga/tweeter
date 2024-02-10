@@ -40,10 +40,10 @@ export function dateFormattterM(date) {
 //     return newDate
 // }
 
-console.log(dateFormattterM('2021-10-29T20:08:26.894Z'));
-console.log(dateFormattterM('2023-07-30T19:23:18.745Z'));
-console.log(dateFormattterM('1999-11-04T17:46:58.187Z'));
-console.log(dateFormattterM('2022-11-18T17:46:58.187Z'));
-console.log(dateFormattterM('2022-11-17'));
-const today = moment().startOf('day');
-//console.log(today)
+// console.log(dateFormattterM('2021-10-29T20:08:26.894Z'));
+// console.log(dateFormattterM('2023-07-30T19:23:18.745Z'));
+// console.log(dateFormattterM('1999-11-04T17:46:58.187Z'));
+// console.log(dateFormattterM('2022-11-18T17:46:58.187Z'));
+// console.log(dateFormattterM('2022-11-17'));
+// const today = moment().startOf('day');
+// //console.log(today)

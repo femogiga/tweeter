@@ -42,7 +42,7 @@ const Comment = ({ id }) => {
   }
 
   useEffect(() => {
-    console.log('replyImage====>', replyImage);
+   // console.log('replyImage====>', replyImage);
   }, [replyImage]);
   return (
     <form className='comment flex' onSubmit={handleSubmit}>
@@ -63,7 +63,7 @@ const Comment = ({ id }) => {
             dispatch(
               setInputValue({ fieldname: 'reply', value: e.target.value })
             );
-            console.log('reply====>', reply);
+            //console.log('reply====>', reply);
           }}
         />
         <button className='insert-photo'>

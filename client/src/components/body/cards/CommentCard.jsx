@@ -28,7 +28,7 @@ const CommentCard = ({
   //console.log('comment', comment);
   // const { isPending, error, data: userDataById } = useUserData(commentAuthorid);
   //console.log('commentUser', commentUser);
-  console.log('commentLikeState===>', commentLikeState);
+ // console.log('commentLikeState===>', commentLikeState);
   //const { firstName, lastName, photo } = commentUser;
   //console.log('commentUser===>', commentUser);
   //const { isPending: iscommentLikeCountPending, data: commentLikeCount } =
@@ -44,7 +44,7 @@ const CommentCard = ({
     commentLikeCount?.count == null ? 0 : commentLikeCount?.count;
   let commentIdFromCount = commentLikeCount?.commentId;
   return (
-    
+
     <div className=' comment-card flow-1'>
       <div className='flex'>
         <Avatar photo={commentUser?.photo} id={commentUser?.id} />

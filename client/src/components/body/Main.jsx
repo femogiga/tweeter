@@ -69,7 +69,7 @@ const Main = () => {
     }
   }, [navigate]);
 
-  console.log('retweetdata', retweetDataById);
+ //console.log('retweetdata', retweetDataById);
   return (
     <main className='main'>
       <div className='main__container'>

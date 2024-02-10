@@ -322,7 +322,7 @@ const getTrends = async (req, res, next) => {
             ? { ...tweet }
             : null
         );
-        console.log(remapped);
+       // console.log(remapped);
 
         return { id: tweet.id, tag: tag[0], sum };
       })

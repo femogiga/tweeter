@@ -93,7 +93,7 @@ const Homepage = () => {
 
 
   //console.log('who to ', whoToFollowData);
-  console.log('allTweetWithComment', allTweetDataWithComment);
+ // console.log('allTweetWithComment', allTweetDataWithComment);
 
   //console.log('who to follow ====> ', first);
   /*

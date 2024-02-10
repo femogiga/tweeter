@@ -37,7 +37,7 @@ const TweetInput = () => {
   // };
   const formData = new FormData();
 
-  
+
 
   useEffect(() => {}, [file]);
   async function handleSubmit(e) {
@@ -49,7 +49,7 @@ const TweetInput = () => {
       formData.append('replyRestrictions', replyRestrictions);
       //console.log('formdata===>',formData)
       const response = await mutate(formData);
-      console.log(response);
+      //console.log(response);
 
       dispatch(clearInputValue({ fieldname: 'content' }));
       dispatch(clearInputValue({ fieldname: 'replyRestrictions' }));

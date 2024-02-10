@@ -96,7 +96,7 @@ const getTopTweets = async (req, res, next) => {
 
     res.status(200).json(result);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -140,7 +140,7 @@ const topPeople = async (req, res) => {
     //console.log(result);
     res.status(200).json(result);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
@@ -186,7 +186,7 @@ const topMedia = async (req, res) => {
     //console.log(result);
     res.status(200).json(result);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };

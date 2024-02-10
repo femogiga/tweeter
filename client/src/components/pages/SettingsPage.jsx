@@ -40,7 +40,7 @@ const SettingsPage = () => {
     if (e.target.files && e.target.files[0]) {
       setProfileImageBackground(e.target.files[0]);
       setBgUrl(window.URL.createObjectURL(e.target.files[0]));
-      console.log('profileImageBackground', profileImageBackground);
+      //console.log('profileImageBackground', profileImageBackground);
     }
   };
 
@@ -53,9 +53,9 @@ const SettingsPage = () => {
     else if (name === 'newPassword') setNewPassword(value);
   };
   useEffect(() => {
-    console.log(newPassword);
-    console.log(photo);
-    console.log(profileImageBackground);
+    //console.log(newPassword);
+    //console.log(photo);
+    //console.log(profileImageBackground);
   }, [profile, newPassword, profileImageBackground, photo]);
 
   const handleRegister = async (e) => {
