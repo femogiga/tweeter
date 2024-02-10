@@ -39,6 +39,14 @@ const authpost = (url, data) => {
   });
 };
 
+const authRegister = (url, data) => {
+  return axios.post(`${baseUrl}${url}`, data, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
 const getById = (url, id) => {
   return axios.get(`${baseUrl}${url}${id}`, {
     headers: {
@@ -50,12 +58,33 @@ const getById = (url, id) => {
 
 const put = (url, data) => {
   const token = localStorage.getItem('token');
-  return axios.patch(`${baseUrl}${url}`, data, {
+  return axios.put(`${baseUrl}${url}`, data, {
     headers: {
       // 'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
     },
   });
 };
 
-export default { get, post, getById, put, authpost, postWithImage };
+const patch = (url, data) => {
+  const token = localStorage.getItem('token');
+  return axios.patch(`${baseUrl}${url}`, data, {
+    headers: {
+      // 'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+};
+
+export default {
+  get,
+  post,
+  getById,
+  put,
+  patch,
+  authpost,
+  postWithImage,
+  authRegister,
+};

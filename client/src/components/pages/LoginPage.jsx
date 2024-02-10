@@ -117,7 +117,7 @@ const LoginPage = () => {
                 Sign In
               </Button>
             </div>
-            <Link to='register'>Register</Link>
+            <Link to='/register'>Register</Link>
           </form>
         </div>
       </div>

@@ -57,5 +57,5 @@ const data = [
       'https://images.pexels.com/photos/1089194/pexels-photo-1089194.jpeg?auto=compress&cs=tinysrgb&w=600',
   },
 ];
-const result = userFinder(data, 4);
-console.log('user', result);
+//const result = userFinder(data, 4);
+//console.log('user', result);

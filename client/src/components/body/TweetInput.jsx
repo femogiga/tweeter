@@ -24,7 +24,7 @@ const TweetInput = () => {
   const replyRestrictions = useSelector(
     (state) => state.tweet.replyRestrictions
   );
-  console.log('file', file);
+  //console.log('file', file);
   //  const handleFile = (files) => {
   //    for (let i = 0; i < files.length; i++) {
   //      formData.append('files', files[i]);
@@ -35,6 +35,9 @@ const TweetInput = () => {
   //   replyRestrictions: replyRestrictions,
   //   image,
   // };
+  const formData = new FormData();
+
+  
 
   useEffect(() => {}, [file]);
   async function handleSubmit(e) {
@@ -44,7 +47,7 @@ const TweetInput = () => {
       formData.append('files', file);
       formData.append('content', content);
       formData.append('replyRestrictions', replyRestrictions);
-
+      //console.log('formdata===>',formData)
       const response = await mutate(formData);
       console.log(response);
 

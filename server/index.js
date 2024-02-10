@@ -26,6 +26,7 @@ const likeRoute = require('./routes/likeRoute');
 const commentLikeMiddleware = require('./middleware/commentLikeMiddleware');
 const commentLikeRoute = require('./routes/commentLikeRoute');
 const whocanReplyMiddleware = require('./middleware/whocanReplyMiddleware');
+const registerRoute = require('./routes/registerRoute');
 const app = express();
 app.use(express.static('images'));
 app.use(morgan('tiny'));
@@ -45,6 +46,7 @@ app.use('/like', authMiddleware, likeMiddleware, likeRoute);
 app.use('/explore', topRoute);
 app.use('/follow', authMiddleware, followMiddleware, followRoute);
 app.use('/saved', authMiddleware, savedMiddleware, savedRoute);
+app.use('/register',registerRoute)
 app.use(
   '/commentlike',
   authMiddleware,

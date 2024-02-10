@@ -44,7 +44,7 @@ const FollowCard = ({
       className='follow-card flow-1'
       style={{ borderTop: '1px solid #E0E0E0', paddingBlock: '1rem' }}>
       <div className='flex flow-1'>
-        <Avatar photo={photo} />
+        <Avatar photo={photo} id={id } />
         <div>
           <Fullname fullName={fullName} />
           <p className='font-sm' style={{ color: '#828282' }}>

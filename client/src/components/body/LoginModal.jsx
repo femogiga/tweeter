@@ -44,6 +44,10 @@ const LoginModal = () => {
     window.location.reload();
   };
 
+  const handleNavigateToSettings = () => {
+    navigate('/settings');
+  };
+
   // const dispatch = useDispatch();
   const loginModalVisilibility = useSelector(
     (state) => state.header.loginModalVisibility
@@ -99,6 +103,7 @@ const LoginModal = () => {
                   width: '164px',
                   justifyContent: 'flex-start',
                 }}
+                onClick={handleNavigateToSettings}
                 startIcon={<SettingsIcon />}>
                 Setting
               </Button>
