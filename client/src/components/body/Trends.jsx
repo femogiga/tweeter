@@ -7,7 +7,7 @@ const Trends = ({ handleTrendClick, pageData, setPageData }) => {
     error: trendError,
     data: trendData,
   } = useTrend();
-  console.log('trend====>', trendData);
+ // console.log('trend====>', trendData);
   return (
     <div
       className='trend'
